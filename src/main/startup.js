@@ -215,10 +215,6 @@ function checkStage15 () {
         foundFeedsDB = true
         checkStage16()
       }
-
-      // Callback is optional
-      // newDoc is the newly inserted document, including its _id
-      // newDoc has no key called notToBeSaved since its value was undefined
     })
   } else {
     checkStage16()
