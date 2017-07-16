@@ -1,15 +1,13 @@
 <template>
   <div id='wrapper'>
-    <div style='color: #ffff00; padding: 10px; font-size: 8px;' v-html='messagelog'></div>
+    <div style='color: grey; padding: 10px; font-size: 10px; line-height: 12px' v-html='messagelog'></div>
     <div id="center">
         <Spinner
-          line-fg-color="red"
-          line-bg-color="white"
-
+          :speed='0.5'
           :size="150"
           :line-size="12">
         </Spinner>
-        <p style='color: white;'>{{message}}</p>
+        <p>{{message}}</p>
     </div>
 </div>
 </template>
@@ -47,7 +45,6 @@ export default {
 
 <style scoped>
 #wrapper {
-  background-color: black;
   height: 100vh;
   width: 100%;
 }
@@ -59,8 +56,7 @@ export default {
   z-index: 15;
   top: 50%;
   left: 50%;
-  margin: -80px 0 0 -100px;
+  margin: -100px 0 0 -100px;
   text-align: center;
-  background-color: black;
 }
 </style>

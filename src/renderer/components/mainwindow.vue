@@ -36,7 +36,7 @@
 
         <div class="btn-group pull-right">
           <button class="btn btn-default pull-right">
-            X-Ray
+            Text Only
           </button>
 
           <button class="btn btn-default pull-right">

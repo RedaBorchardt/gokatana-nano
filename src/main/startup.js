@@ -37,7 +37,6 @@ function checkStage1 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
     checkStage2()
   }
 }
@@ -49,7 +48,6 @@ function checkStage2 () {
     checkStage3()
   } else {
     foundDataFolder = true
-    contents.send('startup_application_message', 'Data folder found')
     checkStage3()
   }
 }
@@ -65,7 +63,7 @@ function checkStage3 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
+    contents.send('startup_application_message', 'Default data folder found')
     checkStage4()
   }
 }
@@ -92,7 +90,7 @@ function checkStage5 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
+    contents.send('startup_application_message', 'Default archive folder found')
     checkStage6()
   }
 }
@@ -119,7 +117,7 @@ function checkStage7 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
+    contents.send('startup_application_message', 'Default config folder found')
     checkStage8()
   }
 }
@@ -146,7 +144,7 @@ function checkStage9 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
+    contents.send('startup_application_message', 'Default cache folder found')
     checkStage10()
   }
 }
@@ -173,7 +171,7 @@ function checkStage11 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
+    contents.send('startup_application_message', 'Default tmp folder found')
     checkStage12()
   }
 }
@@ -205,7 +203,7 @@ function checkStage13 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
+    contents.send('startup_application_message', 'Configuration file found')
     checkStage14()
   }
 }
@@ -229,7 +227,7 @@ function checkStage15 () {
     var samplefeeds = [{ name: 'The Guardian', rss: 'http://www.theguardian.com/rss' },
                        { name: 'The Independent', rss: 'http://www.independent.co.uk/rss' },
                        { name: 'Der Spiegel', rss: 'http://www.spiegel.de/schlagzeilen/tops/index.rss' },
-                       { name: 'Standard', rss: 'http://www.standard.co.uk/rss' },
+                       { name: 'Evening Standard', rss: 'http://www.standard.co.uk/rss' },
                        { name: 'CNN', rss: 'http://rss.cnn.com/rss/cnn_latest.rss' },
                        { name: 'Daily Mail', rss: 'http://www.dailymail.co.uk/articles.rss' },
                        { name: 'Focus', rss: 'http://rss.focus.de/fol/XML/rss_folnews.xml' },
@@ -243,7 +241,7 @@ function checkStage15 () {
       }
     })
   } else {
-    contents.send('startup_application_message', 'Check OK')
+    contents.send('startup_application_message', 'Feeds database found')
     checkStage16()
   }
 }
