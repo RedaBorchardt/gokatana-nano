@@ -95,6 +95,8 @@
     "multispinner": "^0.2.1",
     "nedb": "^1.8.0",
     "node-feedparser": "^1.0.1",
+    "promise": "^8.0.1",
+    "request": "^2.81.0",
     "style-loader": "^0.18.1",
     "url-loader": "^0.5.7",
     "vue-html-loader": "^1.2.2",

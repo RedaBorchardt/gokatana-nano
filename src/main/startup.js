@@ -253,4 +253,5 @@ function checkStage16 () {
 
 function launchAll () {
   require('./feedsstore.js')
+  require('./feedmuncher.js')
 }
