@@ -53,35 +53,7 @@
 
     <div class="window-content">
       <div class="pane-group">
-        <div class="pane pane-sm sidebar">
-          <nav class="nav-group">
-            <h5 class="nav-group-title">Subscriptions</h5>
-            <span class="nav-group-item active">
-              <span class="icon icon-rss"></span>
-              The Guardian
-            </span>
-            <span class="nav-group-item">
-              <span class="icon icon-rss"></span>
-              The Independent
-            </span>
-            <span class="nav-group-item">
-              <span class="icon icon-rss"></span>
-              The Telegraph
-            </span>
-            <span class="nav-group-item">
-              <span class="icon icon-rss"></span>
-              CNN International
-            </span>
-            <span class="nav-group-item">
-              <span class="icon icon-rss"></span>
-              The Standard
-            </span>
-            <span class="nav-group-item">
-              <span class="icon icon-rss"></span>
-              Reuters World
-            </span>
-          </nav>
-        </div>
+        <feedsidebar></feedsidebar>
         <div class="pane">
           <ul class="list-group">
             <li class="list-group-header">
@@ -187,9 +159,11 @@
 </template>
 
 <script>
+import feedsidebar from './feedsidebar'
 
 export default {
-  name: 'mainwindow'
+  name: 'mainwindow',
+  components: { feedsidebar }
 }
 </script>
 

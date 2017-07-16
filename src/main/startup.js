@@ -248,4 +248,9 @@ function checkStage15 () {
 
 function checkStage16 () {
   contents.send('startup_application_message', 'All checks have been performed. Entering GoKatana...')
+  launchAll()
+}
+
+function launchAll () {
+  require('./feedsstore.js')
 }
