@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'path'
 
 /** Application Globals */
@@ -12,8 +12,6 @@ global.appFolders = {
   tmp: path.join(app.getPath('appData'), 'com.gokatana.nano', 'tmp'),
   archive: path.join(app.getPath('appData'), 'com.gokatana.nano', 'archive')
 }
-
-require('./startup.js')
 
 /**
  * Set `__static` path to static files in production
@@ -36,6 +34,12 @@ function createWindow () {
     height: 563,
     useContentSize: true,
     width: 1000
+  })
+
+  let contents = mainWindow.webContents
+  ipcMain.on('startup_application', function (event, arg) {
+    contents.send('startup_application_message', 'Startup sequence launched')
+    require('./startup.js')
   })
 
   mainWindow.loadURL(winURL)

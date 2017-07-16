@@ -7,6 +7,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'loader',
+      component: require('@/components/loader')
+    },
+    {
+      path: '/mainwindow',
       name: 'mainwindow',
       component: require('@/components/mainwindow')
     },

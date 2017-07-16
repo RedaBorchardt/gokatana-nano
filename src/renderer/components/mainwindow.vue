@@ -180,7 +180,7 @@
     </div>
     <footer class="toolbar toolbar-footer">
       <div class="toolbar-actions">
-        <h1 class="title">Fetching 143 of 276 Articles...</h1>
+        <h1 class="title">Everything is up to date</h1>
       </div>
     </footer>
   </div>

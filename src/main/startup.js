@@ -1,6 +1,7 @@
 import path from 'path'
 let fs = require('fs')
 let jsonfile = require('jsonfile')
+let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
 
 let foundAppFolder = false
 let foundDataFolder = false
@@ -16,9 +17,11 @@ startupCheck()
 // Check Main Folder
 function startupCheck () {
   if (!fs.existsSync(global.appFolders.main)) {
+    contents.send('startup_application_message', 'Default user space folder could not be found')
     checkStage1()
   } else {
     foundAppFolder = true
+    contents.send('startup_application_message', 'Default user space folder has been found ')
     checkStage1()
   }
 }
@@ -29,10 +32,12 @@ function checkStage1 () {
     fs.mkdir(global.appFolders.main, function (err) {
       if (!err) {
         foundAppFolder = true
+        contents.send('startup_application_message', 'Default user space folder created')
         checkStage2()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage2()
   }
 }
@@ -40,9 +45,11 @@ function checkStage1 () {
 // Check Data Folder
 function checkStage2 () {
   if (!fs.existsSync(global.appFolders.data)) {
+    contents.send('startup_application_message', 'Data folder could not be found')
     checkStage3()
   } else {
     foundDataFolder = true
+    contents.send('startup_application_message', 'Data folder found')
     checkStage3()
   }
 }
@@ -53,10 +60,12 @@ function checkStage3 () {
     fs.mkdir(global.appFolders.data, function (err) {
       if (!err) {
         foundDataFolder = true
+        contents.send('startup_application_message', 'Default data folder created')
         checkStage4()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage4()
   }
 }
@@ -64,6 +73,7 @@ function checkStage3 () {
 // Check Archive Foler
 function checkStage4 () {
   if (!fs.existsSync(path.join(global.appFolders.data, 'archive'))) {
+    contents.send('startup_application_message', 'Archive folder could not be found')
     checkStage5()
   } else {
     foundArchiveFolder = true
@@ -77,10 +87,12 @@ function checkStage5 () {
     fs.mkdir(path.join(global.appFolders.data, 'archive'), function (err) {
       if (!err) {
         foundArchiveFolder = true
+        contents.send('startup_application_message', 'Default archive folder created')
         checkStage6()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage6()
   }
 }
@@ -88,6 +100,7 @@ function checkStage5 () {
 // Check Config Folder
 function checkStage6 () {
   if (!fs.existsSync(global.appFolders.config)) {
+    contents.send('startup_application_message', 'Config folder could not be found')
     checkStage7()
   } else {
     foundConfigFolder = true
@@ -101,10 +114,12 @@ function checkStage7 () {
     fs.mkdir(global.appFolders.config, function (err) {
       if (!err) {
         foundConfigFolder = true
+        contents.send('startup_application_message', 'Default config folder created')
         checkStage8()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage8()
   }
 }
@@ -112,6 +127,7 @@ function checkStage7 () {
 // Check Cache Folder
 function checkStage8 () {
   if (!fs.existsSync(global.appFolders.cache)) {
+    contents.send('startup_application_message', 'Cache folder could not be found')
     checkStage9()
   } else {
     foundCacheFolder = true
@@ -125,10 +141,12 @@ function checkStage9 () {
     fs.mkdir(global.appFolders.cache, function (err) {
       if (!err) {
         foundCacheFolder = true
+        contents.send('startup_application_message', 'Default cache folder created')
         checkStage10()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage10()
   }
 }
@@ -136,6 +154,7 @@ function checkStage9 () {
 // Check Tmp Folder
 function checkStage10 () {
   if (!fs.existsSync(global.appFolders.tmp)) {
+    contents.send('startup_application_message', 'Tmp folder could not be found')
     checkStage11()
   } else {
     foundTmpFolder = true
@@ -149,10 +168,12 @@ function checkStage11 () {
     fs.mkdir(global.appFolders.tmp, function (err) {
       if (!err) {
         foundTmpFolder = true
+        contents.send('startup_application_message', 'Default tmp folder created')
         checkStage12()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage12()
   }
 }
@@ -160,6 +181,7 @@ function checkStage11 () {
 // Check config.json
 function checkStage12 () {
   if (!fs.existsSync(path.join(global.appFolders.config, 'config.json'))) {
+    contents.send('startup_application_message', 'Configuration file could not be found')
     checkStage13()
   } else {
     foundConfigFile = true
@@ -178,10 +200,12 @@ function checkStage13 () {
     jsonfile.writeFile(path.join(global.appFolders.config, 'config.json'), defaultConfig, {spaces: 1}, function (err) {
       if (!err) {
         foundConfigFile = true
+        contents.send('startup_application_message', 'Default configuration file created')
         checkStage14()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage14()
   }
 }
@@ -189,6 +213,7 @@ function checkStage13 () {
 // Check for feeds.db
 function checkStage14 () {
   if (!fs.existsSync(path.join(global.appFolders.config, 'feeds.db'))) {
+    contents.send('startup_application_message', 'Feeds database could not be found')
     checkStage15()
   } else {
     foundFeedsDB = true
@@ -213,14 +238,16 @@ function checkStage15 () {
     db.insert(samplefeeds, function (err, newDoc) {
       if (!err) {
         foundFeedsDB = true
+        contents.send('startup_application_message', 'Default feeds database created')
         checkStage16()
       }
     })
   } else {
+    contents.send('startup_application_message', 'Check OK')
     checkStage16()
   }
 }
 
 function checkStage16 () {
-  console.log('All startup checks have been concluded')
+  contents.send('startup_application_message', 'All checks have been performed. Entering GoKatana...')
 }
