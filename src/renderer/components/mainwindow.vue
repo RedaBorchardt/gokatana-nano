@@ -150,20 +150,17 @@
       </div>
 
     </div>
-    <footer class="toolbar toolbar-footer">
-      <div class="toolbar-actions">
-        <h1 class="title">Everything is up to date</h1>
-      </div>
-    </footer>
+    <appfooter></appfooter>
   </div>
 </template>
 
 <script>
 import feedsidebar from './feedsidebar'
+import appfooter from './appfooter'
 
 export default {
   name: 'mainwindow',
-  components: { feedsidebar }
+  components: { feedsidebar, appfooter }
 }
 </script>
 

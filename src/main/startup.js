@@ -230,7 +230,7 @@ function checkStage15 () {
                        { name: 'Evening Standard', rss: 'http://www.standard.co.uk/rss' },
                        { name: 'CNN', rss: 'http://rss.cnn.com/rss/cnn_latest.rss' },
                        { name: 'Daily Mail', rss: 'http://www.dailymail.co.uk/articles.rss' },
-                       { name: 'Focus', rss: 'http://rss.focus.de/fol/XML/rss_folnews.xml' },
+                       { name: 'Focus', rss: 'http://rss.focus.de/' },
                        { name: 'Kotaku', rss: 'http://www.kotaku.com/rss' }]
 
     db.insert(samplefeeds, function (err, newDoc) {

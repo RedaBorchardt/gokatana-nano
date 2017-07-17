@@ -10,7 +10,9 @@ global.appFolders = {
   config: path.join(app.getPath('appData'), 'com.gokatana.nano', 'config'),
   cache: path.join(app.getPath('appData'), 'com.gokatana.nano', 'cache'),
   tmp: path.join(app.getPath('appData'), 'com.gokatana.nano', 'tmp'),
-  archive: path.join(app.getPath('appData'), 'com.gokatana.nano', 'archive')
+  archive: path.join(app.getPath('appData'), 'com.gokatana.nano', 'archive'),
+
+  BUSY_FETCHINGARTICLES: false
 }
 
 /**
