@@ -36,10 +36,8 @@ function fetchAllArticleHeadlines () {
         i += 1
         if (i < feeds[x].rss.length) {
           processingLoop(feeds, true)
-          console.log('less' + x + ' ' + i)
         } else {
           processingLoop(feeds, false)
-          console.log('more' + x + ' ' + i)
         }
       })
     }
@@ -82,9 +80,9 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
       while (item = stream.read()) {
         processedcount += 1
         let article = {
-          title: item.title,
+          title: (item.title) ? item.title.replace(/<(?:.|\n)*?>/gm, '') : item.title,
           link: item.link,
-          summary: item.summary,
+          summary: (item.summary) ? item.summary.replace(/<(?:.|\n)*?>/gm, '') : item.summary,
           categories: item.categories,
           date: item.date,
           author: item.author,

@@ -24,6 +24,14 @@ ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
   })
 })
 
+ipcMain.on('RETRIEVE_ARTICLES', function (event, feedid) {
+  articledb[feedid].find({}, function (err, docs) {
+    if (!err) {
+      event.returnValue = docs
+    }
+  })
+})
+
 function registerArticleDBHandles (docs) {
   for (let i = 0; i < docs.length; i++) {
     articledb[docs[i]._id] = new Datastore({ filename: path.join(global.appFolders.data, docs[i]._id + '.db'), autoload: true })

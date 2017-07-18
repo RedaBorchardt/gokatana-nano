@@ -8,8 +8,6 @@ const mutations = {
   HOIST_FEEDS_INTO_STATE (state, arg) {
     state.subscriptions = arg
 
-    state.subscriptions[0].active = true // set default selected item
-
     // HOIST The Default Article Count
     for (let i = 0; i < state.subscriptions.length; i++) {
       state.subscriptions[i].count = ipcRenderer.sendSync('RETRIEVE_COUNT_FROM_ARTICLEDB', state.subscriptions[i]._id)
@@ -19,6 +17,16 @@ const mutations = {
     for (let i = 0; i < state.subscriptions.length; i++) {
       if (state.subscriptions[i]._id === arg.feedid) {
         state.subscriptions[i].count = arg.count
+      }
+    }
+    state.subscriptions.push('update')
+    state.subscriptions.pop()
+  },
+  SET_SELECTED_FEED (state, feedid) {
+    for (let i = 0; i < state.subscriptions.length; i++) {
+      state.subscriptions[i].selected = false
+      if (state.subscriptions[i]._id === feedid) {
+        state.subscriptions[i].selected = true
       }
     }
     state.subscriptions.push('update')
@@ -38,6 +46,9 @@ const actions = {
   },
   retrieveIndividiualArticleCount ({commit}, feedid) {
     commit('HOIST_ARTICLE_COUNT', { 'count': ipcRenderer.sendSync('RETRIEVE_COUNT_FROM_ARTICLEDB', feedid), 'feedid': feedid })
+  },
+  setSelectedFeed ({commit}, feedid) {
+    commit('SET_SELECTED_FEED', feedid)
   }
 }
 

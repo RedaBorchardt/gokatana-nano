@@ -54,83 +54,7 @@
     <div class="window-content">
       <div class="pane-group">
         <feedsidebar></feedsidebar>
-        <div class="pane">
-          <ul class="list-group">
-            <li class="list-group-header">
-              <input class="form-control" type="text" placeholder="Keyword Filter">
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-            <li class="list-group-item">
-              <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-              <div class="media-body">
-                <strong>List item title</strong>
-                <p>Lorem ipsum dolor sit amet.</p>
-              </div>
-            </li>
-          </ul>
-        </div>
+        <articles></articles>
         <div class='pane'>
           <div class='padded-more'>
             <img style='width: 100%' src='http://cdn2.spiegel.de/images/image-1162985-900_breitwand_180x67-tayr-1162985.jpg'>
@@ -157,10 +81,11 @@
 <script>
 import feedsidebar from './feedsidebar'
 import appfooter from './appfooter'
+import articles from './articles'
 
 export default {
   name: 'mainwindow',
-  components: { feedsidebar, appfooter }
+  components: { feedsidebar, appfooter, articles }
 }
 </script>
 
