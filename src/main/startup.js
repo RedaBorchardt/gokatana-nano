@@ -224,15 +224,29 @@ function checkStage15 () {
   if (!foundFeedsDB) {
     var Datastore = require('nedb')
     var db = new Datastore({ filename: path.join(global.appFolders.config, 'feeds.db'), autoload: true })
-    var samplefeeds = [{ name: 'The Guardian', rss: 'http://www.theguardian.com/rss' },
-                       { name: 'The Independent', rss: 'http://www.independent.co.uk/rss' },
-                       { name: 'Der Spiegel', rss: 'http://www.spiegel.de/schlagzeilen/tops/index.rss' },
-                       { name: 'Evening Standard', rss: 'http://www.standard.co.uk/rss' },
-                       { name: 'CNN', rss: 'http://rss.cnn.com/rss/cnn_latest.rss' },
-                       { name: 'Daily Mail', rss: 'http://www.dailymail.co.uk/articles.rss' },
-                       { name: 'Focus', rss: 'http://rss.focus.de/' },
-                       { name: 'Kotaku', rss: 'http://www.kotaku.com/rss' }]
-
+    /* eslint-disable */
+    var samplefeeds = [{ name: 'The Guardian', rss: ['http://www.theguardian.com/rss'] },
+                       { name: 'The Independent', rss: ['http://www.independent.co.uk/rss'] },
+                       { name: 'Der Spiegel',
+                       rss: ['http://www.spiegel.de/schlagzeilen/index.rss',
+                       'http://www.spiegel.de/politik/index.rss',
+                       'http://www.spiegel.de/wirtschaft/index.rss',
+                       'http://www.spiegel.de/sport/index.rss',
+                       'http://www.spiegel.de/netzwelt/index.rss',
+                       'http://www.spiegel.de/wissenschaft/index.rss',
+                       'http://www.spiegel.de/gesundheit/index.rss',
+                       'http://www.spiegel.de/karriere/index.rss',
+                       'http://www.spiegel.de/unispiegel/index.rss',
+                       'http://www.spiegel.de/reise/index.rss',
+                       'http://www.spiegel.de/auto/index.rss',
+                       'http://www.spiegel.de/video/index.rss'
+                        ] },
+                       { name: 'Evening Standard', rss: ['http://www.standard.co.uk/rss'] },
+                       { name: 'CNN', rss: ['http://rss.cnn.com/rss/cnn_latest.rss'] },
+                       { name: 'Daily Mail', rss: ['http://www.dailymail.co.uk/articles.rss'] },
+                       { name: 'Focus', rss: ['http://rss.focus.de/'] },
+                       { name: 'Kotaku', rss: ['http://www.kotaku.com/rss'] }]
+    /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
       if (!err) {
         foundFeedsDB = true

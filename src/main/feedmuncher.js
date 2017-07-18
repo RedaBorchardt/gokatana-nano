@@ -13,18 +13,33 @@ function fetchAllArticleHeadlines () {
   global.BUSY_FETCHINGARTICLES = true
   contents.send('BUSY_FETCHINGARTICLES', true)
   feedstore.retrieveFeedsFromFeedsDB().then(function (feeds) {
+    let x = 0
     let i = 0
-    processingLoop() // TODO watch it here in case the feeds DB is empty!
+    processingLoop(feeds, true) // TODO watch it here in case the feeds DB is empty!
 
-    function processingLoop () {
-      downloadThenParseRSSFeed(feeds[i].rss, feeds[i]._id).then(function (response) {
-        contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feeds[i]._id)
+    function processingLoop (feeds, stayonthisfeed) {
+      if (!stayonthisfeed) {
+        i = 0
+        x += 1
+      }
+      if (x < feeds.length) {
+        innerProcessingLoop(feeds)
+      } else {
+        global.BUSY_FETCHINGARTICLES = false
+        contents.send('BUSY_FETCHINGARTICLES', false)
+      }
+    }
+
+    function innerProcessingLoop (feeds) { // Iterate through subfeeds
+      downloadThenParseRSSFeed(feeds[x].rss[i], feeds[x]._id).then(function (response) {
+        contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feeds[x]._id)
         i += 1
-        if (i < feeds.length) {
-          processingLoop()
+        if (i < feeds[x].rss.length) {
+          processingLoop(feeds, true)
+          console.log('less' + x + ' ' + i)
         } else {
-          global.BUSY_FETCHINGARTICLES = false
-          contents.send('BUSY_FETCHINGARTICLES', false)
+          processingLoop(feeds, false)
+          console.log('more' + x + ' ' + i)
         }
       })
     }
