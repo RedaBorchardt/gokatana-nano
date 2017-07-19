@@ -25,7 +25,7 @@ ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
 })
 
 ipcMain.on('RETRIEVE_ARTICLES', function (event, feedid) {
-  articledb[feedid].find({}, function (err, docs) {
+  articledb[feedid].find({}).sort({ date: -1 }).exec(function (err, docs) {
     if (!err) {
       event.returnValue = docs
     }
