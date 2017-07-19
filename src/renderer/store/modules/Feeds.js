@@ -41,6 +41,9 @@ const getters = {
 }
 
 const actions = {
+  retrieveAllFeeds ({commit}) {
+    // To be implemented
+  },
   retrieveFeedsFromBackend ({commit}) {
     commit('HOIST_FEEDS_INTO_STATE', ipcRenderer.sendSync('RETRIEVE_FEEDS_FROM_FEEDSDB'))
   },

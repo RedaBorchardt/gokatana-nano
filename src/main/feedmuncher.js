@@ -78,11 +78,20 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
       let item
 
       while (item = stream.read()) {
+        /* Check for nulls */
+        if (!item.summary) item.summary = 'no content'
+        if (!item.title) item.title = 'no content'
+        if (!item.categories) item.categories = 'no content'
+        if (!item.date) item.date = 'not content'
+        if (!item.author) item.author = 'no content'
+        if (!item.link) item.link = 'no content'
+
+
         processedcount += 1
         let article = {
-          title: (item.title) ? item.title.replace(/<(?:.|\n)*?>/gm, '') : item.title,
+          title: item.title.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm),
           link: item.link,
-          summary: (item.summary) ? item.summary.replace(/<(?:.|\n)*?>/gm, '') : item.summary,
+          summary: item.summary.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm),
           categories: item.categories,
           date: item.date,
           author: item.author,

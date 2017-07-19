@@ -1,7 +1,7 @@
 <template>
   <div class="pane pane-sm sidebar">
     <nav class="nav-group">
-      <h5 class="nav-group-title">Subscriptions</h5>
+      <h5 class="nav-group-title">Direct Feeds</h5>
       <span v-for='feed in feeds' class="nav-group-item" :class="{active: feed.selected}" @click='selectFeed(feed._id)'>
         <span class="icon icon-rss"></span>
         {{feed.name}} ({{feed.count}})

@@ -2,25 +2,37 @@
   <div class="pane">
     <ul class="list-group">
       <li class="list-group-header">
-        <input class="form-control" type="text" placeholder="Keyword Filter">
+        <input style='width: 50%' class="form-control" type="text" placeholder="Keyword Search" v-model="searchstring">
+        <input style='width: 50%' class="form-control" type="text" placeholder="Exclude Keyword" v-model="excludestring">
       </li>
-      <li v-for='article in articles' class="list-group-item">
+      <li v-for='article in articles' class="list-group-item" v-if="( searchMatch(article.title) || searchMatch(article.summary) )
+      && !( excludeMatch(article.title) || excludeMatch(article.summary) ) ">
           <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
           <div class="media-body">
             <strong v-html="article.title"></strong>
-            <p v-if='article.summary' v-html="article.summary.trunc(280, true)"></p>
-            <p>{{article.date}}</p>
+            <p v-if='article.summary' v-html="(article.summary.trunc(280, true))"></p>
           </div>
+          <p style='font-style: italic; font-size: 0.8em; color: grey; text-align: right; -bottom: 0px;'>{{dateFromNow(article.date)}}</p>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
+let moment = require('moment')
 
 export default {
+
   name: 'articles',
   components: { },
+  data: function () {
+    return {
+      searchfield: '',
+      excludefield: '',
+      searchstring: '',
+      excludestring: ''
+    }
+  },
   computed: {
     articles: {
       get () {
@@ -29,7 +41,34 @@ export default {
     }
   },
   methods: {
-
+    dateFromNow (date) {
+      let dt = moment(date)
+      return dt.fromNow()
+    },
+    submitSearchString () {
+      this.searchstring = this.searchfield
+      this.excludestring = this.excludefield
+    },
+    searchMatch (target) {
+      if (this.searchstring.trim() === '') {
+        return true
+      }
+      if (target.toLowerCase().includes(this.searchstring.toLowerCase())) {
+        return true
+      } else {
+        return false
+      }
+    },
+    excludeMatch (target) {
+      if (this.excludestring.trim() === '') {
+        return false
+      }
+      if (target.toLowerCase().includes(this.excludestring.toLowerCase())) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 }
 </script>
