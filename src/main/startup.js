@@ -227,6 +227,7 @@ function checkStage15 () {
     /* eslint-disable */
     var samplefeeds = [{ name: 'The Guardian', rss: ['http://www.theguardian.com/rss'] },
                        { name: 'The Independent', rss: ['http://www.independent.co.uk/rss'] },
+                       { name: 'TechCrunch', rss: ['http://feeds.feedburner.com/TechCrunch/'] },
                        { name: 'Der Spiegel',
                        rss: ['http://www.spiegel.de/schlagzeilen/index.rss',
                        'http://www.spiegel.de/politik/index.rss',
@@ -244,8 +245,20 @@ function checkStage15 () {
                        { name: 'Evening Standard', rss: ['http://www.standard.co.uk/rss'] },
                        { name: 'CNN', rss: ['http://rss.cnn.com/rss/cnn_latest.rss'] },
                        { name: 'Daily Mail', rss: ['http://www.dailymail.co.uk/articles.rss'] },
-                       { name: 'Focus', rss: ['http://rss.focus.de/'] },
-                       { name: 'Kotaku', rss: ['http://www.kotaku.com/rss'] }]
+                       { name: 'Focus',
+                       rss: ['http://rss.focus.de/',
+                       'http://rss.focus.de/politik/',
+                       'http://rss.focus.de/wissen/',
+                       'http://rss.focus.de/gesundheit/',
+                       'http://rss.focus.de/panorama/',
+                       'http://rss.focus.de/sport/',
+                       'http://rss.focus.de/digital/',
+                       'http://rss.focus.de/finanzen'
+                       ] },
+                       { name: 'Kotaku', rss: ['http://www.kotaku.com/rss'] },
+                       { name: 'Le Monde', rss: ['http://www.lemonde.fr/rss/une.xml'] },
+                       { name: 'Movie Trailers', rss: ['http://trailers.apple.com/trailers/home/rss/newtrailers.rss'] }
+                     ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
       if (!err) {
