@@ -33,6 +33,15 @@ function fetchAllArticleHeadlines () {
     function innerProcessingLoop (feeds) { // Iterate through subfeeds
       downloadThenParseRSSFeed(feeds[x].rss[i], feeds[x]._id).then(function (response) {
         contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feeds[x]._id)
+        console.log(response)
+        i += 1
+        if (i < feeds[x].rss.length) {
+          processingLoop(feeds, true)
+        } else {
+          processingLoop(feeds, false)
+        }
+      }, function (response) {
+        console.log(response)
         i += 1
         if (i < feeds[x].rss.length) {
           processingLoop(feeds, true)
@@ -46,12 +55,16 @@ function fetchAllArticleHeadlines () {
 
 function downloadThenParseRSSFeed (rssurl, _feedid) {
   return new Promise(function (resolve, reject) {
+    if (global.ONLINE_STATUS === 'offline') {
+      reject(new Error('Application is offline'))
+    }
+
     let req = request(rssurl)
     let feedparser = new FeedParser()
 
     req.on('error', function (error) {
       if (error) {
-        console.log('unable to download feed ' + rssurl)
+        reject(new Error('failed to download feed ' + rssurl + ' ' + _feedid + error))
       }
     })
 
@@ -66,7 +79,7 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
     })
 
     feedparser.on('error', function (error) {
-      console.log('An error has occured parsing the feed ' + error)
+      reject(new Error('An error has occured parsing the feed ' + error))
     })
 
     let processedcount = 0
@@ -89,9 +102,9 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
 
         processedcount += 1
         let article = {
-          title: item.title.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm),
+          title: item.title.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/\\"/, '"'),
           link: item.link,
-          summary: item.summary.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm),
+          summary: item.summary.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/\\"/, '"'),
           categories: item.categories,
           date: item.date,
           author: item.author,

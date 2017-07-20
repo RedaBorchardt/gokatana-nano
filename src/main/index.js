@@ -12,8 +12,13 @@ global.appFolders = {
   tmp: path.join(app.getPath('appData'), 'com.gokatana.nano', 'tmp'),
   archive: path.join(app.getPath('appData'), 'com.gokatana.nano', 'archive'),
 
-  BUSY_FETCHINGARTICLES: false
+  BUSY_FETCHINGARTICLES: false,
+  ONLINE_STATUS: 'online'
 }
+
+ipcMain.on('ONLINE_STATUS_CHANGED', function (event, status) {
+  global.ONLINE_STATUS = status
+})
 
 /**
  * Set `__static` path to static files in production

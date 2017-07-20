@@ -85,7 +85,10 @@ import articles from './articles'
 
 export default {
   name: 'mainwindow',
-  components: { feedsidebar, appfooter, articles }
+  components: { feedsidebar, appfooter, articles },
+  mounted () {
+
+  }
 }
 </script>
 
