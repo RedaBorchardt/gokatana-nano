@@ -52,9 +52,9 @@ function insertArticleIntoDB (article, feedid) {
   return new Promise(function (resolve, reject) {
     articledb[feedid].insert(article, function (err, newDoc) {
       if (!err) {
-        resolve('Document Inserted into ' + feedid + ' database')
+        resolve('added')
       } else {
-        resolve('Error inserting article. Does it already exist?: ' + err)
+        resolve('skipped ' + err)
       }
     })
   })

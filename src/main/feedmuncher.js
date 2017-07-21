@@ -27,13 +27,14 @@ function fetchAllArticleHeadlines () {
       } else {
         global.BUSY_FETCHINGARTICLES = false
         contents.send('BUSY_FETCHINGARTICLES', false)
+        contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Everything is up to date'})
       }
     }
 
     function innerProcessingLoop (feeds) { // Iterate through subfeeds
       downloadThenParseRSSFeed(feeds[x].rss[i], feeds[x]._id).then(function (response) {
         contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feeds[x]._id)
-        console.log(response)
+        contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': response})
         i += 1
         if (i < feeds[x].rss.length) {
           processingLoop(feeds, true)
@@ -41,7 +42,7 @@ function fetchAllArticleHeadlines () {
           processingLoop(feeds, false)
         }
       }, function (response) {
-        console.log(response)
+        contents.send('CLIENT_LOG', {type: 'green', time: Date(), message: response})
         i += 1
         if (i < feeds[x].rss.length) {
           processingLoop(feeds, true)
@@ -83,6 +84,7 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
     })
 
     let processedcount = 0
+    let dbinsertedcount = 0
     feedparser.on('readable', function () {
       /* eslint-disable */
 
@@ -99,12 +101,11 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
         if (!item.author) item.author = 'no content'
         if (!item.link) item.link = 'no content'
 
-
         processedcount += 1
         let article = {
-          title: item.title.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/\\"/, '"'),
+          title: require('he').decode(item.title).replace("<![CDATA[", "").replace("]]>", "").replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/(<|.&lt;)(?:.|\n)*?(\/a&gt|>)/gm, '').replace(/undefined    undefined/, ''),
           link: item.link,
-          summary: item.summary.replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/\\"/, '"'),
+          summary: require('he').decode(item.summary).replace("<![CDATA[", "").replace("]]>", "").replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/(<|.&lt;)(?:.|\n)*?(\/a&gt|>)/gm, '').replace(/undefined    undefined/, ''),
           categories: item.categories,
           date: item.date,
           author: item.author,
@@ -112,7 +113,9 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
         }
 
         feedstore.insertArticleIntoDB(article, _feedid).then( function (result) {
-          // console.log(result)
+          if (result === 'added') {
+            dbinsertedcount += 1
+          }
         })
 
       }
@@ -120,7 +123,7 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
 
     feedparser.on('end', function(error) {
       if (!error) {
-        resolve(processedcount + ' Items processed from: ' + rssurl)
+        resolve(processedcount + ' headlines processed from: ' + rssurl + ' ' + dbinsertedcount + ' new item(s) found')
       }
     });
   })

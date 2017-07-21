@@ -55,25 +55,11 @@
       <div class="pane-group">
         <feedsidebar></feedsidebar>
         <articles></articles>
-        <div class='pane'>
-          <div class='padded-more'>
-            <img style='width: 100%' src='http://cdn2.spiegel.de/images/image-1162985-900_breitwand_180x67-tayr-1162985.jpg'>
-            <h5>Once upon a time... in a land far far away</h5>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas sit amet massa non leo sodales consectetur ut ac purus. Cras vel lobortis metus. Mauris eu auctor nulla. Suspendisse cursus posuere semper. Cras vitae metus at felis interdum faucibus. Cras volutpat ipsum finibus, convallis mauris id, rhoncus ipsum. Quisque a tempor odio. Nullam sed libero sem. Morbi suscipit, dolor sed dapibus aliquet, augue urna tincidunt neque, varius porttitor augue eros nec nunc. Vestibulum posuere, ligula eu congue auctor, enim mauris ultrices justo, ut egestas augue velit ac libero. Aenean eu augue nec lacus pellentesque bibendum. Curabitur aliquam mi eu tellus laoreet aliquet. Nulla facilisi. Duis tristique lorem leo, id mattis tortor interdum vitae.
-
-            Integer ullamcorper iaculis urna, non pretium velit dignissim vel. Praesent lacus dui, faucibus eget commodo laoreet, cursus quis urna. Praesent sit amet malesuada nisi. In et rutrum odio. Etiam consectetur molestie est, at eleifend enim auctor a. Sed vitae hendrerit leo. Fusce rutrum tortor ac dolor vehicula, vitae sagittis quam hendrerit. Sed rhoncus tellus et lacinia rutrum. Etiam a suscipit diam. Etiam laoreet urna urna, at sodales ipsum sollicitudin et. Aliquam vitae lacus orci.
-
-            Sed ultrices nec justo et vestibulum. Vivamus mattis sagittis ultricies. Etiam id erat nisl. Aliquam pulvinar condimentum vestibulum. Duis dignissim lobortis nulla nec commodo. Maecenas volutpat, velit id rutrum fringilla, risus tellus interdum est, eu condimentum enim est et elit. Vivamus ultrices turpis ut ipsum vehicula pellentesque. Nullam tincidunt nibh in tellus rhoncus, aliquet molestie dui gravida. Aenean condimentum cursus vehicula. Etiam at aliquet erat.
-
-            Sed eu odio eget augue malesuada pellentesque ut a urna. Donec et augue at nulla congue consectetur. Praesent sed dui lectus. Mauris in mi ut neque convallis condimentum. Maecenas sodales risus sit amet bibendum lacinia. Suspendisse non tempus odio. Morbi purus risus, aliquet nec neque a, lobortis dictum nulla. Quisque in ex odio. Quisque fermentum metus ac orci dapibus iaculis. Nullam mollis eu purus quis porttitor. Ut elit lectus, sagittis in vehicula quis, porttitor sit amet augue. Phasellus risus turpis, tempus quis elementum in, sodales vel enim. Donec aliquam quam sed dui vehicula, ac fermentum sapien fringilla. Etiam consectetur egestas leo, vel scelerisque metus luctus id. Nam congue ut lorem eget tempor.
-
-            Sed iaculis fringilla lobortis. Nulla eu interdum nisl. Proin quis dui eget nibh hendrerit accumsan a ac augue. Praesent vel mauris vel ex iaculis accumsan. Suspendisse potenti. Nunc consequat arcu eu varius auctor. Fusce gravida ipsum sit amet consectetur ultrices. Nulla mollis orci molestie, egestas risus ac, maximus arcu. Aliquam lacus arcu, consequat at dignissim id, cursus eu ex. Integer vulputate quam ut nisl luctus, eu venenatis sem luctus. Aliquam sed quam et eros dictum tempus quis in nunc. Vivamus lacus sem, faucibus nec sem non, maximus gravida enim. In ut magna porta erat efficitur consectetur ut vitae turpis.
-          </div>
-        </div>
+        <unfluffviewer></unfluffviewer>
         <div class="pane-mini sidebar"></div>
       </div>
-
     </div>
+
     <appfooter></appfooter>
   </div>
 </template>
@@ -82,10 +68,11 @@
 import feedsidebar from './feedsidebar'
 import appfooter from './appfooter'
 import articles from './articles'
+import unfluffviewer from './unfluffviewer'
 
 export default {
   name: 'mainwindow',
-  components: { feedsidebar, appfooter, articles },
+  components: { feedsidebar, appfooter, articles, unfluffviewer },
   mounted () {
 
   }

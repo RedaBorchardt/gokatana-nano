@@ -20,6 +20,8 @@ ipcMain.on('ONLINE_STATUS_CHANGED', function (event, status) {
   global.ONLINE_STATUS = status
 })
 
+require('./articlemuncher')
+
 /**
  * Set `__static` path to static files in production
  * https://simulatedgreg.gitbooks.io/electron-vue/content/en/using-static-assets.html

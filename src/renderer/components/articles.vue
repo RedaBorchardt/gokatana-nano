@@ -6,11 +6,12 @@
         <input style='width: 50%' class="form-control" type="text" placeholder="Exclude Keyword" v-model="excludestring">
       </li>
       <li v-for='article in articles' class="list-group-item" v-if="( searchMatch(article.title) || searchMatch(article.summary) )
-      && !( excludeMatch(article.title) || excludeMatch(article.summary) ) ">
+      && !( excludeMatch(article.title) || excludeMatch(article.summary) ) "
+      @click='displayArticle(article.link)'>
           <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
           <div class="media-body">
             <strong v-html="article.title"></strong>
-            <p v-if='article.summary' v-html="(article.summary.trunc(280, true))"></p>
+            <p v-if='article.summary' v-html="parsedOutput(article.summary.trunc(280, true))"></p>
           </div>
           <p style='font-style: italic; font-size: 0.8em; color: grey; text-align: right; -bottom: 0px;'>{{dateFromNow(article.date)}}</p>
       </li>
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import {ipcRenderer} from 'electron'
 let moment = require('moment')
 
 export default {
@@ -68,7 +70,17 @@ export default {
       } else {
         return false
       }
+    },
+    parsedOutput (s) {
+      return s.replace(/\\"/, '"')
+    },
+    displayArticle (url) {
+      ipcRenderer.send('DISPLAY_ARTICLE', url)
+      console.log(url)
     }
+  },
+  mounted () {
+    this.$store.dispatch('listenForContentFromBackend')
   }
 }
 </script>

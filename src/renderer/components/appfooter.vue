@@ -1,6 +1,7 @@
 <template>
   <footer class="toolbar toolbar-footer">
     <div class="toolbar-actions">
+      <span style='line-height: 24px; padding-left: 5px; font-size: 0.9em; color: grey'>{{LOG_MESSAGE.message}}</span>
       <button v-if='!BUSY_FETCHINGARTICLES && ONLINE_STATUS' class="btn btn-primary pull-right" @click='forceArticleRefresh'>
         Refresh
       </button>
@@ -29,6 +30,11 @@ export default {
           return false
         }
       }
+    },
+    LOG_MESSAGE: {
+      get () {
+        return this.$store.getters.getLastLogEntry
+      }
     }
   },
   methods: {
@@ -39,6 +45,7 @@ export default {
   mounted () {
     this.$store.dispatch('checkIfBackendIsBusyFetchingArticles')
     this.$store.dispatch('checkIfApplicationIsOnline')
+    this.$store.dispatch('listenForLogFromBackend')
     ipcRenderer.send('GLOBAL_FETCH_ARTICLES')
   }
 }
