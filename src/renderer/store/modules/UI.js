@@ -1,25 +1,34 @@
 import { ipcRenderer, remote } from 'electron'
 
-const state = {
+const state = [{
   BUSY_FETCHINGARTICLES: remote.getGlobal('BUSY_FETCHINGARTICLES'),
-  ONLINE_STATUS: remote.getGlobal('ONLINE_STATUS')
-}
+  ONLINE_STATUS: remote.getGlobal('ONLINE_STATUS'),
+  MOBILEVIEWER: false
+}]
 
 const mutations = {
   BUSY_FETCHINGARTICLES (state, arg) {
-    state.BUSY_FETCHINGARTICLES = arg
+    state[0].BUSY_FETCHINGARTICLES = arg
   },
   ONLINE_STATUS_CHANGED (state) {
-    state.ONLINE_STATUS = remote.getGlobal('ONLINE_STATUS')
+    state[0].ONLINE_STATUS = remote.getGlobal('ONLINE_STATUS')
+  },
+  TOGGLE_MOBILE_VIEW (state) {
+    state[0].MOBILEVIEWER = !state[0].MOBILEVIEWER
+    state.push('update')
+    state.pop()
   }
 }
 
 const getters = {
   getBusyFetchingArticles (state) {
-    return state.BUSY_FETCHINGARTICLES
+    return state[0].BUSY_FETCHINGARTICLES
   },
   getOnlineStatus (state) {
-    return state.ONLINE_STATUS
+    return state[0].ONLINE_STATUS
+  },
+  getMobileViewState (state) {
+    return state[0].MOBILEVIEWER
   }
 }
 
@@ -31,6 +40,9 @@ const actions = {
   },
   checkIfApplicationIsOnline ({commit}) {
     commit('ONLINE_STATUS_CHANGED')
+  },
+  toggleMobileView ({commit}) {
+    commit('TOGGLE_MOBILE_VIEW')
   }
 }
 

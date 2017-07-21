@@ -5,6 +5,7 @@
       <h4 style='white-space: pre-line;'>{{content.title}}</h4>
     <p style='white-space: pre-line; font-size: 1.2em;' v-html="content.text">
       </p>
+      <p v-html="content.copyright"></p>
     </div>
   </div>
 </template>

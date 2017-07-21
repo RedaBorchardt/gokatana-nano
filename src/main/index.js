@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow, ipcMain } from 'electron'
+import { app, BrowserWindow, ipcMain, session } from 'electron'
 import path from 'path'
 
 /** Application Globals */
@@ -19,6 +19,10 @@ global.appFolders = {
 ipcMain.on('ONLINE_STATUS_CHANGED', function (event, status) {
   global.ONLINE_STATUS = status
 })
+
+let filter = {
+  urls: ['*://*.ft.com']
+}
 
 require('./articlemuncher')
 
@@ -50,6 +54,14 @@ function createWindow () {
     contents.send('startup_application_message', 'Startup sequence launched')
     require('./startup.js')
   })
+
+  /* eslint-disable */
+  session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+    details.requestHeaders['Referer'] = 'https://news.google.com'
+    details.requestHeaders['Cookie'] = ''
+    callback({cancel: false, requestHeaders: details.requestHeaders})
+  })
+  /* eslint-enable */
 
   mainWindow.loadURL(winURL)
 

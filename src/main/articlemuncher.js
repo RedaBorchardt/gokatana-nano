@@ -21,6 +21,7 @@ function instantContentMunch (link) {
       if (!error) {
         contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been fetched'})
         let articleObj = unfluffextractor(body)
+        articleObj.originalLink = link
         contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been savagely chopped into pieces'})
         contents.send('PARSED_ARTICLE_READY', {'content': articleObj, 'doctype': 'unfluff'})
       }

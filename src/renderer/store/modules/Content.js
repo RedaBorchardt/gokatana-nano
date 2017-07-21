@@ -13,6 +13,7 @@ const mutations = {
     state.inview[0].image = obj.content.image
     state.inview[0].text = obj.content.text
     state.inview[0].links = obj.content.links
+    state.inview[0].originalLink = obj.content.originalLink
 
     state.inview.push('udpate')
     state.inview.pop()
