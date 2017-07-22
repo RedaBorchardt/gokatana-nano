@@ -242,7 +242,7 @@ function checkStage15 () {
                        'http://www.spiegel.de/auto/index.rss',
                        'http://www.spiegel.de/video/index.rss'
                         ] },
-                       { name: 'Evening Standard', rss: ['http://www.standard.co.uk/rss'] },
+                       { name: 'Evening Standard', rss: ['http://www.standard.co.uk/rss'], parsestrategy: 'dojo' },
                        { name: 'CNN', rss: ['http://rss.cnn.com/rss/cnn_latest.rss'] },
                        { name: 'Daily Mail', rss: ['http://www.dailymail.co.uk/articles.rss'] },
                        { name: 'Focus',
