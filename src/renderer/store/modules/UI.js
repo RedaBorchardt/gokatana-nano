@@ -4,6 +4,7 @@ const state = [{
   BUSY_FETCHINGARTICLES: remote.getGlobal('BUSY_FETCHINGARTICLES'),
   ONLINE_STATUS: remote.getGlobal('ONLINE_STATUS'),
   MOBILEVIEWER: false,
+  MOBILEVIEWLINK: true,
   FORCEDMINIBROWSER: false
 }]
 
@@ -19,6 +20,9 @@ const mutations = {
   },
   TOGGLE_FORCEDMINIBROWSER (state) {
     state[0].FORCEDMINIBROWSER = !state[0].FORCEDMINIBROWSER
+  },
+  TOGGLE_MOBILELINKSTATE (state) {
+    state[0].MOBILEVIEWLINK = !state[0].MOBILEVIEWLINK
   }
 }
 
@@ -30,10 +34,16 @@ const getters = {
     return state[0].ONLINE_STATUS
   },
   getMobileViewState (state) {
+    if (!state[0].MOBILEVIEWER) {
+      state[0].MOBILEVIEWLINK = true // Toggle the link on if the mobile view is turn on
+    }
     return state[0].MOBILEVIEWER
   },
   getForcedMiniBrowserState (state) {
     return state[0].FORCEDMINIBROWSER
+  },
+  getMobileViewLinkState (state) {
+    return state[0].MOBILEVIEWLINK
   }
 }
 
@@ -51,6 +61,9 @@ const actions = {
   },
   toggleForcedMiniBrowser ({commit}) {
     commit('TOGGLE_FORCEDMINIBROWSER')
+  },
+  toggleMobileLinkState ({commit}) {
+    commit('TOGGLE_MOBILELINKSTATE')
   }
 }
 

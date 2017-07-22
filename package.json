@@ -97,6 +97,7 @@
     "multispinner": "^0.2.1",
     "nedb": "^1.8.0",
     "node-feedparser": "^1.0.1",
+    "node-readability": "^2.2.0",
     "promise": "^8.0.1",
     "request": "^2.81.0",
     "style-loader": "^0.18.1",

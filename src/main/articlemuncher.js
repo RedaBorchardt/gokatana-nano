@@ -7,15 +7,21 @@ function instantContentMunch (link) {
   let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
   let request = require('request')
 
-  detectDisplayStrategy(link).then(function (response) {
+  detectStrategy(link).then(function (response) {
     if (response) {
-      let displayStrategy = response
-
+      let displayStrategy = 'standard'
       let parsingStrategy = 'standard'
 
-      let unfluffextractor = require('unfluff')
+      if (response.display) {
+        displayStrategy = response.display
+      }
+      if (response.parser) {
+        parsingStrategy = response.parser
+      }
+
       let requestoptions = {
-        url: link,
+        uri: link,
+        gzip: true,
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
           'Host': url.parse(link).hostname,
@@ -27,34 +33,72 @@ function instantContentMunch (link) {
         if (!error) {
           contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been fetched'})
 
-          let articleObj = ''
-
+          // Different Parsing Options
           if (parsingStrategy === 'standard') {
-            articleObj = unfluffextractor(body)
+            performStandardKatana()
           }
 
-          articleObj.originalLink = link
-          articleObj.displaystrategy = displayStrategy
-          contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been processed'})
-          contents.send('PARSED_ARTICLE_READY', {'content': articleObj, 'doctype': 'unfluff'})
+          if (parsingStrategy === 'dojo') {
+            performDojoKatana()
+          }
+
+          /* eslint-disable */
+          function performStandardKatana () {
+            let articleObj = {}
+            let unfluffextractor = require('unfluff')
+            articleObj = unfluffextractor(body)
+            articleObj.originalLink = link
+            articleObj.displaystrategy = displayStrategy
+            articleObj.parsingstrategy = parsingStrategy
+            contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been processed'})
+            contents.send('PARSED_ARTICLE_READY', {'content': articleObj, 'doctype': 'unfluff'})
+          }
+
+          function performDojoKatana () {
+            let read = require('node-readability')
+
+            read(body, {cleanRulers:[
+              function (obj, tag) {
+                if (obj.getAttribute('href')) {
+                  return false
+                }
+              }
+            ]},
+              function (err, article, meta) {
+              if (!err) {
+                let articleObj = {}
+                articleObj.title = article.title
+                articleObj.html = article.content
+                articleObj.originalLink = link
+                articleObj.displaystrategy = displayStrategy
+                articleObj.parsingstrategy = parsingStrategy
+                contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been processed'})
+                contents.send('PARSED_ARTICLE_READY', {'content': articleObj, 'doctype': 'dojo'})
+                article.close()
+              }
+            })
+          }
+          /* eslint-enable */
         }
       })
     }
   })
 }
 
-function detectDisplayStrategy (link) {
+function detectStrategy (link) {
   return new Promise(function (resolve, reject) {
     let hostname = url.parse(link).hostname
     feedstore.retrieveFeedsFromFeedsDB().then(function (feeds) {
       for (let i = 0; i < feeds.length; i++) {
         if (feeds[i].host) {
           if (hostname.includes(feeds[i].host)) {
-            resolve(feeds[i].displaystrategy)
+            if (feeds[i].strategy) {
+              resolve(feeds[i].strategy)
+            }
           }
         }
       }
-      resolve('standard')
+      resolve('{strategy: {}}')
     })
   })
 }

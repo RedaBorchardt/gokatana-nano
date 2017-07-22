@@ -242,7 +242,7 @@ function checkStage15 () {
                        'http://www.spiegel.de/auto/index.rss',
                        'http://www.spiegel.de/video/index.rss'
                         ] },
-                       { name: 'Evening Standard', rss: ['http://www.standard.co.uk/rss'], parsestrategy: 'dojo' },
+                       { name: 'Evening Standard', rss: ['http://www.standard.co.uk/rss'] },
                        { name: 'CNN', rss: ['http://rss.cnn.com/rss/cnn_latest.rss'] },
                        { name: 'Daily Mail', rss: ['http://www.dailymail.co.uk/articles.rss'] },
                        { name: 'Focus',
@@ -258,9 +258,10 @@ function checkStage15 () {
                        { name: 'Kotaku', rss: ['http://www.kotaku.com/rss'] },
                        { name: 'Le Monde', rss: ['http://www.lemonde.fr/rss/une.xml'] },
                        { name: 'Movie Trailers', rss: ['http://trailers.apple.com/trailers/home/rss/newtrailers.rss'] },
-                       { name: 'Financial Times', rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], displaystrategy: 'minioverride', host: 'ft.com' },
+                       { name: 'Financial Times', rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
                        { name: 'Russia Today', rss: ['http://www.rt.com/rss'] },
-                       { name: 'Gizmodo', rss: ['http://gizmodo.com/rss'] }
+                       { name: 'Gizmodo', rss: ['http://gizmodo.com/rss'] },
+                       { name: 'Brexit', rss: ['https://news.google.com/news/rss/search/section/q/brexit/brexit?hl=en-GB&ned=uk'] },
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {

@@ -9,6 +9,7 @@
         <articles></articles>
 
         <unfluffviewer></unfluffviewer>
+        
         <mobileviewer v-if="mobileStateView"></mobileviewer>
       </div>
     </div>
@@ -24,6 +25,7 @@ import articles from './articles'
 import unfluffviewer from './unfluffviewer'
 import mobileviewer from './mobileviewer'
 import topbar from './topbar'
+// import dojoviewer from './dojoviewer'
 
 export default {
   name: 'mainwindow',

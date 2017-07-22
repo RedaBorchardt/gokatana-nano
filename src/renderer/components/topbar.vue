@@ -33,9 +33,12 @@
         <span class="icon icon-cog"></span>
       </button>
 
-      <div class="btn-group pull-right" @click='toggleMobileView'>
-        <button class="btn btn-default" :class="{active: mobileViewState}">
-          <span class="icon icon-network"></span>
+      <div class="btn-group pull-right">
+        <button class="btn" :class="{'btn-positive': mobileLinkState && mobileViewState, 'btn-default': !mobileLinkState && mobileViewState}" @click='toggleMobileLinkState'>
+          <span class="icon icon-link" :class="{whiteicon: mobileLinkState && mobileViewState, 'btn-default': !mobileLinkState && mobileViewState}"></span>
+        </button>
+        <button class="btn" :class="{'btn-positive': mobileViewState, 'btn-default': !mobileViewState}" @click='toggleMobileView'>
+          <span class="icon icon-network" :class='{whiteicon: mobileViewState}'></span>
         </button>
       </div>
 
@@ -51,15 +54,26 @@ export default {
       get () {
         return this.$store.getters.getMobileViewState
       }
+    },
+    mobileLinkState: {
+      get () {
+        return this.$store.getters.getMobileViewLinkState
+      }
     }
   },
   methods: {
     toggleMobileView () {
       this.$store.dispatch('toggleMobileView')
+    },
+    toggleMobileLinkState () {
+      this.$store.dispatch('toggleMobileLinkState')
     }
   }
 }
 </script>
 
 <style scoped>
+.whiteicon {
+  color: white;
+}
 </style>

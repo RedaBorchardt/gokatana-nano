@@ -18,6 +18,14 @@ const mutations = {
 
     state.inview.push('udpate')
     state.inview.pop()
+  },
+  UPLOAD_DOJO_CONTENT_INTO_STATE (state, obj) {
+    state.inview[0].dojoTitle = obj.content.title
+    state.inview[0].dojoHTML = obj.content.html
+    state.inview[0].originalLink = obj.content.originalLink
+
+    state.inview.push('udpate')
+    state.inview.pop()
   }
 }
 
@@ -32,6 +40,9 @@ const actions = {
     ipcRenderer.on('PARSED_ARTICLE_READY', function (event, obj) {
       if (obj.doctype === 'unfluff') {
         commit('UPLOAD_UNFLUFF_CONTENT_INTO_STATE', obj)
+      }
+      if (obj.doctype === 'dojo') {
+        commit('UPLOAD_DOJO_CONTENT_INTO_STATE', obj)
       }
     })
   }

@@ -11,7 +11,9 @@ export default {
   computed: {
     content: {
       get () {
-        return this.$store.getters.getContentInView
+        if (this.$store.getters.getMobileViewLinkState) {
+          return this.$store.getters.getContentInView
+        }
       }
     }
   },
