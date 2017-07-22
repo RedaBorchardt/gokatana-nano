@@ -3,7 +3,8 @@ import { ipcRenderer, remote } from 'electron'
 const state = [{
   BUSY_FETCHINGARTICLES: remote.getGlobal('BUSY_FETCHINGARTICLES'),
   ONLINE_STATUS: remote.getGlobal('ONLINE_STATUS'),
-  MOBILEVIEWER: false
+  MOBILEVIEWER: false,
+  FORCEDMINIBROWSER: false
 }]
 
 const mutations = {
@@ -15,8 +16,9 @@ const mutations = {
   },
   TOGGLE_MOBILE_VIEW (state) {
     state[0].MOBILEVIEWER = !state[0].MOBILEVIEWER
-    state.push('update')
-    state.pop()
+  },
+  TOGGLE_FORCEDMINIBROWSER (state) {
+    state[0].FORCEDMINIBROWSER = !state[0].FORCEDMINIBROWSER
   }
 }
 
@@ -29,6 +31,9 @@ const getters = {
   },
   getMobileViewState (state) {
     return state[0].MOBILEVIEWER
+  },
+  getForcedMiniBrowserState (state) {
+    return state[0].FORCEDMINIBROWSER
   }
 }
 
@@ -43,6 +48,9 @@ const actions = {
   },
   toggleMobileView ({commit}) {
     commit('TOGGLE_MOBILE_VIEW')
+  },
+  toggleForcedMiniBrowser ({commit}) {
+    commit('TOGGLE_FORCEDMINIBROWSER')
   }
 }
 

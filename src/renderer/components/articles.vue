@@ -76,7 +76,6 @@ export default {
     },
     displayArticle (url) {
       ipcRenderer.send('DISPLAY_ARTICLE', url)
-      console.log(url)
     }
   },
   mounted () {

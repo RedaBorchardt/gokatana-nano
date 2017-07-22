@@ -258,8 +258,9 @@ function checkStage15 () {
                        { name: 'Kotaku', rss: ['http://www.kotaku.com/rss'] },
                        { name: 'Le Monde', rss: ['http://www.lemonde.fr/rss/une.xml'] },
                        { name: 'Movie Trailers', rss: ['http://trailers.apple.com/trailers/home/rss/newtrailers.rss'] },
-                       { name: 'Financial Times', rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'] },
-                       { name: 'Russia Today', rss: ['http://www.rt.com/rss'] }
+                       { name: 'Financial Times', rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], displaystrategy: 'minioverride', host: 'ft.com' },
+                       { name: 'Russia Today', rss: ['http://www.rt.com/rss'] },
+                       { name: 'Gizmodo', rss: ['http://gizmodo.com/rss'] }
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
