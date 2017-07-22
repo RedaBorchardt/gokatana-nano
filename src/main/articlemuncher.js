@@ -19,11 +19,7 @@ function instantContentMunch (link) {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
           'Host': url.parse(link).hostname,
-          'Referer': 'https://news.google.com/',
-          'Connection': 'keep-alive',
-          'DNT': '1',
-          'Accept': '*/*',
-          'Accept-Language': 'en-GB'
+          'Referer': 'https://news.google.com/'
         }
       }
       contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Fetching: ' + link})
