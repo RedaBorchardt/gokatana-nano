@@ -38,9 +38,17 @@ export default {
   },
   mounted () {
     var webview = document.querySelector('#minibrowser')
+    let _this = this
 
     webview.addEventListener('did-get-response-details', function () {
       webview.insertCSS('html{ filter: grayscale(100%);}')
+    })
+
+    webview.addEventListener('enter-html-full-screen', function () {
+      if (_this.$store.getters.getMobileViewLinkState) {
+        _this.$store.dispatch('toggleMobileLinkState')
+      }
+      require('electron').remote.getCurrentWindow().setFullScreen(false)
     })
   }
 }

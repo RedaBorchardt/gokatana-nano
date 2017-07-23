@@ -42,7 +42,8 @@ export default {
   },
   mounted () {
     const {shell} = require('electron')
-    var webviewGtopic = document.querySelector('#gtopic')
+    let webviewGtopic = document.querySelector('#gtopic')
+    let _this = this
 
     webviewGtopic.addEventListener('did-get-response-details', function () {
       webviewGtopic.insertCSS('html{filter: grayscale(100%);}')
@@ -60,6 +61,13 @@ export default {
         }
         webviewGtopic.stop()
       }
+    })
+
+    webviewGtopic.addEventListener('enter-html-full-screen', function () {
+      if (_this.$store.getters.getGTopicViewLinkState) {
+        _this.$store.dispatch('toggleGTopicLinkState')
+      }
+      require('electron').remote.getCurrentWindow().setFullScreen(false)
     })
   }
 }
