@@ -257,11 +257,22 @@ function checkStage15 () {
                        ] },
                        { name: 'Kotaku', rss: ['http://www.kotaku.com/rss'] },
                        { name: 'Le Monde', rss: ['http://www.lemonde.fr/rss/une.xml'] },
-                       { name: 'Movie Trailers', rss: ['http://trailers.apple.com/trailers/home/rss/newtrailers.rss'] },
+                       { name: 'Coming Soon', rss: ['http://www.comingsoon.net/g00/2_d3d3LmNvbWluZ3Nvb24ubmV0_/TU9SRVBIRVVTMjMkaHR0cDovL3d3dy5jb21pbmdzb29uLm5ldC9mZWVk_$/$'] },
                        { name: 'Financial Times', rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
                        { name: 'Russia Today', rss: ['http://www.rt.com/rss'] },
                        { name: 'Gizmodo', rss: ['http://gizmodo.com/rss'] },
                        { name: 'Brexit', rss: ['https://news.google.com/news/rss/search/section/q/brexit/brexit?hl=en-GB&ned=uk'] },
+                       { name: 'Dota 2 News', rss: ['https://news.google.com/news/rss/search/section/q/dota%202/dota%202?hl=en-GB&ned=uk'] },
+                       { name: 'TED Talks', rss: ['https://pa.tedcdn.com/feeds/talks.rss'] },
+                       { name: 'TechRadar', rss: ['http://www.techradar.com/rss'] },
+                       { name: 'Lifehacker', rss: ['http://lifehacker.com/rss'] },
+                       { name: 'BBC World', rss: ['http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk'] },
+                       { name: 'Overwatch News', rss: ['https://news.google.com/news/rss/search/section/q/overwatch/overwatch?hl=en-GB&ned=uk'] },
+                       { name: 'Recession', rss: ['https://news.google.com/news/rss/search/section/q/recession/recession?hl=en-GB&ned=uk'] },
+                       { name: 'Fullfact UK', rss: ['https://news.google.com/news/rss/search/section/q/fullfact.org/fullfact.org?hl=en-GB&ned=uk'] },
+                       { name: 'IGN', rss: ['http://feeds.ign.com/ign/all'] },
+                       { name: 'Eurogamer', rss: ['http://www.eurogamer.net/?format=rss'] },
+                       { name: 'Veritasium', rss: ['https://www.youtube.com/feeds/videos.xml?user=1veritasium'], strategy: {miniuseragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}, host: 'youtube.com' }
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {

@@ -15,6 +15,7 @@ const mutations = {
     state.inview[0].links = obj.content.links
     state.inview[0].originalLink = obj.content.originalLink
     state.inview[0].displaystrategy = obj.content.displaystrategy
+    state.inview[0].miniuseragent = obj.content.miniuseragent
 
     state.inview.push('udpate')
     state.inview.pop()

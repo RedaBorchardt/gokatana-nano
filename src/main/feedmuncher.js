@@ -32,7 +32,7 @@ function fetchAllArticleHeadlines () {
     }
 
     function innerProcessingLoop (feeds) { // Iterate through subfeeds
-      downloadThenParseRSSFeed(feeds[x].rss[i], feeds[x]._id).then(function (response) {
+      downloadThenParseRSSFeed(feeds[x].rss[i], feeds[x]._id, feeds[x].name).then(function (response) {
         contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feeds[x]._id)
         contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': response})
         i += 1
@@ -54,7 +54,7 @@ function fetchAllArticleHeadlines () {
   })
 }
 
-function downloadThenParseRSSFeed (rssurl, _feedid) {
+function downloadThenParseRSSFeed (rssurl, _feedid, feedname) {
   return new Promise(function (resolve, reject) {
     if (global.ONLINE_STATUS === 'offline') {
       reject(new Error('Application is offline'))
@@ -101,8 +101,15 @@ function downloadThenParseRSSFeed (rssurl, _feedid) {
         if (!item.author) item.author = 'no content'
         if (!item.link) item.link = 'no content'
 
+        if (item.summary === 'no content') {
+          if (item['media:group']['media:description']['#']) {
+            item.summary = item['media:group']['media:description']['#']
+          }
+        }
+
         processedcount += 1
         let article = {
+          sitename: feedname,
           title: require('he').decode(item.title).replace("<![CDATA[", "").replace("]]>", "").replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/(<|.&lt;)(?:.|\n)*?(\/a&gt|>)/gm, '').replace(/undefined    undefined/, ''),
           link: item.link,
           summary: require('he').decode(item.summary).replace("<![CDATA[", "").replace("]]>", "").replace(/<(?:.|\n)*?>/gm, '').replace(/(\r\n|\n|\r)/gm).replace(/(<|.&lt;)(?:.|\n)*?(\/a&gt|>)/gm, '').replace(/undefined    undefined/, ''),

@@ -9,11 +9,11 @@
       && !( excludeMatch(article.title) || excludeMatch(article.summary) ) "
       @click='displayArticle(article.link)'>
           <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
-          <div class="media-body">
+          <div class="media-body" style='min-height: 35px'>
             <strong v-html="article.title"></strong>
             <p v-if='article.summary' v-html="parsedOutput(article.summary.trunc(280, true))"></p>
           </div>
-          <p style='font-style: italic; font-size: 0.8em; color: grey; text-align: right; -bottom: 0px;'>{{dateFromNow(article.date)}}</p>
+          <p style='font-style: italic; font-size: 0.8em; color: grey; text-align: right; -bottom: 0px; padding-left: 42px;'><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
       </li>
     </ul>
   </div>
@@ -22,6 +22,7 @@
 <script>
 import {ipcRenderer} from 'electron'
 let moment = require('moment')
+let url = require('url')
 
 export default {
 
@@ -76,6 +77,9 @@ export default {
     },
     displayArticle (url) {
       ipcRenderer.send('DISPLAY_ARTICLE', url)
+    },
+    parseURL (link) {
+      return url.parse(link).hostname
     }
   },
   mounted () {

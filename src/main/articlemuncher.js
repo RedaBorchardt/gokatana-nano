@@ -11,12 +11,16 @@ function instantContentMunch (link) {
     if (response) {
       let displayStrategy = 'standard'
       let parsingStrategy = 'standard'
+      let miniuseragent = 'standard'
 
       if (response.display) {
         displayStrategy = response.display
       }
       if (response.parser) {
         parsingStrategy = response.parser
+      }
+      if (response.miniuseragent) {
+        miniuseragent = response.miniuseragent
       }
 
       let requestoptions = {
@@ -50,6 +54,7 @@ function instantContentMunch (link) {
             articleObj.originalLink = link
             articleObj.displaystrategy = displayStrategy
             articleObj.parsingstrategy = parsingStrategy
+            articleObj.miniuseragent = miniuseragent
             contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been processed'})
             contents.send('PARSED_ARTICLE_READY', {'content': articleObj, 'doctype': 'unfluff'})
           }
