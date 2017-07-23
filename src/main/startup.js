@@ -272,7 +272,9 @@ function checkStage15 () {
                        { name: 'Fullfact UK', rss: ['https://news.google.com/news/rss/search/section/q/fullfact.org/fullfact.org?hl=en-GB&ned=uk'] },
                        { name: 'IGN', rss: ['http://feeds.ign.com/ign/all'] },
                        { name: 'Eurogamer', rss: ['http://www.eurogamer.net/?format=rss'] },
-                       { name: 'Veritasium', rss: ['https://www.youtube.com/feeds/videos.xml?user=1veritasium'], strategy: {miniuseragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}, host: 'youtube.com' }
+                       { name: 'Veritasium', rss: ['https://www.youtube.com/feeds/videos.xml?user=1veritasium'], strategy: {miniuseragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}, host: 'youtube.com' },
+                       { name: 'New York Times', rss: ['http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'] },
+                       { name: 'WeLikeDota', rss: ['http://feeds.feedburner.com/welikedota'] }
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {

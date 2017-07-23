@@ -5,15 +5,15 @@
         <input style='width: 50%' class="form-control" type="text" placeholder="Keyword Search" v-model="searchstring">
         <input style='width: 50%' class="form-control" type="text" placeholder="Exclude Keyword" v-model="excludestring">
       </li>
-      <li v-for='article in articles' class="list-group-item" v-if="( searchMatch(article.title) || searchMatch(article.summary) )
+      <li v-for='article in articles' class="list-group-item" :class="{active: article.selected}" v-if="( searchMatch(article.title) || searchMatch(article.summary) )
       && !( excludeMatch(article.title) || excludeMatch(article.summary) ) "
-      @click='displayArticle(article.link)'>
+      @click='displayArticle(article.link, article._id, article.summary)'>
           <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
           <div class="media-body" style='min-height: 35px'>
             <strong v-html="article.title"></strong>
             <p v-if='article.summary' v-html="parsedOutput(article.summary.trunc(280, true))"></p>
           </div>
-          <p style='font-style: italic; font-size: 0.8em; color: grey; text-align: right; -bottom: 0px; padding-left: 42px;'><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
+          <p style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 42px;'><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
       </li>
     </ul>
   </div>
@@ -75,11 +75,15 @@ export default {
     parsedOutput (s) {
       return s.replace(/\\"/, '"')
     },
-    displayArticle (url) {
-      ipcRenderer.send('DISPLAY_ARTICLE', url)
+    displayArticle (url, articleid, articleSummary) {
+      ipcRenderer.send('DISPLAY_ARTICLE', url, articleSummary)
+      this.selectArticle(articleid)
     },
     parseURL (link) {
       return url.parse(link).hostname
+    },
+    selectArticle (articleid) {
+      this.$store.dispatch('setSelectedArticle', articleid)
     }
   },
   mounted () {

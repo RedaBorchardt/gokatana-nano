@@ -3,7 +3,7 @@ import feedstore from './feedsstore.js'
 
 let url = require('url')
 
-function instantContentMunch (link) {
+function instantContentMunch (link, articleSummaryCached) {
   let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
   let request = require('request')
 
@@ -55,6 +55,7 @@ function instantContentMunch (link) {
             articleObj.displaystrategy = displayStrategy
             articleObj.parsingstrategy = parsingStrategy
             articleObj.miniuseragent = miniuseragent
+            articleObj.articleSummaryCached = articleSummaryCached
             contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been processed'})
             contents.send('PARSED_ARTICLE_READY', {'content': articleObj, 'doctype': 'unfluff'})
           }
@@ -108,6 +109,6 @@ function detectStrategy (link) {
   })
 }
 
-ipcMain.on('DISPLAY_ARTICLE', function (event, link) {
-  instantContentMunch(link)
+ipcMain.on('DISPLAY_ARTICLE', function (event, link, articleSummaryCached) {
+  instantContentMunch(link, articleSummaryCached)
 })

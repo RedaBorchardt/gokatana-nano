@@ -1,44 +1,45 @@
 <template>
   <header class="toolbar toolbar-header">
     <div class="toolbar-actions">
-      <button class="btn btn-default">
-        <span class="icon icon-home"></span>
-      </button>
       <div class="btn-group">
-        <button class="btn btn-default active">
-          <span class="icon icon-rss icon-text"></span>
-          Direct Feeds
+        <button class="btn btn-default" :class="({'active': bladeViewState})" @click='toggleBladeView'>
+          <span class="icon icon-flow-cascade icon-text"></span>
+          Katana Blades
         </button>
-        <button class="btn btn-default">
-          <span class="icon icon-rocket icon-text"></span>
-          Smart Modules
+        <button class="btn btn-default" :class="({'active': headlineViewState})" @click='toggleHeadlineView'>
+          <span class="icon icon-list icon-text"></span>
+          Headlines
         </button>
-        <button class="btn btn-default">
-          <span class="icon icon-folder icon-text"></span>
-          Custom Views
+        <button class="btn btn-default" :class="({'active': katanaViewState})" @click='toggleKatanaView'>
+          <span class="icon icon-book-open icon-text"></span>
+          Katana View
         </button>
       </div>
-
-      <button class="btn btn-default">
-        <span class="icon icon-search icon-text"></span>
-        Search
-      </button>
-
-      <button class="btn btn-default">
-        <span class="icon icon-database icon-text"></span>
-        Vault
-      </button>
 
       <button class="btn btn-default btn-dropdown pull-right">
         <span class="icon icon-cog"></span>
       </button>
 
-      <div class="btn-group pull-right">
+      <div class="btn-group">
         <button class="btn" :class="{'btn-positive': mobileLinkState && mobileViewState, 'btn-default': !mobileLinkState && mobileViewState}" @click='toggleMobileLinkState'>
           <span class="icon icon-link" :class="{whiteicon: mobileLinkState && mobileViewState, 'btn-default': !mobileLinkState && mobileViewState}"></span>
         </button>
         <button class="btn" :class="{'btn-positive': mobileViewState, 'btn-default': !mobileViewState}" @click='toggleMobileView'>
-          <span class="icon icon-network" :class='{whiteicon: mobileViewState}'></span>
+          <span class="icon icon-network icon-text" :class='{whiteicon: mobileViewState}'></span>
+          Mini Browser
+        </button>
+      </div>
+
+      <div class="btn-group">
+        <button class="btn" :class="{'btn-positive': gtopicLinkState && gtopicViewState, 'btn-default': !gtopicLinkState && gtopicViewState}" @click='toggleGTopicLinkState'>
+          <span class="icon icon-link" :class="{whiteicon: gtopicLinkState && gtopicViewState, 'btn-default': !gtopicLinkState && gtopicViewState}"></span>
+        </button>
+        <button class="btn" :class="{'btn-positive': gtopicViewState, 'btn-default': !gtopicViewState}" @click='toggleGTopicView'>
+          <span class="icon icon-network icon-text" :class='{whiteicon: gtopicViewState}'></span>
+          Topic Explorer
+        </button>
+        <button class="btn" :class="{'btn-positive': gtopicViewState, 'btn-default': !gtopicViewState}" @click='toggleGTopicMode' v-if="false">
+          {{gtopicMode}}
         </button>
       </div>
 
@@ -50,6 +51,16 @@
 export default {
   name: 'topbar',
   computed: {
+    katanaViewState: {
+      get () {
+        return this.$store.getters.getKatanaViewState
+      }
+    },
+    headlineViewState: {
+      get () {
+        return this.$store.getters.getHeadlineViewerState
+      }
+    },
     mobileViewState: {
       get () {
         return this.$store.getters.getMobileViewState
@@ -59,6 +70,26 @@ export default {
       get () {
         return this.$store.getters.getMobileViewLinkState
       }
+    },
+    gtopicViewState: {
+      get () {
+        return this.$store.getters.getGTopicViewState
+      }
+    },
+    gtopicLinkState: {
+      get () {
+        return this.$store.getters.getGTopicViewLinkState
+      }
+    },
+    gtopicMode: {
+      get () {
+        return this.$store.getters.getGTopicMode
+      }
+    },
+    bladeViewState: {
+      get () {
+        return this.$store.getters.getBladeViewerState
+      }
     }
   },
   methods: {
@@ -67,6 +98,24 @@ export default {
     },
     toggleMobileLinkState () {
       this.$store.dispatch('toggleMobileLinkState')
+    },
+    toggleGTopicView () {
+      this.$store.dispatch('toggleGTopicView')
+    },
+    toggleGTopicLinkState () {
+      this.$store.dispatch('toggleGTopicLinkState')
+    },
+    toggleGTopicMode () {
+      this.$store.dispatch('toggleGTopicMode')
+    },
+    toggleKatanaView () {
+      this.$store.dispatch('toggleKatanaViewer')
+    },
+    toggleHeadlineView () {
+      this.$store.dispatch('toggleHeadlineViewer')
+    },
+    toggleBladeView () {
+      this.$store.dispatch('toggleBladeViewer')
     }
   }
 }

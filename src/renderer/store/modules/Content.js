@@ -17,6 +17,10 @@ const mutations = {
     state.inview[0].displaystrategy = obj.content.displaystrategy
     state.inview[0].miniuseragent = obj.content.miniuseragent
 
+    if (state.inview[0].text.length < obj.content.articleSummaryCached.length) {
+      state.inview[0].text = obj.content.articleSummaryCached
+    }
+
     state.inview.push('udpate')
     state.inview.pop()
   },
