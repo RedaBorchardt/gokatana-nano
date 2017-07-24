@@ -31,6 +31,14 @@ const mutations = {
     }
     state.subscriptions.push('update')
     state.subscriptions.pop()
+  },
+  UPDATE_FEED_ON_DROP (state, obj) {
+    let x = obj.length
+    for (let i = 0; i < x; i++) {
+      obj[i].uiorder = i + 1
+    }
+    state.subscriptions = obj
+    ipcRenderer.send('SAVE_NEW_FEEDS_UIORDER', state.subscriptions)
   }
 }
 
@@ -52,6 +60,9 @@ const actions = {
   },
   setSelectedFeed ({commit}, feedid) {
     commit('SET_SELECTED_FEED', feedid)
+  },
+  updateFeedsListOnDrop ({commit}, obj) {
+    commit('UPDATE_FEED_ON_DROP', obj)
   }
 }
 

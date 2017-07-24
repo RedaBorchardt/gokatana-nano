@@ -8,12 +8,12 @@
       <li v-for='article in articles' class="list-group-item" :class="{active: article.selected}" v-if="( searchMatch(article.title) || searchMatch(article.summary) )
       && !( excludeMatch(article.title) || excludeMatch(article.summary) ) "
       @click='displayArticle(article.link, article._id, article.summary)'>
-          <img class="img-circle media-object pull-left" src='~@/assets/KLOGO.png' width="32" height="32">
+          <img class="img-circle media-object pull-left" :src="getFeedIcon(article._feedid)" width="18" height="18">
           <div class="media-body" style='min-height: 35px'>
             <strong v-html="article.title"></strong>
             <p v-if='article.summary' v-html="parsedOutput(article.summary.trunc(280, true))"></p>
           </div>
-          <p style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 42px;'><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
+          <p style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 26px;'><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
       </li>
     </ul>
   </div>
@@ -84,6 +84,9 @@ export default {
     },
     selectArticle (articleid) {
       this.$store.dispatch('setSelectedArticle', articleid)
+    },
+    getFeedIcon (id) {
+      return require('path').join(require('electron').remote.getGlobal('appFolders').cache, id, 'favicons.png')
     }
   },
   mounted () {

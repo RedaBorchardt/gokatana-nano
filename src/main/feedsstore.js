@@ -4,12 +4,36 @@ let path = require('path')
 let Promise = require('promise')
 let feedsdb = new Datastore({ filename: path.join(global.appFolders.config, 'feeds.db'), autoload: true })
 let articledb = []
+let download = require('download')
 
 ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
-  feedsdb.find({}, function (err, docs) {
+  feedsdb.find({}).sort({ uiorder: 1 }).exec(function (err, docs) {
     if (!err) {
       registerArticleDBHandles(docs)
-      event.returnValue = docs
+      let iconDownloadList = []
+      for (let i = 0; i < docs.length; i++) {
+        if (!docs[i].icon) {
+          iconDownloadList.push({url: 'https://www.google.com/s2/favicons?domain=' + docs[i].host, dest: docs[i]._id})
+        }
+      }
+      if (iconDownloadList[0]) { // Entries have been found without an icon. Insert and redownload database
+        Promise.all(iconDownloadList.map(x => download(x.url, path.join(global.appFolders.cache, x.dest)))).then(() => {
+          let x = docs.length
+          for (let i = 0; i < x; i++) {
+            feedsdb.update({_id: docs[i]._id}, {$set: {icon: true}}, {}, function (err, numReplaced) {
+              if (!err) {
+                feedsdb.find({}).sort({ uiorder: 1 }).exec(function (err, docs) {
+                  if (!err) {
+                    event.returnValue = docs
+                  }
+                })
+              }
+            })
+          }
+        })
+      } else {
+        event.returnValue = docs
+      }
     } else {
       event.returnValue = 'catastrophy'
     }
@@ -32,6 +56,17 @@ ipcMain.on('RETRIEVE_ARTICLES', function (event, feedid) {
   })
 })
 
+ipcMain.on('SAVE_NEW_FEEDS_UIORDER', function (event, obj) {
+  let x = obj.length
+  for (let i = 0; i < x; i++) {
+    feedsdb.update({_id: obj[i]._id}, {$set: {uiorder: obj[i].uiorder}}, {}, function (err, numReplaced) {
+      if (!err) {
+        return 'updated list'
+      }
+    })
+  }
+})
+
 function registerArticleDBHandles (docs) {
   for (let i = 0; i < docs.length; i++) {
     articledb[docs[i]._id] = new Datastore({ filename: path.join(global.appFolders.data, docs[i]._id + '.db'), autoload: true })
@@ -50,6 +85,7 @@ function retrieveFeedsFromFeedsDB () {
 
 function insertArticleIntoDB (article, feedid) {
   return new Promise(function (resolve, reject) {
+    article._feedid = feedid
     articledb[feedid].insert(article, function (err, newDoc) {
       if (!err) {
         resolve('added')
