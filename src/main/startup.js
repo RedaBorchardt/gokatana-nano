@@ -275,7 +275,8 @@ function checkStage15 () {
                        { name: 'Veritasium', uiorder: 26, rss: ['https://www.youtube.com/feeds/videos.xml?user=1veritasium'], strategy: {miniuseragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}, host: 'youtube.com' },
                        { name: 'New York Times', uiorder: 27, rss: ['http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'], host: 'www.nytimes.com' },
                        { name: 'WeLikeDota', uiorder: 28, rss: ['http://feeds.feedburner.com/welikedota'], host: 'www.welikedota.com' },
-                       { name: 'The Epoch Times', uiorder: 29, rss: ['http://www.theepochtimes.com/n3/c/world/feed/'], host: 'www.theepochtimes.com'}
+                       { name: 'The Epoch Times', uiorder: 29, rss: ['http://www.theepochtimes.com/n3/c/world/feed/'], host: 'www.theepochtimes.com'},
+                       { name: 'Computerphile', uiorder: 26, rss: ['https://www.youtube.com/feeds/videos.xml?user=Computerphile'], strategy: {miniuseragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}, host: 'youtube.com' }
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
