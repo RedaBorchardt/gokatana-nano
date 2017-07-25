@@ -86,7 +86,7 @@ export default {
       this.$store.dispatch('setSelectedArticle', articleid)
     },
     getFeedIcon (id) {
-      return require('path').join(require('electron').remote.getGlobal('appFolders').cache, id, 'favicons.png')
+      return 'file://' + require('path').join(require('electron').remote.getGlobal('appFolders').cache, id, 'favicons.png')
     }
   },
   mounted () {
