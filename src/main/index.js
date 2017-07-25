@@ -58,7 +58,7 @@ function createWindow () {
 
   /* eslint-disable */
   session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
-    details.requestHeaders['Referer'] = 'https://news.google.com'
+    details.requestHeaders['Referer'] = 'https://facebook.com'
     details.requestHeaders['Cookie'] = ''
     callback({cancel: false, requestHeaders: details.requestHeaders})
   })

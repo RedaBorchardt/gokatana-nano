@@ -29,7 +29,7 @@ function instantContentMunch (link, articleSummaryCached) {
         headers: {
           'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
           'Host': url.parse(link).hostname,
-          'Referer': 'https://news.google.com/'
+          'Referer': 'https://facebook.com'
         }
       }
       contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Fetching: ' + link})
