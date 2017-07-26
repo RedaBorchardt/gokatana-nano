@@ -27,12 +27,15 @@ function instantContentMunch (link, articleSummaryCached) {
         uri: link,
         gzip: true,
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36',
+          'User-Agent': '',
           'Host': url.parse(link).hostname,
-          'Referer': 'https://facebook.com'
+          'Referer': 'https://www.facebook.com/',
+          'Cookie': ''
         }
       }
+
       contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Fetching: ' + link})
+
       request(requestoptions, function (error, response, body) {
         if (!error) {
           contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been fetched'})

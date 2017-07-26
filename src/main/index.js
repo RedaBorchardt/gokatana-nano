@@ -1,6 +1,6 @@
 'use strict'
 
-import { app, BrowserWindow, ipcMain, session } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'path'
 
 /** Application Globals */
@@ -19,10 +19,6 @@ global.appFolders = {
 ipcMain.on('ONLINE_STATUS_CHANGED', function (event, status) {
   global.ONLINE_STATUS = status
 })
-
-let filter = {
-  urls: ['*://*.ft.com']
-}
 
 /**
  * Set `__static` path to static files in production
@@ -56,13 +52,7 @@ function createWindow () {
     require('./startup.js')
   })
 
-  /* eslint-disable */
-  session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
-    details.requestHeaders['Referer'] = 'https://facebook.com'
-    details.requestHeaders['Cookie'] = ''
-    callback({cancel: false, requestHeaders: details.requestHeaders})
-  })
-  /* eslint-enable */
+  require('./webrequest.js')
 
   mainWindow.loadURL(winURL)
 

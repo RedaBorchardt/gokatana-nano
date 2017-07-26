@@ -1,7 +1,6 @@
 <template>
   <div class="pane" style="overflow-y: hidden">
-    <webview v-bind:useragent="miniuseragent"
-    class="pane-mini sidebar" id="minibrowser" :src="content.originalLink" style="display:inline-flex; width: 100%; height: 100%" css="html {filter: grayscale(100%);}"></webview>
+    <webview class="pane-mini sidebar" id="minibrowser" :src="content.originalLink" style="display:inline-flex; width: 100%; height: 100%" css="html {filter: grayscale(100%);}"></webview>
   </div>
 </template>
 
@@ -21,17 +20,6 @@ export default {
           return this.$store.getters.getContentInView
         } else {
           return this.cachedContent
-        }
-      }
-    },
-    miniuseragent: {
-      get () {
-        if (this.$store.getters.getMobileViewLinkState) {
-          if (this.content.miniuseragent !== 'standard') {
-            return this.content.miniuseragent
-          } else {
-            return 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25'
-          }
         }
       }
     }

@@ -243,8 +243,6 @@ function checkStage15 () {
                        'http://www.spiegel.de/video/index.rss'
                      ], host: 'http://www.spiegel.de' },
                        { name: 'Evening Standard', uiorder: 5, rss: ['http://www.standard.co.uk/rss'], host: 'www.standard.co.uk' },
-                       { name: 'CNN', uiorder: 6, rss: ['http://rss.cnn.com/rss/cnn_latest.rss'], host: 'www.cnn.com' },
-                       { name: 'Daily Mail', uiorder: 7, rss: ['http://www.dailymail.co.uk/articles.rss'], host: 'www.dailymail.co.uk' },
                        { name: 'Focus', uiorder: 8,
                        rss: ['http://rss.focus.de/',
                        'http://rss.focus.de/politik/',
@@ -257,28 +255,19 @@ function checkStage15 () {
                      ], host: 'www.focus.de' },
                        { name: 'Kotaku', uiorder: 9, rss: ['http://www.kotaku.com/rss'], host: 'www.kotaku.com' },
                        { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], host: 'www.lemonde.fr' },
-                       { name: 'Coming Soon', uiorder: 11, rss: ['http://www.comingsoon.net/g00/2_d3d3LmNvbWluZ3Nvb24ubmV0_/TU9SRVBIRVVTMjMkaHR0cDovL3d3dy5jb21pbmdzb29uLm5ldC9mZWVk_$/$'], host: 'www.comingsoon.net' },
                        { name: 'Financial Times', uiorder: 12, rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
                        { name: 'Russia Today', uiorder: 13, rss: ['http://www.rt.com/rss'], host: 'www.rt.com' },
                        { name: 'Gizmodo', uiorder: 14, rss: ['http://gizmodo.com/rss'], host: 'www.gizmodo.com' },
                        { name: 'Brexit', uiorder: 15, rss: ['https://news.google.com/news/rss/search/section/q/brexit/brexit?hl=en-GB&ned=uk'], host: 'www.gmail.com' },
-                       { name: 'Dota 2 News', uiorder: 16, rss: ['https://news.google.com/news/rss/search/section/q/dota%202/dota%202?hl=en-GB&ned=uk'], host: 'www.gmail.com' },
                        { name: 'TED Talks', uiorder: 17, rss: ['https://pa.tedcdn.com/feeds/talks.rss'], host: 'www.ted.com' },
                        { name: 'TechRadar', uiorder: 18, rss: ['http://www.techradar.com/rss'], host: 'www.techradar.com' },
                        { name: 'Lifehacker', uiorder: 19, rss: ['http://lifehacker.com/rss'], host: 'www.lifehacker.com' },
                        { name: 'BBC World', uiorder: 20, rss: ['http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk'], host: 'www.bbc.co.uk' },
-                       { name: 'Overwatch News', uiorder: 21, rss: ['https://news.google.com/news/rss/search/section/q/overwatch/overwatch?hl=en-GB&ned=uk'], host: 'www.gmail.com' },
-                       { name: 'Recession', uiorder: 22, rss: ['https://news.google.com/news/rss/search/section/q/recession/recession?hl=en-GB&ned=uk'], host: 'www.gmail.com' },
-                       { name: 'Fullfact UK', uiorder: 23, rss: ['https://news.google.com/news/rss/search/section/q/fullfact.org/fullfact.org?hl=en-GB&ned=uk'], host: 'www.fullfact.org' },
-                       { name: 'IGN', uiorder: 24, rss: ['http://feeds.ign.com/ign/all'], host: 'www.ign.com' },
-                       { name: 'Eurogamer', uiorder: 25, rss: ['http://www.eurogamer.net/?format=rss'], host: 'www.eurogamer.net' },
-                       { name: 'Veritasium', uiorder: 26, rss: ['https://www.youtube.com/feeds/videos.xml?user=1veritasium'], strategy: {miniuseragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}, host: 'youtube.com' },
                        { name: 'New York Times', uiorder: 27, rss: ['http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'], host: 'www.nytimes.com' },
-                       { name: 'WeLikeDota', uiorder: 28, rss: ['http://feeds.feedburner.com/welikedota'], host: 'www.welikedota.com' },
                        { name: 'The Epoch Times', uiorder: 29, rss: ['http://www.theepochtimes.com/n3/c/world/feed/'], host: 'www.theepochtimes.com'},
-                       { name: 'Computerphile', uiorder: 26, rss: ['https://www.youtube.com/feeds/videos.xml?user=Computerphile'], strategy: {miniuseragent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/59.0.3071.115 Safari/537.36'}, host: 'youtube.com' },
                        { name: 'Huffington Post', uiorder: 27, rss: ['http://www.huffingtonpost.co.uk/feeds/news.xml'], host: 'www.huffingtonpost.co.uk'},
-                       { name: 'Wall Street Journal', uiorder: 28, rss: ['http://www.wsj.com/xml/rss/3_7085.xml'], host: 'www.wsj.com'}
+                       { name: 'Wall Street Journal', uiorder: 28, rss: ['http://www.wsj.com/xml/rss/3_7085.xml'], host: 'www.wsj.com'},
+                       { name: 'Reuters', uiorder: 29, rss: ['http://feeds.reuters.com/reuters/UKTopNews'], host: 'www.reuters.com'}
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
