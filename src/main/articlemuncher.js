@@ -13,6 +13,7 @@ function instantContentMunch (link, articleSummaryCached) {
       let displayStrategy = 'standard'
       let parsingStrategy = 'standard'
       let miniuseragent = 'standard'
+      let elementRemovalList = []
 
       if (response.display) {
         displayStrategy = response.display
@@ -22,6 +23,10 @@ function instantContentMunch (link, articleSummaryCached) {
       }
       if (response.miniuseragent) {
         miniuseragent = response.miniuseragent
+      }
+
+      if (response.removeel) {
+        elementRemovalList = response.removeel
       }
 
       let requestoptions = {
@@ -39,7 +44,19 @@ function instantContentMunch (link, articleSummaryCached) {
 
       request(requestoptions, function (error, response, body) {
         if (!error) {
+          let rawHTML = body
           contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Article has been fetched'})
+
+          // Pre-process with cheerio
+
+          if (elementRemovalList.length) {
+            let $ = cheerio.load(rawHTML)
+            for (let i = 0; i < elementRemovalList.length; i++) {
+              $(elementRemovalList[i]).remove()
+              console.log(elementRemovalList[i])
+            }
+            rawHTML = $.html()
+          }
 
           // Different Parsing Options
           if (parsingStrategy === 'standard') {
@@ -55,15 +72,7 @@ function instantContentMunch (link, articleSummaryCached) {
             let articleObj = {}
             let unfluffextractor = require('unfluff')
 
-            let $ = cheerio.load(body)
-            $('nav').remove()
-            $('#alerte_tracking').remove()
-            $('.bloc_signature').remove()
-            $('meta[property=og\\:title]').remove()
-            $('meta[property=twitter\\:title]').remove()
-            body = $.html()
-
-            articleObj = unfluffextractor(body)
+            articleObj = unfluffextractor(rawHTML)
             articleObj.originalLink = link
             articleObj.displaystrategy = displayStrategy
             articleObj.parsingstrategy = parsingStrategy

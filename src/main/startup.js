@@ -225,7 +225,7 @@ function checkStage15 () {
     var Datastore = require('nedb')
     var db = new Datastore({ filename: path.join(global.appFolders.config, 'feeds.db'), autoload: true })
     /* eslint-disable */
-    var samplefeeds = [{ name: 'The Guardian', uiorder: 1, rss: ['http://www.theguardian.com/rss'], host: 'www.theguardian.com' },
+    var samplefeeds = [{ name: 'The Guardian', uiorder: 1, rss: ['http://www.theguardian.com/rss'], strategy: {removeel: ['meta[name="description"]','.tonal__standfirst']}, host: 'www.theguardian.com' },
                        { name: 'The Independent', uiorder: 2, rss: ['http://www.independent.co.uk/rss'], host: 'www.independent.co.uk'},
                        { name: 'TechCrunch', uiorder: 3, rss: ['http://feeds.feedburner.com/TechCrunch/'], host: 'www.techcrunch.com'},
                        { name: 'Der Spiegel', uiorder: 4,
@@ -252,9 +252,9 @@ function checkStage15 () {
                        'http://rss.focus.de/sport/',
                        'http://rss.focus.de/digital/',
                        'http://rss.focus.de/finanzen'
-                     ], host: 'www.focus.de' },
+                     ], strategy: ['meta[name="description"]','meta[name="twitter:description"]','meta[property="og:description"]'],host: 'www.focus.de' },
                        { name: 'Kotaku', uiorder: 9, rss: ['http://www.kotaku.com/rss'], host: 'www.kotaku.com' },
-                       { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], strategy: {removeel:['#alerte_tracking']}, host: 'www.lemonde.fr' },
+                       { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], strategy: {removeel:['nav','#alerte_tracking','.bloc_signature','.description-article','.fixed-header-title','meta[property="og:title"]','meta[property="og:description"]','meta[name="twitter:title"]', 'meta[name="twitter:description"]']}, host: 'www.lemonde.fr' },
                        { name: 'Financial Times', uiorder: 12, rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
                        { name: 'Russia Today', uiorder: 13, rss: ['http://www.rt.com/rss'], host: 'www.rt.com' },
                        { name: 'Gizmodo', uiorder: 14, rss: ['http://gizmodo.com/rss'], host: 'www.gizmodo.com' },
