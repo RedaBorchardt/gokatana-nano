@@ -1,6 +1,7 @@
 import { ipcMain } from 'electron'
 import feedstore from './feedsstore.js'
 
+let cheerio = require('cheerio')
 let url = require('url')
 
 function instantContentMunch (link, articleSummaryCached) {
@@ -53,6 +54,15 @@ function instantContentMunch (link, articleSummaryCached) {
           function performStandardKatana () {
             let articleObj = {}
             let unfluffextractor = require('unfluff')
+
+            let $ = cheerio.load(body)
+            $('nav').remove()
+            $('#alerte_tracking').remove()
+            $('.bloc_signature').remove()
+            $('meta[property=og\\:title]').remove()
+            $('meta[property=twitter\\:title]').remove()
+            body = $.html()
+
             articleObj = unfluffextractor(body)
             articleObj.originalLink = link
             articleObj.displaystrategy = displayStrategy

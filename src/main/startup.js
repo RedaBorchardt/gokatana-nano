@@ -254,7 +254,7 @@ function checkStage15 () {
                        'http://rss.focus.de/finanzen'
                      ], host: 'www.focus.de' },
                        { name: 'Kotaku', uiorder: 9, rss: ['http://www.kotaku.com/rss'], host: 'www.kotaku.com' },
-                       { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], host: 'www.lemonde.fr' },
+                       { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], strategy: {removeel:['#alerte_tracking']}, host: 'www.lemonde.fr' },
                        { name: 'Financial Times', uiorder: 12, rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
                        { name: 'Russia Today', uiorder: 13, rss: ['http://www.rt.com/rss'], host: 'www.rt.com' },
                        { name: 'Gizmodo', uiorder: 14, rss: ['http://gizmodo.com/rss'], host: 'www.gizmodo.com' },
