@@ -254,7 +254,7 @@ function checkStage15 () {
                        'http://rss.focus.de/finanzen'
                      ], strategy: ['meta[name="description"]','meta[name="twitter:description"]','meta[property="og:description"]'],host: 'www.focus.de' },
                        { name: 'Kotaku', uiorder: 9, rss: ['http://www.kotaku.com/rss'], host: 'www.kotaku.com' },
-                       { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], strategy: {removeel:['nav','#alerte_tracking','.bloc_signature','.description-article','.fixed-header-title','meta[property="og:title"]','meta[property="og:description"]','meta[name="twitter:title"]', 'meta[name="twitter:description"]']}, host: 'www.lemonde.fr' },
+                       { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], strategy: {removeel:['nav','#alerte_tracking','.bloc_signature','.fixed-header-title','meta[property="og:title"]','meta[property="og:description"]','meta[name="twitter:title"]', 'meta[name="twitter:description"]']}, host: 'www.lemonde.fr' },
                        { name: 'Financial Times', uiorder: 12, rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
                        { name: 'Russia Today', uiorder: 13, rss: ['http://www.rt.com/rss'], host: 'www.rt.com' },
                        { name: 'Gizmodo', uiorder: 14, rss: ['http://gizmodo.com/rss'], host: 'www.gizmodo.com' },
