@@ -46,7 +46,7 @@ export default {
     let _this = this
 
     webviewGtopic.addEventListener('did-get-response-details', function () {
-      webviewGtopic.insertCSS('html{filter: grayscale(100%);}')
+      webviewGtopic.insertCSS('html{ filter: grayscale(100%);} ::-webkit-scrollbar {width: 5px;} ::-webkit-scrollbar-track {background: #ddd;} ::-webkit-scrollbar-thumb {background: #d66;}')
       if (!webviewGtopic.getURL().includes('duckduckgo.com') && !webviewGtopic.getURL().includes('youtube.com')) {
         webviewGtopic.setUserAgent('Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25')
       } else {

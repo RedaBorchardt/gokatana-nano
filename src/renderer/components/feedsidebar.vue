@@ -1,8 +1,8 @@
 <template>
-  <div class="pane pane-sm sidebar">
+  <div class="pane pane-sm sidebar scroll">
     <nav class="nav-group">
       <h5 class="nav-group-title">Direct Feeds</h5>
-      <dragfeed v-model='feeds' :options="{sort: true}">
+      <dragfeed v-model='feeds' :options="{sort: !BUSY_BACKEND, disabled: BUSY_BACKEND}">
         <transition-group>
           <span v-for='feed in feeds' class="nav-group-item" :class="{active: feed.selected}" @click='selectFeed(feed._id)' :key="feed.uiorder">
             <img class="img-circle media-object pull-left" :src="getFeedIcon(feed._id)" width="18">
@@ -22,6 +22,11 @@ export default {
   name: 'feedsidebar',
   components: { dragfeed },
   computed: {
+    BUSY_BACKEND: {
+      get () {
+        return this.$store.getters.getBusyFetchingArticles || this.$store.getters.getBusyCompacting
+      }
+    },
     feeds: {
       get () {
         return this.$store.getters.getFeeds
@@ -51,4 +56,15 @@ export default {
 </script>
 
 <style scoped>
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #d66;
+}
 </style>

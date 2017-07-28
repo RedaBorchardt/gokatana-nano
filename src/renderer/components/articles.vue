@@ -1,5 +1,5 @@
 <template>
-  <div class="pane" style='max-width:500px;'>
+  <div class="pane scroll" style='max-width:500px;'>
     <ul class="list-group">
       <li class="list-group-header">
         <input style='width: 50%' class="form-control" type="text" placeholder="Keyword Search" v-model="searchstring">
@@ -103,6 +103,18 @@ p {
 
 strong {
   white-space: normal
+}
+
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #d66;
 }
 
 </style>

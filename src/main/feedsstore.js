@@ -6,6 +6,7 @@ let feedsdb = new Datastore({ filename: path.join(global.appFolders.config, 'fee
 let articledb = []
 let download = require('download')
 let moment = require('moment')
+let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
 
 function retrieveFeedFromGlobal (_id) {
   for (let i = 0; i < global.feeds.length; i++) {
@@ -109,7 +110,35 @@ function insertArticleIntoDB (article, feedid) {
   })
 }
 
+function compactAllFeedsDBs () {
+  return new Promise(function (resolve, reject) {
+    let icounter = 0
+    innerLoop(icounter)
+    function innerLoop (icounter) {
+      if (icounter < global.feeds.length) {
+        compactIndividualDB(global.feeds[icounter]).then(function (response) {
+          innerLoop(icounter + 1)
+        })
+      } else {
+        resolve('feeds compacted')
+      }
+    }
+  })
+}
+
+function compactIndividualDB (feed) {
+  return new Promise(function (resolve, reject) {
+    articledb[feed._id].remove({date: {$lte: moment().startOf('day').subtract(feed.retention, 'day')}}, {multi: true}, function (err, numRemoved) {
+      if (!err) {
+        contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feed._id)
+        resolve('old entries removed')
+      }
+    })
+  })
+}
+
 export default {
   retrieveFeedsFromFeedsDB,
-  insertArticleIntoDB
+  insertArticleIntoDB,
+  compactAllFeedsDBs
 }

@@ -1,20 +1,22 @@
 <template>
-  <div class='pane' style='max-width:600px;' :class="{hidescrollbar: forcedMiniBrowser}">
-    <div class='padded-more' v-if="!forcedMiniBrowser">
+  <div class='pane scroll' style='max-width:600px;' :class="{hidescrollbar: forcedMiniBrowserShow}">
+    <div class='padded-more' v-if="!forcedMiniBrowserShow">
       <img v-if="content.image" style='width: 100%' :src="content.image">
       <h4 style='white-space: pre-line;'>{{content.title}}</h4>
     <p style='white-space: pre-line; font-size: 1.2em;' v-html="content.text">
       </p>
       <p v-html="content.copyright"></p>
     </div>
-    <webview v-if="forcedMiniBrowser" useragent="Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25"
-    class="pane-mini sidebar" id="foo" :src="content.originalLink" style="display:inline-flex; width: 100%; height: 100%" css="html {filter: grayscale(100%);}"></webview>
+    <forcedminibrowser v-if='forcedMiniBrowserShow' :url="content.originalLink"></forcedminibrowser>
   </div>
 </template>
 
 <script>
+import forcedminibrowser from './forcedminibrowser'
+
 export default {
   name: 'unfluffviewer',
+  components: { forcedminibrowser },
   computed: {
     content: {
       get () {
@@ -30,7 +32,7 @@ export default {
         return this.$store.getters.getContentInView
       }
     },
-    forcedMiniBrowser: {
+    forcedMiniBrowserShow: {
       get () {
         return this.$store.getters.getForcedMiniBrowserState
       }
@@ -40,7 +42,15 @@ export default {
 </script>
 
 <style scoped>
-.hidescrollbar {
-  overflow-y: hidden;
+.scroll::-webkit-scrollbar {
+  width: 5px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #ddd;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #d66;
 }
 </style>

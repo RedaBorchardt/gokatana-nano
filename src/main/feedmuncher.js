@@ -27,7 +27,15 @@ function fetchAllArticleHeadlines () {
       } else {
         global.BUSY_FETCHINGARTICLES = false
         contents.send('BUSY_FETCHINGARTICLES', false)
-        contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Everything is up to date'})
+        contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'All feeds updated'})
+        global.BUSY_COMPACTING = true
+        contents.send('BUSY_COMPACTING', true)
+        contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Busy compacting feeds'})
+        feedstore.compactAllFeedsDBs().then(function (response) {
+          global.BUSY_COMPACTING = true
+          contents.send('BUSY_COMPACTING', false)
+          contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Everything is up to date'})
+        })
       }
     }
 
