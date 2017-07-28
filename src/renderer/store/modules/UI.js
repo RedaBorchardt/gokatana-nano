@@ -2,6 +2,7 @@ import { ipcRenderer, remote } from 'electron'
 
 const state = [{
   BUSY_FETCHINGARTICLES: remote.getGlobal('BUSY_FETCHINGARTICLES'),
+  BUSY_COMPACTING: remote.getGlobal('BUSY_COMPACTING'),
   ONLINE_STATUS: remote.getGlobal('ONLINE_STATUS'),
   BLADEVIEWER: true,
   HEADLINEVIEWER: true,
@@ -17,6 +18,9 @@ const state = [{
 const mutations = {
   BUSY_FETCHINGARTICLES (state, arg) {
     state[0].BUSY_FETCHINGARTICLES = arg
+  },
+  BUSY_COMPACTING (state, arg) {
+    state[0].BUSY_COMPACTING = arg
   },
   ONLINE_STATUS_CHANGED (state) {
     state[0].ONLINE_STATUS = remote.getGlobal('ONLINE_STATUS')
@@ -57,6 +61,9 @@ const mutations = {
 const getters = {
   getBusyFetchingArticles (state) {
     return state[0].BUSY_FETCHINGARTICLES
+  },
+  getBusyCompacting (state) {
+    return state[0].BUSY_COMPACTING
   },
   getOnlineStatus (state) {
     return state[0].ONLINE_STATUS
@@ -100,6 +107,11 @@ const actions = {
   checkIfBackendIsBusyFetchingArticles ({commit}) {
     ipcRenderer.on('BUSY_FETCHINGARTICLES', function (event, arg) {
       commit('BUSY_FETCHINGARTICLES', arg)
+    })
+  },
+  checkIfBackendIsBusyCompacting ({commit}) {
+    ipcRenderer.on('BUSY_COMPACTING', function (event, arg) {
+      commit('BUSY_COMPACTING', arg)
     })
   },
   checkIfApplicationIsOnline ({commit}) {

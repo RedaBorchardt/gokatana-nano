@@ -6,6 +6,7 @@
         Refresh
       </button>
       <button v-if='BUSY_FETCHINGARTICLES && ONLINE_STATUS' class="btn btn-warning pull-right" disabled>Fetching</button>
+      <button v-if='BUSY_COMPACTING && ONLINE_STATUS' class="btn btn-warning pull-right" disabled>Compacting Database</button>
       <button v-if='!ONLINE_STATUS' class="btn btn-error pull-right" disabled>Offline</button>
     </div>
   </footer>
@@ -20,6 +21,11 @@ export default {
     BUSY_FETCHINGARTICLES: {
       get () {
         return this.$store.getters.getBusyFetchingArticles
+      }
+    },
+    BUSY_COMPACTING: {
+      get () {
+        return this.$store.getters.getBusyCompacting
       }
     },
     ONLINE_STATUS: {

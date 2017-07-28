@@ -225,10 +225,10 @@ function checkStage15 () {
     var Datastore = require('nedb')
     var db = new Datastore({ filename: path.join(global.appFolders.config, 'feeds.db'), autoload: true })
     /* eslint-disable */
-    var samplefeeds = [{ name: 'The Guardian', uiorder: 1, rss: ['http://www.theguardian.com/rss'], strategy: {removeel: ['meta[name="description"]','.tonal__standfirst']}, host: 'www.theguardian.com' },
-                       { name: 'The Independent', uiorder: 2, rss: ['http://www.independent.co.uk/rss'], host: 'www.independent.co.uk'},
-                       { name: 'TechCrunch', uiorder: 3, rss: ['http://feeds.feedburner.com/TechCrunch/'], host: 'www.techcrunch.com'},
-                       { name: 'Der Spiegel', uiorder: 4,
+    var samplefeeds = [{ name: 'The Guardian', retention: 2, uiorder: 1, rss: ['http://www.theguardian.com/rss'], strategy: {removeel: ['meta[name="description"]','.tonal__standfirst']}, host: 'www.theguardian.com' },
+                       { name: 'The Independent', retention: 2, uiorder: 2, rss: ['http://www.independent.co.uk/rss'], host: 'www.independent.co.uk'},
+                       { name: 'TechCrunch', retention: 2, uiorder: 3, rss: ['http://feeds.feedburner.com/TechCrunch/'], host: 'www.techcrunch.com'},
+                       { name: 'Der Spiegel', retention: 2, uiorder: 4,
                        rss: ['http://www.spiegel.de/schlagzeilen/index.rss',
                        'http://www.spiegel.de/politik/index.rss',
                        'http://www.spiegel.de/wirtschaft/index.rss',
@@ -242,8 +242,8 @@ function checkStage15 () {
                        'http://www.spiegel.de/auto/index.rss',
                        'http://www.spiegel.de/video/index.rss'
                      ], host: 'http://www.spiegel.de' },
-                       { name: 'Evening Standard', uiorder: 5, rss: ['http://www.standard.co.uk/rss'], host: 'www.standard.co.uk' },
-                       { name: 'Focus', uiorder: 8,
+                       { name: 'Evening Standard', retention: 2, uiorder: 5, rss: ['http://www.standard.co.uk/rss'], host: 'www.standard.co.uk' },
+                       { name: 'Focus', retention: 2, uiorder: 8,
                        rss: ['http://rss.focus.de/',
                        'http://rss.focus.de/politik/',
                        'http://rss.focus.de/wissen/',
@@ -253,22 +253,22 @@ function checkStage15 () {
                        'http://rss.focus.de/digital/',
                        'http://rss.focus.de/finanzen'
                      ], strategy: ['meta[name="description"]','meta[name="twitter:description"]','meta[property="og:description"]'],host: 'www.focus.de' },
-                       { name: 'Kotaku', uiorder: 9, rss: ['http://www.kotaku.com/rss'], host: 'www.kotaku.com' },
-                       { name: 'Le Monde', uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], strategy: {removeel:['nav','#alerte_tracking','.bloc_signature','.fixed-header-title','meta[property="og:title"]','meta[property="og:description"]','meta[name="twitter:title"]', 'meta[name="twitter:description"]']}, host: 'www.lemonde.fr' },
-                       { name: 'Financial Times', uiorder: 12, rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
-                       { name: 'Russia Today', uiorder: 13, rss: ['http://www.rt.com/rss'], host: 'www.rt.com' },
-                       { name: 'Gizmodo', uiorder: 14, rss: ['http://gizmodo.com/rss'], host: 'www.gizmodo.com' },
-                       { name: 'Brexit', uiorder: 15, rss: ['https://news.google.com/news/rss/search/section/q/brexit/brexit?hl=en-GB&ned=uk'], host: 'www.gmail.com' },
-                       { name: 'TED Talks', uiorder: 17, rss: ['https://pa.tedcdn.com/feeds/talks.rss'], host: 'www.ted.com' },
-                       { name: 'TechRadar', uiorder: 18, rss: ['http://www.techradar.com/rss'], host: 'www.techradar.com' },
-                       { name: 'Lifehacker', uiorder: 19, rss: ['http://lifehacker.com/rss'], host: 'www.lifehacker.com' },
-                       { name: 'BBC World', uiorder: 20, rss: ['http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk'], host: 'www.bbc.co.uk' },
-                       { name: 'New York Times', uiorder: 27, rss: ['http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'], host: 'www.nytimes.com' },
-                       { name: 'The Epoch Times', uiorder: 29, rss: ['http://www.theepochtimes.com/n3/c/world/feed/'], host: 'www.theepochtimes.com'},
-                       { name: 'Huffington Post', uiorder: 27, rss: ['http://www.huffingtonpost.co.uk/feeds/news.xml'], strategy: {display: 'minioverride'}, host: 'www.huffingtonpost.co.uk'},
-                       { name: 'Wall Street Journal', uiorder: 28, rss: ['http://www.wsj.com/xml/rss/3_7085.xml'], host: 'www.wsj.com'},
-                       { name: 'Reuters', uiorder: 29, rss: ['http://feeds.reuters.com/reuters/UKTopNews'], host: 'www.reuters.com'},
-                       { name: 'Daily Mail', uiorder: 30, rss: ['http://www.dailymail.co.uk/articles.rss'], host: 'www.dailymail.co.uk'}
+                       { name: 'Kotaku', retention: 2, uiorder: 9, rss: ['http://www.kotaku.com/rss'], host: 'www.kotaku.com' },
+                       { name: 'Le Monde', retention: 2, uiorder: 10, rss: ['http://www.lemonde.fr/rss/une.xml'], strategy: {removeel:['nav','#alerte_tracking','.bloc_signature','.fixed-header-title','meta[property="og:title"]','meta[property="og:description"]','meta[name="twitter:title"]', 'meta[name="twitter:description"]']}, host: 'www.lemonde.fr' },
+                       { name: 'Financial Times', retention: 2, uiorder: 12, rss: ['http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'], strategy: {display: 'minioverride'}, host: 'ft.com' },
+                       { name: 'Russia Today', retention: 2, uiorder: 13, rss: ['http://www.rt.com/rss'], host: 'www.rt.com' },
+                       { name: 'Gizmodo', retention: 2, uiorder: 14, rss: ['http://gizmodo.com/rss'], host: 'www.gizmodo.com' },
+                       { name: 'Brexit', retention: 2, uiorder: 15, rss: ['https://news.google.com/news/rss/search/section/q/brexit/brexit?hl=en-GB&ned=uk'], host: 'www.gmail.com' },
+                       { name: 'TED Talks', retention: 365, uiorder: 17, rss: ['https://pa.tedcdn.com/feeds/talks.rss'], host: 'www.ted.com' },
+                       { name: 'TechRadar', retention: 2, uiorder: 18, rss: ['http://www.techradar.com/rss'], host: 'www.techradar.com' },
+                       { name: 'Lifehacker', retention: 2, uiorder: 19, rss: ['http://lifehacker.com/rss'], host: 'www.lifehacker.com' },
+                       { name: 'BBC World', retention: 2, uiorder: 20, rss: ['http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk'], host: 'www.bbc.co.uk' },
+                       { name: 'New York Times', retention: 2, uiorder: 27, rss: ['http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'], host: 'www.nytimes.com' },
+                       { name: 'The Epoch Times', retention: 2, uiorder: 29, rss: ['http://www.theepochtimes.com/n3/c/world/feed/'], host: 'www.theepochtimes.com'},
+                       { name: 'Huffington Post', retention: 2, uiorder: 27, rss: ['http://www.huffingtonpost.co.uk/feeds/news.xml'], strategy: {display: 'minioverride'}, host: 'www.huffingtonpost.co.uk'},
+                       { name: 'Wall Street Journal', retention: 2, uiorder: 28, rss: ['http://www.wsj.com/xml/rss/3_7085.xml'], host: 'www.wsj.com'},
+                       { name: 'Reuters', retention: 2, uiorder: 29, rss: ['http://feeds.reuters.com/reuters/UKTopNews'], host: 'www.reuters.com'},
+                       { name: 'Daily Mail', retention: 1, maxitems: 666, uiorder: 30, rss: ['http://www.dailymail.co.uk/articles.rss'], host: 'www.dailymail.co.uk'}
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {

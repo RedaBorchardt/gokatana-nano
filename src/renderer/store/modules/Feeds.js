@@ -12,6 +12,7 @@ const mutations = {
     for (let i = 0; i < state.subscriptions.length; i++) {
       state.subscriptions[i].count = ipcRenderer.sendSync('RETRIEVE_COUNT_FROM_ARTICLEDB', state.subscriptions[i]._id)
     }
+    ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
   },
   HOIST_ARTICLE_COUNT (state, arg) {
     for (let i = 0; i < state.subscriptions.length; i++) {
@@ -21,6 +22,7 @@ const mutations = {
     }
     state.subscriptions.push('update')
     state.subscriptions.pop()
+    ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
   },
   SET_SELECTED_FEED (state, feedid) {
     for (let i = 0; i < state.subscriptions.length; i++) {
@@ -31,6 +33,7 @@ const mutations = {
     }
     state.subscriptions.push('update')
     state.subscriptions.pop()
+    ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
   },
   UPDATE_FEED_ON_DROP (state, obj) {
     let x = obj.length
@@ -39,6 +42,7 @@ const mutations = {
     }
     state.subscriptions = obj
     ipcRenderer.send('SAVE_NEW_FEEDS_UIORDER', state.subscriptions)
+    ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
   }
 }
 

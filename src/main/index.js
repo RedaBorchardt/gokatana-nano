@@ -10,11 +10,17 @@ global.appFolders = {
   config: path.join(app.getPath('appData'), 'com.gokatana.nano', 'config'),
   cache: path.join(app.getPath('appData'), 'com.gokatana.nano', 'cache'),
   tmp: path.join(app.getPath('appData'), 'com.gokatana.nano', 'tmp'),
-  archive: path.join(app.getPath('appData'), 'com.gokatana.nano', 'archive'),
-
-  BUSY_FETCHINGARTICLES: false,
-  ONLINE_STATUS: 'online'
+  archive: path.join(app.getPath('appData'), 'com.gokatana.nano', 'archive')
 }
+
+global.BUSY_FETCHINGARTICLES = false
+global.BUSY_COMPACTING = false
+global.ONLINE_STATUS = 'online'
+global.feeds = []
+
+ipcMain.on('FEEDS_STORE_IN_MAIN', function (event, feeds) {
+  global.feeds = feeds
+})
 
 ipcMain.on('ONLINE_STATUS_CHANGED', function (event, status) {
   global.ONLINE_STATUS = status

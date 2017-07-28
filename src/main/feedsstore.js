@@ -7,9 +7,19 @@ let articledb = []
 let download = require('download')
 let moment = require('moment')
 
+function retrieveFeedFromGlobal (_id) {
+  for (let i = 0; i < global.feeds.length; i++) {
+    if (global.feeds[i]._id === _id) {
+      return global.feeds[i]
+    }
+  }
+  return 0
+}
+
 ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
   feedsdb.find({}).sort({ uiorder: 1 }).exec(function (err, docs) {
     if (!err) {
+      global.feeds = docs
       registerArticleDBHandles(docs)
       let iconDownloadList = []
       for (let i = 0; i < docs.length; i++) {
@@ -42,7 +52,8 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
 })
 
 ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
-  articledb[feedid].count({date: {$gte: moment().startOf('day').subtract(1, 'day')}}, function (err, count) {
+  let retention = retrieveFeedFromGlobal(feedid).retention
+  articledb[feedid].count({date: {$gte: moment().startOf('day').subtract(retention, 'day')}}, function (err, count) {
     if (!err) {
       event.returnValue = count
     }
@@ -50,7 +61,8 @@ ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
 })
 
 ipcMain.on('RETRIEVE_ARTICLES', function (event, feedid) {
-  articledb[feedid].find({date: {$gte: moment().startOf('day').subtract(1, 'day')}}).sort({ date: -1 }).exec(function (err, docs) {
+  let retention = retrieveFeedFromGlobal(feedid).retention
+  articledb[feedid].find({date: {$gte: moment().startOf('day').subtract(retention, 'day')}}).sort({ date: -1 }).exec(function (err, docs) {
     if (!err) {
       event.returnValue = docs
     }
