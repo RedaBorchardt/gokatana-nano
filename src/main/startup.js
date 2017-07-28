@@ -268,7 +268,14 @@ function checkStage15 () {
                        { name: 'Huffington Post', retention: 2, uiorder: 27, rss: ['http://www.huffingtonpost.co.uk/feeds/news.xml'], strategy: {display: 'minioverride'}, host: 'www.huffingtonpost.co.uk'},
                        { name: 'Wall Street Journal', retention: 2, uiorder: 28, rss: ['http://www.wsj.com/xml/rss/3_7085.xml'], host: 'www.wsj.com'},
                        { name: 'Reuters', retention: 2, uiorder: 29, rss: ['http://feeds.reuters.com/reuters/UKTopNews'], host: 'www.reuters.com'},
-                       { name: 'Daily Mail', retention: 1, maxitems: 666, uiorder: 30, rss: ['http://www.dailymail.co.uk/articles.rss'], host: 'www.dailymail.co.uk'}
+                       { name: 'Daily Mail', retention: 1, maxitems: 666, uiorder: 30, rss: ['http://www.dailymail.co.uk/articles.rss'], host: 'www.dailymail.co.uk'},
+                       { name: 'Daily Express', retention: 2, uiorder: 31, rss: ['http://feeds.feedburner.com/daily-express-news-showbiz'], host: 'www.express.co.uk'},
+                       { name: 'Daily Star', retention: 2, uiorder: 32, rss: ['http://feeds.feedburner.com/daily-star-Latest-News'], host: 'www.dailystar.co.uk'},
+                       { name: 'CBS News', retention: 2, uiorder: 33, rss: ['http://www.cbsnews.com/latest/rss/main'], host: 'www.cbsnews.com'},
+                       { name: 'New York Post', retention: 2, uiorder: 34, rss: ['http://nypost.com/feed/'], host: 'www.nypost.com'},
+                       { name: 'USA Today', retention: 2, uiorder: 35, rss: ['http://rssfeeds.usatoday.com/usatoday-NewsTopStories'], host: 'usatoday.com'},
+                       { name: 'Washington Post', retention: 2, uiorder: 36, rss: ['http://feeds.washingtonpost.com/rss/politics'], host: 'washingtonpost.com'},
+                       { name: 'The Daily Beast', retention: 2, uiorder: 36, rss: ['http://feeds.feedburner.com/thedailybeast/articles'], host: 'dailybeast.com'}
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
