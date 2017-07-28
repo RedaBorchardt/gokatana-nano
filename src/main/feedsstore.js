@@ -5,6 +5,7 @@ let Promise = require('promise')
 let feedsdb = new Datastore({ filename: path.join(global.appFolders.config, 'feeds.db'), autoload: true })
 let articledb = []
 let download = require('download')
+let moment = require('moment')
 
 ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
   feedsdb.find({}).sort({ uiorder: 1 }).exec(function (err, docs) {
@@ -41,7 +42,7 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
 })
 
 ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
-  articledb[feedid].count({}, function (err, count) {
+  articledb[feedid].count({date: {$gte: moment().startOf('day').subtract(1, 'day')}}, function (err, count) {
     if (!err) {
       event.returnValue = count
     }
@@ -49,7 +50,7 @@ ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
 })
 
 ipcMain.on('RETRIEVE_ARTICLES', function (event, feedid) {
-  articledb[feedid].find({}).sort({ date: -1 }).exec(function (err, docs) {
+  articledb[feedid].find({date: {$gte: moment().startOf('day').subtract(1, 'day')}}).sort({ date: -1 }).exec(function (err, docs) {
     if (!err) {
       event.returnValue = docs
     }

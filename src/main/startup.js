@@ -267,7 +267,8 @@ function checkStage15 () {
                        { name: 'The Epoch Times', uiorder: 29, rss: ['http://www.theepochtimes.com/n3/c/world/feed/'], host: 'www.theepochtimes.com'},
                        { name: 'Huffington Post', uiorder: 27, rss: ['http://www.huffingtonpost.co.uk/feeds/news.xml'], host: 'www.huffingtonpost.co.uk'},
                        { name: 'Wall Street Journal', uiorder: 28, rss: ['http://www.wsj.com/xml/rss/3_7085.xml'], host: 'www.wsj.com'},
-                       { name: 'Reuters', uiorder: 29, rss: ['http://feeds.reuters.com/reuters/UKTopNews'], host: 'www.reuters.com'}
+                       { name: 'Reuters', uiorder: 29, rss: ['http://feeds.reuters.com/reuters/UKTopNews'], host: 'www.reuters.com'},
+                       { name: 'Daily Mail', uiorder: 30, rss: ['http://www.dailymail.co.uk/articles.rss'], host: 'www.dailymail.co.uk'}
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
