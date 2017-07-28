@@ -53,7 +53,6 @@ function instantContentMunch (link, articleSummaryCached) {
             let $ = cheerio.load(rawHTML)
             for (let i = 0; i < elementRemovalList.length; i++) {
               $(elementRemovalList[i]).remove()
-              console.log(elementRemovalList[i])
             }
             rawHTML = $.html()
           }

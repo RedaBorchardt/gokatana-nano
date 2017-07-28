@@ -265,7 +265,7 @@ function checkStage15 () {
                        { name: 'BBC World', uiorder: 20, rss: ['http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk'], host: 'www.bbc.co.uk' },
                        { name: 'New York Times', uiorder: 27, rss: ['http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'], host: 'www.nytimes.com' },
                        { name: 'The Epoch Times', uiorder: 29, rss: ['http://www.theepochtimes.com/n3/c/world/feed/'], host: 'www.theepochtimes.com'},
-                       { name: 'Huffington Post', uiorder: 27, rss: ['http://www.huffingtonpost.co.uk/feeds/news.xml'], host: 'www.huffingtonpost.co.uk'},
+                       { name: 'Huffington Post', uiorder: 27, rss: ['http://www.huffingtonpost.co.uk/feeds/news.xml'], strategy: {display: 'minioverride'}, host: 'www.huffingtonpost.co.uk'},
                        { name: 'Wall Street Journal', uiorder: 28, rss: ['http://www.wsj.com/xml/rss/3_7085.xml'], host: 'www.wsj.com'},
                        { name: 'Reuters', uiorder: 29, rss: ['http://feeds.reuters.com/reuters/UKTopNews'], host: 'www.reuters.com'},
                        { name: 'Daily Mail', uiorder: 30, rss: ['http://www.dailymail.co.uk/articles.rss'], host: 'www.dailymail.co.uk'}
