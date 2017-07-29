@@ -60,6 +60,6 @@ session.defaultSession.webRequest.onBeforeSendHeaders(filterAfter, function (det
    details.requestHeaders['Referer'] = newHeader.referer.value
   // remove cache
    details.requestHeaders['cacheControl'] = newHeader.cacheControl.value
-   details.requestHeaders['Cookie'] = newHeader.cacheControl.value
+   details.requestHeaders['Cookie'] = newHeader.cookie.value
   callback({cancel: false, requestHeaders: details.requestHeaders})
 })

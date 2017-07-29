@@ -1,9 +1,9 @@
 <template>
-  <div class='pane scroll' style='max-width:600px;' :class="{hidescrollbar: forcedMiniBrowserShow}">
+  <div id='scrollpane' class='pane scroll' style='max-width:600px;' :class="{hidescrollbar: forcedMiniBrowserShow}">
     <div class='padded-more' v-if="!forcedMiniBrowserShow">
       <img v-if="content.image" style='width: 100%' :src="content.image">
-      <h4 style='white-space: pre-line;'>{{content.title}}</h4>
-    <p style='white-space: pre-line; font-size: 1.2em;' v-html="content.text">
+      <h4 style='white-space: pre-line;-webkit-user-select:text'>{{content.title}}</h4>
+    <p style='white-space: pre-line; font-size: 1.2em;-webkit-user-select:text' v-html="content.text">
       </p>
       <p v-html="content.copyright"></p>
     </div>
@@ -37,6 +37,9 @@ export default {
         return this.$store.getters.getForcedMiniBrowserState
       }
     }
+  },
+  updated () {
+    this.$el.scrollTop = 0
   }
 }
 </script>

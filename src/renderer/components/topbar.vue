@@ -24,6 +24,11 @@
         <span class="icon icon-resize-small"></span>
       </button>
 
+      <button v-if="isThereLink" class="btn btn-default pull-right" @click='openLinkInBrowser(isThereLink)'>
+        <span class="icon icon-export icon-text"></span>
+        External Browser
+      </button>
+
       <div class="btn-group">
         <button class="btn" :class="{'btn-positive': mobileLinkState && mobileViewState, 'btn-default': !mobileLinkState && mobileViewState}" @click='toggleMobileLinkState'>
           <span class="icon icon-link" :class="{whiteicon: mobileLinkState && mobileViewState, 'btn-default': !mobileLinkState && mobileViewState}"></span>
@@ -51,9 +56,16 @@
 </template>
 
 <script>
+import { shell } from 'electron'
+
 export default {
   name: 'topbar',
   computed: {
+    isThereLink: {
+      get () {
+        return this.$store.getters.getContentInView.originalLink
+      }
+    },
     isfullscreen: {
       get () {
         return this.$store.getters.getIsFullscreen
@@ -127,6 +139,9 @@ export default {
     },
     toggleFullScreen () {
       this.$store.dispatch('toggleFullScreen')
+    },
+    openLinkInBrowser (link) {
+      shell.openExternal(link)
     }
   }
 }

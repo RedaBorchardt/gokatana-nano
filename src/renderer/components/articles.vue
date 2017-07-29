@@ -11,7 +11,7 @@
           <img class="img-circle media-object pull-left" :src="getFeedIcon(article._feedid)" width="18" height="18">
           <div class="media-body" style='min-height: 35px'>
             <strong v-html="article.title"></strong>
-            <p v-if='article.summary' v-html="parsedOutput(article.summary.trunc(280, true))"></p>
+            <p v-if='article.summary' v-html="parsedOutput(article.summary.trunc(280, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
           </div>
           <p style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 26px;'><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
       </li>
@@ -90,7 +90,24 @@ export default {
     }
   },
   mounted () {
+    let _this = this
+
     this.$store.dispatch('listenForContentFromBackend')
+
+    ipcRenderer.on('NEW_FEED_SELECTED', function (event, arg) {
+      _this.$el.scrollTop = 0
+    })
+
+    ipcRenderer.on('PUSH_UPDATED_FEED_TO_CLIENT', function (event, feedid) {
+      if (_this.$store.getters.getArticlesInView[0]) {
+        if (_this.$store.getters.getArticlesInView[0]._feedid === feedid) {
+          _this.$store.dispatch('retrieveArticles', feedid)
+        }
+      } else {
+        _this.$store.dispatch('retrieveArticles', _this.$store.getters.getFeeds[0]._id)
+        _this.$store.dispatch('setSelectedFeed', _this.$store.getters.getFeeds[0]._id)
+      }
+    })
   }
 }
 </script>

@@ -1,12 +1,17 @@
 <template>
-  <div class="pane pane-sm sidebar scroll">
+  <div class="pane pane-sm sidebar scroll" style="flex: inherit; max-width: none; min-width: 240px; overflow-x: hidden;">
     <nav class="nav-group">
       <h5 class="nav-group-title">Direct Feeds</h5>
-      <dragfeed v-model='feeds' :options="{sort: !BUSY_BACKEND, disabled: BUSY_BACKEND}">
+      <dragfeed v-model='feeds' :options="{sort: !BUSY_BACKEND, disabled: BUSY_BACKEND, handle: '.dragitem'}">
         <transition-group>
-          <span v-for='feed in feeds' class="nav-group-item" :class="{active: feed.selected}" @click='selectFeed(feed._id)' :key="feed.uiorder">
+          <span v-for='feed in feeds' class="nav-group-item" :class="{active: feed.selected}" @click='selectFeed(feed._id)' :key="feed.uiorder" style="align">
+            <span v-if='!BUSY_BACKEND' class="icon icon-menu pull-left dragitem" style='color: #cccccc;'></span>
+            <span v-if='BUSY_BACKEND' class="icon icon-air pull-left" style='color: #dddddd;'></span>
             <img class="img-circle media-object pull-left" :src="getFeedIcon(feed._id)" width="18">
-            {{feed.name}} ({{feed.count}})
+            {{feed.name}}
+              <span class="counter pull-right">
+                {{feed.count}}
+              </span>
           </span>
         </transition-group>
       </dragfeed>
@@ -56,6 +61,18 @@ export default {
 </script>
 
 <style scoped>
+.counter {
+  background-color: #eeeeee;
+  color: #777777;
+  font-size: 75%;
+  border-radius: 4px;
+  vertical-align: baseline;
+  text-align: center;
+  display: inline;
+  padding: .2em .6em .3em;
+  line-height: 1.6em;
+}
+
 .scroll::-webkit-scrollbar {
   width: 5px;
 }
@@ -66,5 +83,10 @@ export default {
 
 .scroll::-webkit-scrollbar-thumb {
   background: #d66;
+}
+
+.nav-group-item {
+  font-size: 1em;
+  padding-left: 10px;
 }
 </style>

@@ -73,6 +73,9 @@ export default {
     webviewGtopic.addEventListener('leave-html-full-screen', function () {
       _this.$store.dispatch('toggleFullScreenFromVideo')
     })
+  },
+  updated () {
+    this.$el.scrollTop = 0
   }
 }
 </script>
