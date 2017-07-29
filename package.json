@@ -57,7 +57,14 @@
     "axios": "^0.16.1",
     "vue-electron": "^1.0.6",
     "vue-router": "^2.5.3",
-    "vuex": "^2.3.1"
+    "vuex": "^2.3.1",
+    "vuedraggable": "^2.14.1",
+    "unfluff": "^1.1.0",
+    "text-summary": "^2.0.4",
+    "node-readability": "^2.2.0",
+    "node-feedparser": "^1.0.1",
+    "nedb": "^1.8.0",
+    "moment": "^2.18.1"
   },
   "devDependencies": {
     "babel-core": "^6.22.1",
