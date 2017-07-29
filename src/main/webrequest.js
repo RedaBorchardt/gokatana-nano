@@ -39,7 +39,6 @@ let filterAfter = {
 session.defaultSession.webRequest.onBeforeRequest(['*'],function (details, callback) {
   let blocklist = /cxense-candy.js|mtr.js/gi
   if (blocklist.test(details.url)) {
-    console.log('BINGO')
     callback({cancel: true})
   } else {
     callback({cancel: false})

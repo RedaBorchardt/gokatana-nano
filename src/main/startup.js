@@ -274,8 +274,9 @@ function checkStage15 () {
                        { name: 'CBS News', retention: 2, uiorder: 33, rss: ['http://www.cbsnews.com/latest/rss/main'], host: 'www.cbsnews.com'},
                        { name: 'New York Post', retention: 2, uiorder: 34, rss: ['http://nypost.com/feed/'], host: 'www.nypost.com'},
                        { name: 'USA Today', retention: 2, uiorder: 35, rss: ['http://rssfeeds.usatoday.com/usatoday-NewsTopStories'], host: 'usatoday.com'},
-                       { name: 'Washington Post', retention: 2, uiorder: 36, rss: ['http://feeds.washingtonpost.com/rss/politics'], host: 'washingtonpost.com'},
-                       { name: 'The Daily Beast', retention: 2, uiorder: 36, rss: ['http://feeds.feedburner.com/thedailybeast/articles'], host: 'dailybeast.com'}
+                       { name: 'Washington Post', retention: 2, uiorder: 37, rss: ['http://feeds.washingtonpost.com/rss/politics'], host: 'washingtonpost.com'},
+                       { name: 'The Daily Beast', retention: 2, uiorder: 38, rss: ['http://feeds.feedburner.com/thedailybeast/articles'], host: 'dailybeast.com'},
+                       { name: 'Bild', retention: 2, uiorder: 39, rss: ['http://www.bild.de/rssfeeds/vw-alles/vw-alles-26970192,sort=1,view=rss2.bild.xml'], strategy: {removeel: ['.main-nav']}, host: 'bild.de'}
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
