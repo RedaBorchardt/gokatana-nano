@@ -280,11 +280,10 @@ function checkStage15 () {
                        { name: 'Kyiv Post', retention: 2, uiorder: 39, rss: ['https://www.kyivpost.com/feed'], host: 'kyivpost.com'},
                        { name: 'Prague Post', retention: 2, uiorder: 40, rss: ['https://www.praguepost.com/feed'], host: 'praguepost.com'},
                        { name: 'Moscow Times', retention: 2, uiorder: 41, rss: ['https://themoscowtimes.com/info/rss'], host: 'themoscowtimes.com'},
-                       { name: 'France24', retention: 2, uiorder: 42, rss: ['http://www.france24.com/en/top-stories/rss'], host: 'france24.com'},
-                       { name: 'Al Jazeera', retention: 2, uiorder: 43, rss: ['http://www.aljazeera.com/xml/rss/all.xml'], host: 'aljazeera.com'},
-                       { name: 'Pakistan Nation', retention: 2, uiorder: 44, rss: ['http://nation.com.pk/feeds'], host: 'nation.com.pk'},
-                       { name: 'Indian Express', retention: 2, uiorder: 45, rss: ['http://indianexpress.com/print/front-page/feed/'], host: 'indianexpress.com'},
-                       { name: 'News Biscuit', retention: 2, uiorder: 46, rss: ['http://www.newsbiscuit.com/feed/'], host: 'newsbiscuit.com'},
+                       { name: 'Al Jazeera', retention: 2, uiorder: 42, rss: ['http://www.aljazeera.com/xml/rss/all.xml'], host: 'aljazeera.com'},
+                       { name: 'Pakistan Nation', retention: 2, uiorder: 43, rss: ['http://nation.com.pk/feeds'], host: 'nation.com.pk'},
+                       { name: 'Indian Express', retention: 2, uiorder: 44, rss: ['http://indianexpress.com/print/front-page/feed/'], host: 'indianexpress.com'},
+                       { name: 'News Biscuit', retention: 2, uiorder: 45, rss: ['http://www.newsbiscuit.com/feed/'], host: 'newsbiscuit.com'},
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
