@@ -11,6 +11,7 @@ export default {
   props: ['url'],
   mounted () {
     var webview = document.querySelector('#forcedmini')
+    let _this = this
 
     webview.addEventListener('did-get-response-details', function () {
       webview.insertCSS('::-webkit-scrollbar {width: 5px;} ::-webkit-scrollbar-track {background: #ddd;} ::-webkit-scrollbar-thumb {background: #d66;}')
@@ -18,6 +19,14 @@ export default {
 
     webview.addEventListener('enter-html-full-screen', function () {
       require('electron').remote.getCurrentWindow().setFullScreen(false)
+    })
+
+    webview.addEventListener('enter-html-full-screen', function () {
+      _this.$store.dispatch('toggleFullScreenFromVideo')
+    })
+
+    webview.addEventListener('leave-html-full-screen', function () {
+      _this.$store.dispatch('toggleFullScreenFromVideo')
     })
   }
 }

@@ -67,7 +67,11 @@ export default {
       if (_this.$store.getters.getGTopicViewLinkState) {
         _this.$store.dispatch('toggleGTopicLinkState')
       }
-      require('electron').remote.getCurrentWindow().setFullScreen(false)
+      _this.$store.dispatch('toggleFullScreenFromVideo')
+    })
+
+    webviewGtopic.addEventListener('leave-html-full-screen', function () {
+      _this.$store.dispatch('toggleFullScreenFromVideo')
     })
   }
 }

@@ -37,7 +37,11 @@ export default {
       if (_this.$store.getters.getMobileViewLinkState) {
         _this.$store.dispatch('toggleMobileLinkState')
       }
-      require('electron').remote.getCurrentWindow().setFullScreen(false)
+      _this.$store.dispatch('toggleFullScreenFromVideo')
+    })
+
+    webview.addEventListener('leave-html-full-screen', function () {
+      _this.$store.dispatch('toggleFullScreenFromVideo')
     })
   }
 }

@@ -16,8 +16,12 @@
         </button>
       </div>
 
-      <button class="btn btn-default btn-dropdown pull-right">
-        <span class="icon icon-cog"></span>
+      <button v-if="!isfullscreen" class="btn btn-default pull-right" @click='toggleFullScreen'>
+        <span class="icon icon-resize-full"></span>
+      </button>
+
+      <button v-if="isfullscreen" class="btn btn-default pull-right" @click='toggleFullScreen'>
+        <span class="icon icon-resize-small"></span>
       </button>
 
       <div class="btn-group">
@@ -42,7 +46,6 @@
           {{gtopicMode}}
         </button>
       </div>
-
     </div>
   </header>
 </template>
@@ -51,6 +54,11 @@
 export default {
   name: 'topbar',
   computed: {
+    isfullscreen: {
+      get () {
+        return this.$store.getters.getIsFullscreen
+      }
+    },
     katanaViewState: {
       get () {
         return this.$store.getters.getKatanaViewState
@@ -116,6 +124,9 @@ export default {
     },
     toggleBladeView () {
       this.$store.dispatch('toggleBladeViewer')
+    },
+    toggleFullScreen () {
+      this.$store.dispatch('toggleFullScreen')
     }
   }
 }
@@ -124,5 +135,14 @@ export default {
 <style scoped>
 .whiteicon {
   color: white;
+}
+
+header {
+  min-height: 32px;
+  max-height: 32px;
+}
+
+button {
+  height: 24px
 }
 </style>

@@ -274,9 +274,17 @@ function checkStage15 () {
                        { name: 'CBS News', retention: 2, uiorder: 33, rss: ['http://www.cbsnews.com/latest/rss/main'], host: 'www.cbsnews.com'},
                        { name: 'New York Post', retention: 2, uiorder: 34, rss: ['http://nypost.com/feed/'], host: 'www.nypost.com'},
                        { name: 'USA Today', retention: 2, uiorder: 35, rss: ['http://rssfeeds.usatoday.com/usatoday-NewsTopStories'], host: 'usatoday.com'},
-                       { name: 'Washington Post', retention: 2, uiorder: 37, rss: ['http://feeds.washingtonpost.com/rss/politics'], host: 'washingtonpost.com'},
-                       { name: 'The Daily Beast', retention: 2, uiorder: 38, rss: ['http://feeds.feedburner.com/thedailybeast/articles'], host: 'dailybeast.com'},
-                       { name: 'Bild', retention: 2, uiorder: 39, rss: ['http://www.bild.de/rssfeeds/vw-alles/vw-alles-26970192,sort=1,view=rss2.bild.xml'], strategy: {removeel: ['.main-nav']}, host: 'bild.de'}
+                       { name: 'The Daily Beast', retention: 2, uiorder: 36, rss: ['http://feeds.feedburner.com/thedailybeast/articles'], host: 'dailybeast.com'},
+                       { name: 'Bild', retention: 2, uiorder: 37, rss: ['http://www.bild.de/rssfeeds/vw-alles/vw-alles-26970192,sort=1,view=rss2.bild.xml'], strategy: {removeel: ['.main-nav']}, host: 'bild.de'},
+                       { name: 'Daily Nation', retention: 2, uiorder: 38, rss: ['http://www.nation.co.ke/latestrss.rss'], host: 'nation.co.ke'},
+                       { name: 'Kyiv Post', retention: 2, uiorder: 39, rss: ['https://www.kyivpost.com/feed'], host: 'kyivpost.com'},
+                       { name: 'Prague Post', retention: 2, uiorder: 40, rss: ['https://www.praguepost.com/feed'], host: 'praguepost.com'},
+                       { name: 'Moscow Times', retention: 2, uiorder: 41, rss: ['https://themoscowtimes.com/info/rss'], host: 'themoscowtimes.com'},
+                       { name: 'France24', retention: 2, uiorder: 42, rss: ['http://www.france24.com/en/top-stories/rss'], host: 'france24.com'},
+                       { name: 'Al Jazeera', retention: 2, uiorder: 43, rss: ['http://www.aljazeera.com/xml/rss/all.xml'], host: 'aljazeera.com'},
+                       { name: 'Pakistan Nation', retention: 2, uiorder: 44, rss: ['http://nation.com.pk/feeds'], host: 'nation.com.pk'},
+                       { name: 'Indian Express', retention: 2, uiorder: 45, rss: ['http://indianexpress.com/print/front-page/feed/'], host: 'indianexpress.com'},
+                       { name: 'News Biscuit', retention: 2, uiorder: 46, rss: ['http://www.newsbiscuit.com/feed/'], host: 'newsbiscuit.com'},
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
