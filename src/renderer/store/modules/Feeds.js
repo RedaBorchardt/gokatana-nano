@@ -1,7 +1,8 @@
 const {ipcRenderer} = require('electron')
 
 const state = {
-  subscriptions: []
+  subscriptions: [],
+  topicfilter: ''
 }
 
 const mutations = {
@@ -47,10 +48,14 @@ const mutations = {
         state.subscriptions[i].selected = true
       }
     }
+    state.topicfilter = '' // RESET THE SUBFEED TO NOTHING
     state.subscriptions.push('update')
     state.subscriptions.pop()
     ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
     require('electron').remote.BrowserWindow.getFocusedWindow().webContents.send('NEW_FEED_SELECTED', true)
+  },
+  SET_SELECTED_SUBFEED (state, topicfilter) {
+    state.topicfilter = topicfilter
   },
   UPDATE_FEED_ON_DROP (state, obj) {
     let x = obj.length
@@ -73,6 +78,9 @@ const mutations = {
 const getters = {
   getFeeds (state) {
     return state.subscriptions
+  },
+  getTopicFilter (state) {
+    return state.topicfilter
   }
 }
 
@@ -96,6 +104,9 @@ const actions = {
   },
   setSelectedFeed ({commit}, feedid) {
     commit('SET_SELECTED_FEED', feedid)
+  },
+  setSelectedSubFeed ({commit}, topicfilter) {
+    commit('SET_SELECTED_SUBFEED', topicfilter)
   },
   updateFeedsListOnDrop ({commit}, obj) {
     commit('UPDATE_FEED_ON_DROP', obj)

@@ -8,6 +8,9 @@ const mutations = {
   HOIST_ARTICLES_INTO_STATE (state, feedid) {
     state.inview = ipcRenderer.sendSync('RETRIEVE_ARTICLES', feedid)
   },
+  HOIST_SUBFEED_ARTICLES_INTO_STATE (state, arg) {
+    state.inview = ipcRenderer.sendSync('RETRIEVE_SUBFEED_ARTICLES', arg.feedid, arg.topicfilter)
+  },
   SET_SELECTED_ARTICLE (state, articleid) {
     for (let i = 0; i < state.inview.length; i++) {
       state.inview[i].selected = false
@@ -36,6 +39,9 @@ const getters = {
 const actions = {
   retrieveArticles ({commit}, feedid) {
     commit('HOIST_ARTICLES_INTO_STATE', feedid)
+  },
+  retrieveSubfeedArticle ({commit}, arg) {
+    commit('HOIST_SUBFEED_ARTICLES_INTO_STATE', arg)
   },
   setSelectedArticle ({commit}, articleid) {
     commit('SET_SELECTED_ARTICLE', articleid)

@@ -79,6 +79,15 @@ ipcMain.on('RETRIEVE_ARTICLES', function (event, feedid) {
   })
 })
 
+ipcMain.on('RETRIEVE_SUBFEED_ARTICLES', function (event, feedid, topicfilter) {
+  let retention = retrieveFeedFromGlobal(feedid).retention
+  articledb[feedid].find({date: {$gte: moment().startOf('day').subtract(retention, 'day')}, rssname: topicfilter}).sort({ date: -1 }).exec(function (err, docs) {
+    if (!err) {
+      event.returnValue = docs
+    }
+  })
+})
+
 ipcMain.on('SAVE_NEW_FEEDS_UIORDER', function (event, obj) {
   let x = obj.length
   for (let i = 0; i < x; i++) {
