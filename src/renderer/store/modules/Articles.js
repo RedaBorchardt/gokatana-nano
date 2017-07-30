@@ -17,6 +17,13 @@ const mutations = {
     }
     state.inview.push('update')
     state.inview.pop()
+  },
+  MARK_ARTICLE_AS_READ (state, articleid) {
+    for (let i = 0; i < state.inview.length; i++) {
+      if (state.inview[i]._id === articleid) {
+        state.inview[i].read = true
+      }
+    }
   }
 }
 
@@ -32,6 +39,9 @@ const actions = {
   },
   setSelectedArticle ({commit}, articleid) {
     commit('SET_SELECTED_ARTICLE', articleid)
+  },
+  markArticleAsRead ({commit}, articleid) {
+    commit('MARK_ARTICLE_AS_READ', articleid)
   }
 }
 

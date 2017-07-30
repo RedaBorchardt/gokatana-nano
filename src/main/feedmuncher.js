@@ -32,9 +32,11 @@ function fetchAllArticleHeadlines () {
         contents.send('BUSY_COMPACTING', true)
         contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Busy compacting feeds'})
         feedstore.compactAllFeedsDBs().then(function (response) {
-          global.BUSY_COMPACTING = true
-          contents.send('BUSY_COMPACTING', false)
-          contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Everything is up to date'})
+          feedstore.removeMaxItemsAllFeedsDBs().then(function (response) {
+            global.BUSY_COMPACTING = false
+            contents.send('BUSY_COMPACTING', false)
+            contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Everything is up to date'})
+          })
         })
       }
     }

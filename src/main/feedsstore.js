@@ -81,6 +81,14 @@ ipcMain.on('SAVE_NEW_FEEDS_UIORDER', function (event, obj) {
   }
 })
 
+ipcMain.on('MARK_AS_READ', function (event, feedid, articleid) {
+  articledb[feedid].update({_id: articleid}, {$set: {read: 1}}, {}, function (err, numReplaced) {
+    if (!err) {
+      event.returnValue = true
+    }
+  })
+})
+
 function registerArticleDBHandles (docs) {
   for (let i = 0; i < docs.length; i++) {
     articledb[docs[i]._id] = new Datastore({ filename: path.join(global.appFolders.data, docs[i]._id + '.db'), autoload: true })
@@ -123,6 +131,7 @@ function compactAllFeedsDBs () {
         resolve('feeds compacted')
       }
     }
+    resolve('done')
   })
 }
 
@@ -137,8 +146,63 @@ function compactIndividualDB (feed) {
   })
 }
 
+function removeMaxItemsAllFeedsDBs () {
+  return new Promise(function (resolve, reject) {
+    let icounter = 0
+    outerLoop(icounter)
+    function outerLoop (icounter) {
+      if (icounter < global.feeds.length) {
+        findItemsToMaxRemove(global.feeds[icounter]._id, global.feeds[icounter].maxitems).then(function (itemlist) {
+          removeMaxItems(global.feeds[icounter]._id, itemlist).then(function (response) {
+            outerLoop(icounter + 1)
+          })
+        })
+      } else {
+        resolve('max items removed')
+      }
+    }
+    resolve('done')
+  })
+}
+
+function findItemsToMaxRemove (feedid, limit) {
+  return new Promise(function (resolve, reject) {
+    let itemlist = []
+    articledb[feedid].find({}).sort({ date: -1 }).exec(function (err, docs) {
+      if (!err) {
+        for (let i = 0; i < docs.length; i++) {
+          if (i >= limit) {
+            itemlist.push(docs[i]._id)
+          }
+        }
+        resolve(itemlist)
+      }
+    })
+  })
+}
+
+function removeMaxItems (feedid, itemlist) {
+  return new Promise(function (resolve, reject) {
+    let icounter = 0
+    innerLoop(icounter)
+    function innerLoop (icounter) {
+      if (icounter < itemlist.length) {
+        articledb[feedid].remove({_id: itemlist[icounter]}, {multi: true}, function (err, numRemoved) {
+          if (!err) {
+            innerLoop(icounter + 1)
+          }
+        })
+      } else {
+        contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feedid)
+        resolve('done')
+      }
+    }
+  })
+}
+
 export default {
   retrieveFeedsFromFeedsDB,
   insertArticleIntoDB,
-  compactAllFeedsDBs
+  compactAllFeedsDBs,
+  removeMaxItemsAllFeedsDBs
 }
