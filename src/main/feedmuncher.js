@@ -110,6 +110,7 @@ function downloadThenParseRSSFeed (rssurl, _feedid, feedname) {
         if (!item.date) item.date = 'not content'
         if (!item.author) item.author = 'no content'
         if (!item.link) item.link = 'no content'
+        if (!item.image) item.image = 0
 
         if (item.summary === 'no content') {
           if (item['media:group']['media:description']['#']) {
@@ -126,6 +127,7 @@ function downloadThenParseRSSFeed (rssurl, _feedid, feedname) {
           categories: item.categories,
           date: item.date,
           author: item.author,
+          image: item.image,
           _id: item.guid
         }
 
