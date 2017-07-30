@@ -61,6 +61,15 @@ ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
   })
 })
 
+ipcMain.on('RETRIEVE_SUBFEED_COUNT', function (event, feedid, topicname) {
+  let retention = retrieveFeedFromGlobal(feedid).retention
+  articledb[feedid].count({date: {$gte: moment().startOf('day').subtract(retention, 'day')}, rssname: topicname, read: {$ne: 1}}, function (err, count) {
+    if (!err) {
+      event.returnValue = count
+    }
+  })
+})
+
 ipcMain.on('RETRIEVE_ARTICLES', function (event, feedid) {
   let retention = retrieveFeedFromGlobal(feedid).retention
   articledb[feedid].find({date: {$gte: moment().startOf('day').subtract(retention, 'day')}}).sort({ date: -1 }).exec(function (err, docs) {

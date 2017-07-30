@@ -15,14 +15,30 @@ const mutations = {
     ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
   },
   HOIST_ARTICLE_COUNT (state, arg) {
-    for (let i = 0; i < state.subscriptions.length; i++) {
-      if (state.subscriptions[i]._id === arg.feedid) {
-        state.subscriptions[i].count = arg.count
+    if (!arg.rssname) {
+      for (let i = 0; i < state.subscriptions.length; i++) {
+        if (state.subscriptions[i]._id === arg.feedid) {
+          state.subscriptions[i].count = arg.count
+        }
       }
+      state.subscriptions.push('update')
+      state.subscriptions.pop()
+      ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
+    } else {
+      for (let i = 0; i < state.subscriptions.length; i++) {
+        if (state.subscriptions[i]._id === arg.feedid) {
+          if (!state.subscriptions[i].subfeedcount) {
+            state.subscriptions[i].subfeedcount = {}
+            state.subscriptions[i].subfeedcount[arg.rssname] = arg.count
+          } else {
+            state.subscriptions[i].subfeedcount[arg.rssname] = arg.count
+          }
+        }
+      }
+      state.subscriptions.push('update')
+      state.subscriptions.pop()
+      ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
     }
-    state.subscriptions.push('update')
-    state.subscriptions.pop()
-    ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
   },
   SET_SELECTED_FEED (state, feedid) {
     for (let i = 0; i < state.subscriptions.length; i++) {
@@ -67,8 +83,16 @@ const actions = {
   retrieveFeedsFromBackend ({commit}) {
     commit('HOIST_FEEDS_INTO_STATE', ipcRenderer.sendSync('RETRIEVE_FEEDS_FROM_FEEDSDB'))
   },
-  retrieveIndividiualArticleCount ({commit}, feedid) {
+  retrieveIndividiualArticleCount ({commit, dispatch}, feedid) {
     commit('HOIST_ARTICLE_COUNT', { 'count': ipcRenderer.sendSync('RETRIEVE_COUNT_FROM_ARTICLEDB', feedid), 'feedid': feedid })
+  },
+  countFeedChildItems ({commit, state}, index) {
+    let upperlimit = state.subscriptions[index].rss.length
+    if (upperlimit > 1) {
+      for (let i = 0; i < upperlimit; i++) {
+        commit('HOIST_ARTICLE_COUNT', { 'count': ipcRenderer.sendSync('RETRIEVE_SUBFEED_COUNT', state.subscriptions[index]._id, state.subscriptions[index].rss[i].name), 'feedid': state.subscriptions[index]._id, 'rssname': state.subscriptions[index].rss[i].name })
+      }
+    }
   },
   setSelectedFeed ({commit}, feedid) {
     commit('SET_SELECTED_FEED', feedid)

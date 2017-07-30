@@ -11,10 +11,10 @@
           <img class="img-circle media-object pull-left" :class="{seen: article.read}" :src="getFeedIcon(article._feedid)" width="18" height="18">
           <div class="media-body" style='min-height: 35px;' :class="{read: article.read}">
             <strong v-html="article.title"></strong>
-            <p v-if='article.summary  && !article.read' v-html="parsedOutput(article.summary.trunc(280, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
-            <p v-if='article.summary  && article.read' v-html="parsedOutput(article.summary.trunc(70, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
+            <p v-if='article.summary && (!article.read || article.selected)' v-html="parsedOutput(article.summary.trunc(280, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
+            <p v-if='article.summary && article.read' v-html="parsedOutput(article.summary.trunc(70, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
           </div>
-          <p style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 26px;' :class="{read: article.read}"><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
+          <p style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 26px;' :class="{read: article.read}"><span class='pull-left'>From: {{parseURL(article.link)}} in {{article.rssname}}</span>{{dateFromNow(article.date)}}</p>
       </li>
     </ul>
   </div>
