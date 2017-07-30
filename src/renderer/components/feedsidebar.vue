@@ -1,14 +1,13 @@
 <template>
   <div class="pane pane-sm sidebar scroll" style="flex: inherit; max-width: none; min-width: 240px; overflow-x: hidden;">
     <nav class="nav-group">
-      <h5 class="nav-group-title">Direct Feeds</h5>
       <dragfeed v-model='feeds' :options="{sort: !BUSY_BACKEND, disabled: BUSY_BACKEND, handle: '.dragitem'}">
         <transition-group>
           <span v-for='feed, index in feeds' class="nav-group-item" :class="{active: feed.selected}" :key="feed.uiorder" style="align">
             <span v-if='!BUSY_BACKEND' class="icon icon-menu pull-left dragitem" style='color: #cccccc;'></span>
             <span v-if='BUSY_BACKEND' class="icon icon-air pull-left" style='color: #dddddd;'></span>
             <div @click='selectFeed(feed._id, index)'>
-            <img class="img-circle media-object pull-left" :src="getFeedIcon(feed._id)" width="18">
+            <img class="img-circle media-object pull-left" :src="getFeedIcon(feed._id)" width="18" :class="{inverted: lightsout}">
             {{feed.name}}
               <span class="counter pull-right">
                 {{feed.count}}
@@ -17,7 +16,7 @@
               <template v-if="hasFeedChildren(index) && feed.selected">
                 <span v-for='subfeed, index in feeds[index].rss' class="nav-group-item subfeed" :class="{subactive: checkTopicMatch(feed.rss[index].name)}" @click='selectFeed(feed._id, index, feed.rss[index].name)'>
                   {{subfeed.name}}
-                  <span class="smallcounter counter pull-right subfeedcounter" v-text="feed.subfeedcount[subfeed.name]">
+                  <span v-if='feed.subfeedcount' class="smallcounter counter pull-right subfeedcounter" v-text="feed.subfeedcount[subfeed.name]">
                   </span>
                 </span>
               </template>
@@ -48,6 +47,11 @@ export default {
       set (obj) {
         this.$store.dispatch('updateFeedsListOnDrop', obj)
       }
+    },
+    lightsout: {
+      get () {
+        return this.$store.getters.getLightsOutState
+      }
     }
   },
   methods: {
@@ -73,8 +77,12 @@ export default {
       }
     },
     checkTopicMatch (topicfilter) {
-      if (topicfilter === this.$store.getters.getTopicFilter) {
-        return true
+      if (this.$store.getters.getTopicFilter) {
+        if (topicfilter === this.$store.getters.getTopicFilter) {
+          return true
+        } else {
+          return false
+        }
       } else {
         return false
       }
@@ -120,6 +128,8 @@ export default {
   background-color: #d77;
   color: white 1.6em;
   margin-right: -7px;
+  text-align: center;
+  padding: .2em .0em .3em;
 }
 
 .scroll::-webkit-scrollbar {
@@ -137,5 +147,9 @@ export default {
 .nav-group-item {
   font-size: 1em;
   padding-left: 10px;
+}
+
+.inverted {
+  filter: invert(100%)
 }
 </style>

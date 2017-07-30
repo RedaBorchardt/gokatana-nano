@@ -1,7 +1,7 @@
 <template>
   <div id='scrollpane' class='pane scroll' style='max-width:600px;' :class="{hidescrollbar: forcedMiniBrowserShow}">
     <div class='padded-more' v-if="!forcedMiniBrowserShow">
-      <img v-if="content.image" style='width: 100%' :src="content.image">
+      <img v-if="content.image" style='width: 100%' :src="content.image" :class="{inverted: lightsout}">
       <h4 style='white-space: pre-line;-webkit-user-select:text'>{{content.title}}</h4>
     <p style='white-space: pre-line; font-size: 1.2em;-webkit-user-select:text' v-html="content.text">
       </p>
@@ -36,6 +36,11 @@ export default {
       get () {
         return this.$store.getters.getForcedMiniBrowserState
       }
+    },
+    lightsout: {
+      get () {
+        return this.$store.getters.getLightsOutState
+      }
     }
   },
   updated () {
@@ -45,6 +50,10 @@ export default {
 </script>
 
 <style scoped>
+.inverted {
+  filter: invert(100%)
+}
+
 .scroll::-webkit-scrollbar {
   width: 5px;
 }

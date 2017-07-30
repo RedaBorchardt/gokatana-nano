@@ -13,10 +13,14 @@ const state = [{
   GTOPICVIEWER: false,
   GTOPICVIEWLINK: true,
   GTOPICMODE: 'DuckDuckGo',
-  FORCEDMINIBROWSER: false
+  FORCEDMINIBROWSER: false,
+  LIGHTSOUT: false
 }]
 
 const mutations = {
+  TOGGLE_LIGHTSOUT (state) {
+    state[0].LIGHTSOUT = !state[0].LIGHTSOUT
+  },
   TOGGLE_FULLSCREEN (state, arg) {
     state[0].IS_FULLSCREEN = arg
   },
@@ -107,6 +111,9 @@ const getters = {
   },
   getBladeViewerState (state) {
     return state[0].BLADEVIEWER
+  },
+  getLightsOutState (state) {
+    return state[0].LIGHTSOUT
   }
 }
 
@@ -158,6 +165,9 @@ const actions = {
   },
   toggleGTopicMode ({commit}) {
     commit('TOGGLE_GTOPICMODE')
+  },
+  toggleLightsOut ({commit}) {
+    commit('TOGGLE_LIGHTSOUT')
   }
 }
 

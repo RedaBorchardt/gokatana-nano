@@ -1,7 +1,7 @@
 <template>
   <div class="pane" style="overflow-y: hidden;">
     <webview
-    class="pane-mini sidebar" id="gtopic" :src="searchLink" style="display:inline-flex; width: 100%; height: 100%" css="html {filter: grayscale(100%);} #header_wrapper {display: none !important;}"></webview>
+    class="pane-mini sidebar" id="gtopic" :src="searchLink" style="display:inline-flex; width: 100%; height: 100%" css="html {filter: grayscale(100%);} #header_wrapper {display: none !important;}" :class="{inverted: lightsout}"></webview>
   </div>
 </template>
 
@@ -38,6 +38,11 @@ export default {
     },
     getGTopicMode: function () {
       return this.$store.getters.getGTopicMode
+    },
+    lightsout: {
+      get () {
+        return this.$store.getters.getLightsOutState
+      }
     }
   },
   mounted () {
@@ -81,5 +86,7 @@ export default {
 </script>
 
 <style scoped>
-
+.inverted {
+  filter: invert(100%)
+}
 </style>

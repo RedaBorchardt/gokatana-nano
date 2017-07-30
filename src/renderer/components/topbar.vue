@@ -1,7 +1,7 @@
 <template>
   <header class="toolbar toolbar-header">
     <div class="toolbar-actions">
-      <div class="btn-group">
+      <div class="btn-group" :class="{inverted: lightsout}">
         <button class="btn btn-default" :class="({'active': bladeViewState})" @click='toggleBladeView'>
           <span class="icon icon-flow-cascade icon-text"></span>
           Katana Blades
@@ -27,6 +27,10 @@
       <button v-if="isThereLink" class="btn btn-default pull-right" @click='openLinkInBrowser(isThereLink)'>
         <span class="icon icon-export icon-text"></span>
         External Browser
+      </button>
+
+      <button class="btn btn-default pull-right" @click='toggleLights'>
+        <span class="icon icon-flashlight"></span>
       </button>
 
       <div class="btn-group">
@@ -110,6 +114,11 @@ export default {
       get () {
         return this.$store.getters.getBladeViewerState
       }
+    },
+    lightsout: {
+      get () {
+        return this.$store.getters.getLightsOutState
+      }
     }
   },
   methods: {
@@ -142,6 +151,18 @@ export default {
     },
     openLinkInBrowser (link) {
       shell.openExternal(link)
+    },
+    toggleLights () {
+      let toggled = false
+      if (!this.$store.getters.getLightsOutState) {
+        this.$store.dispatch('toggleLightsOut')
+        document.body.style.filter = 'invert(100%)'
+        toggled = true
+      }
+      if (this.$store.getters.getLightsOutState && !toggled) {
+        this.$store.dispatch('toggleLightsOut')
+        document.body.style.filter = ''
+      }
     }
   }
 }
@@ -159,5 +180,9 @@ header {
 
 button {
   height: 24px
+}
+
+.inverted {
+  filter: invert(100%)
 }
 </style>

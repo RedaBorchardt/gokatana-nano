@@ -1,7 +1,7 @@
 <template>
   <div class="pane" style="overflow-y: hidden">
     <webview class="pane-mini sidebar" useragent="Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25"
-    id="minibrowser" :src="content.originalLink" style="display:inline-flex; width: 100%; height: 100%;" css=""></webview>
+    id="minibrowser" :src="content.originalLink" style="display:inline-flex; width: 100%; height: 100%;" :class="{inverted: lightsout}"></webview>
   </div>
 </template>
 
@@ -22,6 +22,11 @@ export default {
         } else {
           return this.cachedContent
         }
+      }
+    },
+    lightsout: {
+      get () {
+        return this.$store.getters.getLightsOutState
       }
     }
   },
@@ -51,4 +56,7 @@ export default {
 </script>
 
 <style scoped>
+.inverted {
+  filter: invert(100%)
+}
 </style>

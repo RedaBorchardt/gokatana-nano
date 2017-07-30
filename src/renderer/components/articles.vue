@@ -8,7 +8,7 @@
       <li v-for='article in articles' class="list-group-item" :class="{active: article.selected}" v-if="( searchMatch(article.title) || searchMatch(article.summary) )
       && !( excludeMatch(article.title) || excludeMatch(article.summary) ) "
       @click='displayArticle(article.link, article._id, article.summary, article._feedid, article.read)'>
-          <img class="img-circle media-object pull-left" :class="{seen: article.read}" :src="getFeedIcon(article._feedid)" width="18" height="18">
+          <img class="img-circle media-object pull-left" :class="{seen: article.read, inverted: lightsout}" :src="getFeedIcon(article._feedid)" width="18" height="18">
           <div class="media-body" style='min-height: 35px;' :class="{read: article.read}">
             <strong v-html="article.title"></strong>
             <p v-if='article.summary && (!article.read || article.selected)' v-html="parsedOutput(article.summary.trunc(280, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
@@ -41,6 +41,11 @@ export default {
     articles: {
       get () {
         return this.$store.getters.getArticlesInView
+      }
+    },
+    lightsout: {
+      get () {
+        return this.$store.getters.getLightsOutState
       }
     }
   },
@@ -147,6 +152,10 @@ strong {
 
 .scroll::-webkit-scrollbar-thumb {
   background: #d66;
+}
+
+.inverted {
+  filter: invert(100%)
 }
 
 </style>

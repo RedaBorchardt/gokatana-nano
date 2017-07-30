@@ -225,7 +225,18 @@ function checkStage15 () {
     var Datastore = require('nedb')
     var db = new Datastore({ filename: path.join(global.appFolders.config, 'feeds.db'), autoload: true })
     /* eslint-disable */
-    var samplefeeds = [{ name: 'The Guardian', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'Latest News', url: 'http://www.theguardian.com/rss'}], strategy: {removeel: ['meta[name="description"]','.tonal__standfirst']}, host: 'www.theguardian.com' },
+    var samplefeeds = [{ name: 'The Guardian', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'UK News', url: 'http://www.theguardian.com/uk/rss'},
+                       {name: 'Politics', url: 'http://www.theguardian.com/politics/rss'},
+                       {name: 'World', url: 'http://www.theguardian.com/world/rss'},
+                       {name: 'Sport', url: 'http://www.theguardian.com/uk/sport/rss'},
+                       {name: 'Football', url: 'http://www.theguardian.com/football/rss'},
+                       {name: 'Culture', url: 'http://www.theguardian.com/uk/culture/rss'},
+                       {name: 'Business', url: 'http://www.theguardian.com/uk/business/rss'},
+                       {name: 'Fashion', url: 'http://www.theguardian.com/fashion/rss'},
+                       {name: 'Environment', url: 'http://www.theguardian.com/uk/environment/rss'},
+                       {name: 'Tech', url: 'http://www.theguardian.com/uk/technology/rss'},
+                       {name: 'Travel', url: 'http://www.theguardian.com/uk/travel/rss'}
+                      ], strategy: {removeel: ['meta[name="description"]','.tonal__standfirst']}, host: 'www.theguardian.com' },
                        { name: 'The Independent', retention: 7, maxitems: 400, uiorder: 2, rss: [{name: 'Latest News', url: 'http://www.independent.co.uk/rss'}], host: 'www.independent.co.uk'},
                        { name: 'TechCrunch', retention: 7, maxitems: 400, uiorder: 3, rss: [{name: 'Latest News', url: 'http://feeds.feedburner.com/TechCrunch/'}], host: 'www.techcrunch.com'},
                        { name: 'Der Spiegel', retention: 7, maxitems: 400, uiorder: 4,
