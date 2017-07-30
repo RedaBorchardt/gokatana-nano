@@ -44,6 +44,13 @@ const mutations = {
     state.subscriptions = obj
     ipcRenderer.send('SAVE_NEW_FEEDS_UIORDER', state.subscriptions)
     ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
+  },
+  REDUCE_UNREAD_COUNT (state, feedid) {
+    for (let i = 0; i < state.subscriptions.length; i++) {
+      if (state.subscriptions[i]._id === feedid) {
+        state.subscriptions[i].count -= 1
+      }
+    }
   }
 }
 
@@ -68,6 +75,9 @@ const actions = {
   },
   updateFeedsListOnDrop ({commit}, obj) {
     commit('UPDATE_FEED_ON_DROP', obj)
+  },
+  reduceUnreadCount ({commit}, feedid) {
+    commit('REDUCE_UNREAD_COUNT', feedid)
   }
 }
 

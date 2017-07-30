@@ -7,14 +7,14 @@
       </li>
       <li v-for='article in articles' class="list-group-item" :class="{active: article.selected}" v-if="( searchMatch(article.title) || searchMatch(article.summary) )
       && !( excludeMatch(article.title) || excludeMatch(article.summary) ) "
-      @click='displayArticle(article.link, article._id, article.summary)'>
+      @click='displayArticle(article.link, article._id, article.summary, article._feedid, article.read)'>
           <img class="img-circle media-object pull-left" :class="{seen: article.read}" :src="getFeedIcon(article._feedid)" width="18" height="18">
           <div class="media-body" style='min-height: 35px;' :class="{read: article.read}">
             <strong v-html="article.title"></strong>
             <p v-if='article.summary  && !article.read' v-html="parsedOutput(article.summary.trunc(280, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
             <p v-if='article.summary  && article.read' v-html="parsedOutput(article.summary.trunc(70, true))" style="-webkit-user-select: text;-webkit-user-select:none;"></p>
           </div>
-          <p v-if='!article.read' style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 26px;'><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
+          <p style='font-style: italic; font-size: 0.8em; text-align: right; -bottom: 0px; padding-left: 26px;' :class="{read: article.read}"><span class='pull-left'>Source: {{parseURL(article.link)}}</span>{{dateFromNow(article.date)}}</p>
       </li>
     </ul>
   </div>
@@ -76,10 +76,13 @@ export default {
     parsedOutput (s) {
       return s.replace(/\\"/, '"')
     },
-    displayArticle (url, articleid, articleSummary) {
+    displayArticle (url, articleid, articleSummary, feedid, read) {
       ipcRenderer.send('DISPLAY_ARTICLE', url, articleSummary)
       ipcRenderer.send('MARK_AS_READ', this.$store.getters.getArticlesInView[0]._feedid, articleid)
-      this.$store.dispatch('markArticleAsRead', articleid)
+      if (!read) {
+        this.$store.dispatch('markArticleAsRead', articleid)
+        this.$store.dispatch('reduceUnreadCount', feedid)
+      }
       this.selectArticle(articleid)
     },
     parseURL (link) {

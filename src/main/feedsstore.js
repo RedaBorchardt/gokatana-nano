@@ -54,7 +54,7 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
 
 ipcMain.on('RETRIEVE_COUNT_FROM_ARTICLEDB', function (event, feedid) {
   let retention = retrieveFeedFromGlobal(feedid).retention
-  articledb[feedid].count({date: {$gte: moment().startOf('day').subtract(retention, 'day')}}, function (err, count) {
+  articledb[feedid].count({date: {$gte: moment().startOf('day').subtract(retention, 'day')}, read: {$ne: 1}}, function (err, count) {
     if (!err) {
       event.returnValue = count
     }
