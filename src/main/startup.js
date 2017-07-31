@@ -225,7 +225,10 @@ function checkStage15 () {
     var Datastore = require('nedb')
     var db = new Datastore({ filename: path.join(global.appFolders.config, 'feeds.db'), autoload: true })
     /* eslint-disable */
-    var samplefeeds = [{ name: 'The Guardian', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'UK News', url: 'http://www.theguardian.com/uk/rss'},
+    var samplefeeds = [
+
+                       { name: 'The Independent', retention: 7, maxitems: 400, uiorder: 2, rss: [{name: 'Latest News', url: 'http://www.independent.co.uk/rss'}], host: 'www.independent.co.uk'},
+                       { name: 'The Guardian', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'UK News', url: 'http://www.theguardian.com/uk/rss'},
                        {name: 'Politics', url: 'http://www.theguardian.com/politics/rss'},
                        {name: 'World', url: 'http://www.theguardian.com/world/rss'},
                        {name: 'Sport', url: 'http://www.theguardian.com/uk/sport/rss'},
@@ -237,8 +240,17 @@ function checkStage15 () {
                        {name: 'Tech', url: 'http://www.theguardian.com/uk/technology/rss'},
                        {name: 'Travel', url: 'http://www.theguardian.com/uk/travel/rss'}
                       ], strategy: {removeel: ['meta[name="description"]','.tonal__standfirst']}, host: 'www.theguardian.com' },
-                       { name: 'The Independent', retention: 7, maxitems: 400, uiorder: 2, rss: [{name: 'Latest News', url: 'http://www.independent.co.uk/rss'}], host: 'www.independent.co.uk'},
-                       { name: 'TechCrunch', retention: 7, maxitems: 400, uiorder: 3, rss: [{name: 'Latest News', url: 'http://feeds.feedburner.com/TechCrunch/'}], host: 'www.techcrunch.com'},
+                       { name: 'TechCrunch', retention: 7, maxitems: 400, uiorder: 3,
+                       rss: [{name: 'Top News', url: 'http://feeds.feedburner.com/TechCrunch/'},
+                       {name: 'Startups', url: 'http://feeds.feedburner.com/TechCrunch/startups'},
+                       {name: 'Fundings & Exits', url: 'http://feeds.feedburner.com/TechCrunch/fundings-exits'},
+                       {name: 'Social', url: 'http://feeds.feedburner.com/TechCrunch/social'},
+                       {name: 'Mobile', url: 'http://feeds.feedburner.com/Mobilecrunch'},
+                       {name: 'Gadgets', url: 'http://feeds.feedburner.com/crunchgear'},
+                       {name: 'Europe', url: 'http://feeds.feedburner.com/Techcrunch/europe'},
+                       {name: 'Enterprise / IT', url: 'http://feeds.feedburner.com/TechCrunchIT'},
+                       {name: 'GreenTech', url: 'http://feeds.feedburner.com/TechCrunch/greentech'}
+                     ], host: 'www.techcrunch.com'},
                        { name: 'Der Spiegel', retention: 7, maxitems: 400, uiorder: 4,
                        rss: [{name: 'Schlagzeilen', url: 'http://www.spiegel.de/schlagzeilen/index.rss'},
                        {name: 'Politik', url: 'http://www.spiegel.de/politik/index.rss'},
@@ -252,7 +264,18 @@ function checkStage15 () {
                        {name: 'Reise', url: 'http://www.spiegel.de/reise/index.rss'},
                        {name: 'Auto', url: 'http://www.spiegel.de/auto/index.rss'},
                        {name: 'Video', url: 'http://www.spiegel.de/video/index.rss'}
-                     ], host: 'http://www.spiegel.de' },
+                     ], host: 'www.spiegel.de' },
+                       { name: 'Sky News', retention: 7, maxitems: 400, uiorder: 4,
+                       rss: [{name: 'Top News', url: 'http://feeds.skynews.com/feeds/rss/home.xml'},
+                       {name: 'UK', url: 'http://feeds.skynews.com/feeds/rss/uk.xml'},
+                       {name: 'World', url: 'http://feeds.skynews.com/feeds/rss/world.xml'},
+                       {name: 'US', url: 'http://feeds.skynews.com/feeds/rss/us.xml'},
+                       {name: 'Business', url: 'http://feeds.skynews.com/feeds/rss/business.xml'},
+                       {name: 'Politics', url: 'http://feeds.skynews.com/feeds/rss/politics.xml'},
+                       {name: 'Technology', url: 'http://feeds.skynews.com/feeds/rss/technology.xml'},
+                       {name: 'Entertainment', url: 'http://feeds.skynews.com/feeds/rss/entertainment.xml'},
+                       {name: 'Strange News', url: 'http://feeds.skynews.com/feeds/rss/strange.xml'},
+                     ], host: 'news.sky.com' },
                        { name: 'Evening Standard', retention: 7, uiorder: 5, rss: [{name: 'Latest News', url: 'http://www.standard.co.uk/rss'}], host: 'www.standard.co.uk' },
                        { name: 'Focus', retention: 7, uiorder: 8,
                        rss: [{name: 'Schlagzeilen', url: 'http://rss.focus.de/'},
