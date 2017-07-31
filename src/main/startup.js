@@ -227,8 +227,8 @@ function checkStage15 () {
     /* eslint-disable */
     var samplefeeds = [
 
-                       { name: 'The Independent', retention: 7, maxitems: 400, uiorder: 2, rss: [{name: 'Latest News', url: 'http://www.independent.co.uk/rss'}], host: 'www.independent.co.uk'},
-                       { name: 'The Guardian', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'UK News', url: 'http://www.theguardian.com/uk/rss'},
+                       { name: 'The Independent', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'Latest News', url: 'http://www.independent.co.uk/rss'}], host: 'www.independent.co.uk'},
+                       { name: 'The Guardian', retention: 7, maxitems: 400, uiorder: 2, rss: [{name: 'UK News', url: 'http://www.theguardian.com/uk/rss'},
                        {name: 'Politics', url: 'http://www.theguardian.com/politics/rss'},
                        {name: 'World', url: 'http://www.theguardian.com/world/rss'},
                        {name: 'Sport', url: 'http://www.theguardian.com/uk/sport/rss'},
