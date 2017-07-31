@@ -6,6 +6,7 @@ const state = {
 
 const mutations = {
   UPLOAD_UNFLUFF_CONTENT_INTO_STATE (state, obj) {
+    state.inview[0].contenttype = '' // default parser
     state.inview[0].title = obj.content.title
     state.inview[0].date = obj.content.date
     state.inview[0].author = obj.content.author
@@ -25,6 +26,7 @@ const mutations = {
     state.inview.pop()
   },
   UPLOAD_DOJO_CONTENT_INTO_STATE (state, obj) {
+    state.inview[0].contenttype = 'dojo'
     state.inview[0].dojoTitle = obj.content.title
     state.inview[0].dojoHTML = obj.content.html
     state.inview[0].originalLink = obj.content.originalLink
