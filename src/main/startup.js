@@ -315,7 +315,8 @@ function checkStage15 () {
                        { name: 'Al Jazeera', retention: 7, maxitems: 400, uiorder: 40, rss: [{name: 'Latest News', url: 'http://www.aljazeera.com/xml/rss/all.xml'}], host: 'aljazeera.com'},
                        { name: 'Pakistan Nation', retention: 7, maxitems: 400, uiorder: 41, rss: [{name: 'Latest News', url: 'http://nation.com.pk/feeds'}], host: 'nation.com.pk'},
                        { name: 'Indian Express', retention: 7, maxitems: 400, uiorder: 42, rss: [{name: 'Latest News', url: 'http://indianexpress.com/print/front-page/feed/'}], host: 'indianexpress.com'},
-                       { name: 'News Biscuit', retention: 7, maxitems: 400, uiorder: 43, rss: [{name: 'Latest News', url: 'http://www.newsbiscuit.com/feed/'}], host: 'newsbiscuit.com'}
+                       { name: 'News Biscuit', retention: 7, maxitems: 400, uiorder: 43, rss: [{name: 'Latest News', url: 'http://www.newsbiscuit.com/feed/'}], host: 'newsbiscuit.com'},
+                       { name: 'The Economist', retention: 7, maxitems: 400, uiorder: 44, rss: [{name: 'Business and Finance', url: 'http://www.economist.com/sections/business-finance/rss.xml'}], host: 'economist.com'}
                      ]
     /* eslint-enable */
     db.insert(samplefeeds, function (err, newDoc) {
