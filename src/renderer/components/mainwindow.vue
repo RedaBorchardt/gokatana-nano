@@ -31,6 +31,7 @@ import googleexplorer from './googleexplorer'
 // import dojoviewer from './dojoviewer'
 
 export default {
+
   name: 'mainwindow',
   components: { feedsidebar, appfooter, articles, unfluffviewer, mobileviewer, topbar, googleexplorer },
   computed: {
@@ -59,6 +60,15 @@ export default {
         return this.$store.getters.getGTopicViewState
       }
     }
+  },
+  mounted () {
+    require('electron').remote.getCurrentWindow().on('enter-full-screen', (e, cmd) => {
+      this.$store.commit('TOGGLE_FULLSCREEN', true)
+    })
+
+    require('electron').remote.getCurrentWindow().on('leave-full-screen', (e, cmd) => {
+      this.$store.commit('TOGGLE_FULLSCREEN', false)
+    })
   }
 }
 </script>
