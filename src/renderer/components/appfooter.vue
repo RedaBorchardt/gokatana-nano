@@ -1,6 +1,9 @@
 <template>
   <footer class="toolbar toolbar-footer">
     <div class="toolbar-actions">
+      <button v-if='!BUSY_BACKEND' class="btn btn-default pull-left">
+        <span class="icon icon-tools"></span>
+      </button>
       <span style='line-height: 24px; padding-left: 5px; font-size: 0.9em; color: grey'>{{LOG_MESSAGE.message}}</span>
       <button v-if='!BUSY_FETCHINGARTICLES && ONLINE_STATUS && !BUSY_COMPACTING' class="btn btn-primary pull-right" @click='forceArticleRefresh'>
         Refresh
@@ -18,6 +21,11 @@ import { ipcRenderer } from 'electron'
 export default {
   name: 'appfooter',
   computed: {
+    BUSY_BACKEND: {
+      get () {
+        return this.$store.getters.getBusyFetchingArticles || this.$store.getters.getBusyCompacting
+      }
+    },
     BUSY_FETCHINGARTICLES: {
       get () {
         return this.$store.getters.getBusyFetchingArticles

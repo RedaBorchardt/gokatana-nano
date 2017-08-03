@@ -1,6 +1,8 @@
 import { ipcRenderer, remote } from 'electron'
 
 const state = [{
+  EDITING_MODE: false,
+  ORIGINAL_FULLSCREEN_STATE: false,
   IS_FULLSCREEN: remote.getCurrentWindow().isFullScreen(),
   BUSY_FETCHINGARTICLES: remote.getGlobal('BUSY_FETCHINGARTICLES'),
   BUSY_COMPACTING: remote.getGlobal('BUSY_COMPACTING'),
@@ -23,6 +25,12 @@ const mutations = {
   },
   TOGGLE_FULLSCREEN (state, arg) {
     state[0].IS_FULLSCREEN = arg
+  },
+  SET_FULLSCREEN_STATE (state, arg) {
+    state[0].IS_FULLSCREEN = arg
+  },
+  ORIGINAL_FULLSCREEN_STATE (state, arg) {
+    state[0].ORIGINAL_FULLSCREEN_STATE = arg
   },
   BUSY_FETCHINGARTICLES (state, arg) {
     state[0].BUSY_FETCHINGARTICLES = arg
@@ -123,8 +131,9 @@ const actions = {
     commit('TOGGLE_FULLSCREEN', remote.getCurrentWindow().isFullScreen())
   },
   toggleFullScreenFromVideo ({commit, state}) {
-    remote.getCurrentWindow().setFullScreen(state[0].IS_FULLSCREEN)
-    commit('TOGGLE_FULLSCREEN', remote.getCurrentWindow().isFullScreen())
+    if (state[0].ORIGINAL_FULLSCREEN_STATE !== remote.getCurrentWindow().isFullScreen()) {
+      commit('TOGGLE_FULLSCREEN', !remote.getCurrentWindow().isFullScreen())
+    }
   },
   checkIfBackendIsBusyFetchingArticles ({commit}) {
     ipcRenderer.on('BUSY_FETCHINGARTICLES', function (event, arg) {

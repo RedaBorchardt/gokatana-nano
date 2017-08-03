@@ -4,6 +4,8 @@
 
     <div class="window-content">
       <div class="pane-group">
+        <editfeed></editfeed>
+
         <feedsidebar v-if="bladeStateView"></feedsidebar>
 
         <articles v-if="headlineStateView"></articles>
@@ -28,12 +30,13 @@ import unfluffviewer from './unfluffviewer'
 import mobileviewer from './mobileviewer'
 import topbar from './topbar'
 import googleexplorer from './googleexplorer'
+import editfeed from './editfeed'
 // import dojoviewer from './dojoviewer'
 
 export default {
 
   name: 'mainwindow',
-  components: { feedsidebar, appfooter, articles, unfluffviewer, mobileviewer, topbar, googleexplorer },
+  components: { editfeed, feedsidebar, appfooter, articles, unfluffviewer, mobileviewer, topbar, googleexplorer },
   computed: {
     mobileStateView: {
       get () {
@@ -63,11 +66,14 @@ export default {
   },
   mounted () {
     require('electron').remote.getCurrentWindow().on('enter-full-screen', (e, cmd) => {
-      this.$store.commit('TOGGLE_FULLSCREEN', true)
+      this.$store.commit('ORIGINAL_FULLSCREEN_STATE', true)
+      this.$store.commit('SET_FULLSCREEN_STATE', true)
+      console.log('I was triggered')
     })
 
     require('electron').remote.getCurrentWindow().on('leave-full-screen', (e, cmd) => {
-      this.$store.commit('TOGGLE_FULLSCREEN', false)
+      this.$store.commit('ORIGINAL_FULLSCREEN_STATE', false)
+      this.$store.commit('SET_FULLSCREEN_STATE', false)
     })
   }
 }
