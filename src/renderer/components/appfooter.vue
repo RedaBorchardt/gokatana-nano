@@ -1,10 +1,16 @@
 <template>
   <footer class="toolbar toolbar-footer">
     <div class="toolbar-actions">
-      <button v-if='!BUSY_BACKEND' class="btn btn-default pull-left">
-        <span class="icon icon-tools"></span>
+      <button v-if='!BUSY_BACKEND && !isEditingMode' class="btn btn-default pull-left" @click='setEditingMode(true)'>
+        <span class="icon icon-cog"></span>
+        <span class="icon icon-right-dir"></span>
+      </button>
+      <button v-if='!BUSY_BACKEND && isEditingMode' class="btn btn-default pull-left" @click='setEditingMode(false)'>
+        <span class="icon icon-cog"></span>
+        <span class="icon icon-left-dir"></span>
       </button>
       <span style='line-height: 24px; padding-left: 5px; font-size: 0.9em; color: grey'>{{LOG_MESSAGE.message}}</span>
+      <button v-if='BUSY_FETCHINGARTICLES && ONLINE_STATUS' class="btn btn-negative pull-right" @click='abortBackend'>Abort</button>
       <button v-if='!BUSY_FETCHINGARTICLES && ONLINE_STATUS && !BUSY_COMPACTING' class="btn btn-primary pull-right" @click='forceArticleRefresh'>
         Refresh
       </button>
@@ -21,6 +27,11 @@ import { ipcRenderer } from 'electron'
 export default {
   name: 'appfooter',
   computed: {
+    isEditingMode: {
+      get () {
+        return this.$store.getters.getEditingMode
+      }
+    },
     BUSY_BACKEND: {
       get () {
         return this.$store.getters.getBusyFetchingArticles || this.$store.getters.getBusyCompacting
@@ -54,6 +65,12 @@ export default {
   methods: {
     forceArticleRefresh: function () {
       ipcRenderer.send('GLOBAL_FETCH_ARTICLES')
+    },
+    setEditingMode: function (arg) {
+      this.$store.dispatch('setEditingMode', arg)
+    },
+    abortBackend: function () {
+      ipcRenderer.send('ABORT')
     }
   },
   mounted () {

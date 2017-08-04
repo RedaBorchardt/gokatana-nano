@@ -20,6 +20,9 @@ const state = [{
 }]
 
 const mutations = {
+  SET_EDITING_MODE (state, arg) {
+    state[0].EDITING_MODE = arg
+  },
   TOGGLE_LIGHTSOUT (state) {
     state[0].LIGHTSOUT = !state[0].LIGHTSOUT
   },
@@ -75,6 +78,9 @@ const mutations = {
 }
 
 const getters = {
+  getEditingMode (state) {
+    return state[0].EDITING_MODE
+  },
   getIsFullscreen (state) {
     return state[0].IS_FULLSCREEN
   },
@@ -126,6 +132,9 @@ const getters = {
 }
 
 const actions = {
+  setEditingMode ({commit}, arg) {
+    commit('SET_EDITING_MODE', arg)
+  },
   toggleFullScreen ({commit}) {
     remote.getCurrentWindow().setFullScreen(!remote.getCurrentWindow().isFullScreen())
     commit('TOGGLE_FULLSCREEN', remote.getCurrentWindow().isFullScreen())

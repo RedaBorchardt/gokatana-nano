@@ -9,6 +9,10 @@ ipcMain.on('GLOBAL_FETCH_ARTICLES', function (event, feedid) {
   fetchAllArticleHeadlines()
 })
 
+ipcMain.on('ABORT', function (event) {
+  global.ABORT = true
+})
+
 function fetchAllArticleHeadlines () {
   global.BUSY_FETCHINGARTICLES = true
   contents.send('BUSY_FETCHINGARTICLES', true)
@@ -36,12 +40,16 @@ function fetchAllArticleHeadlines () {
             global.BUSY_COMPACTING = false
             contents.send('BUSY_COMPACTING', false)
             contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Everything is up to date'})
+            global.ABORT = false
           })
         })
       }
     }
 
     function innerProcessingLoop (feeds) { // Iterate through subfeeds
+      if (global.ABORT) {
+        processingLoop(feeds, false)
+      }
       downloadThenParseRSSFeed(feeds[x].rss[i].url, feeds[x].rss[i].name, feeds[x]._id, feeds[x].name).then(function (response) {
         contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feeds[x]._id)
         contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': response})

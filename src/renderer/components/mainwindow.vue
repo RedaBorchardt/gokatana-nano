@@ -4,17 +4,17 @@
 
     <div class="window-content">
       <div class="pane-group">
-        <editfeed></editfeed>
+        <options v-if="editingMode"></options>
+        <template v-if="!editingMode">
+          <feedsidebar v-if="bladeStateView"></feedsidebar>
+          <articles v-if="headlineStateView"></articles>
 
-        <feedsidebar v-if="bladeStateView"></feedsidebar>
+          <unfluffviewer v-if="katanaStateView"></unfluffviewer>
 
-        <articles v-if="headlineStateView"></articles>
+          <mobileviewer v-if="mobileStateView"></mobileviewer>
 
-        <unfluffviewer v-if="katanaStateView"></unfluffviewer>
-
-        <mobileviewer v-if="mobileStateView"></mobileviewer>
-
-        <googleexplorer v-if="gtopicStateView"></googleexplorer>
+          <googleexplorer v-if="gtopicStateView"></googleexplorer>
+        </template>
       </div>
     </div>
 
@@ -30,14 +30,19 @@ import unfluffviewer from './unfluffviewer'
 import mobileviewer from './mobileviewer'
 import topbar from './topbar'
 import googleexplorer from './googleexplorer'
-import editfeed from './editfeed'
+import options from './options'
 // import dojoviewer from './dojoviewer'
 
 export default {
 
   name: 'mainwindow',
-  components: { editfeed, feedsidebar, appfooter, articles, unfluffviewer, mobileviewer, topbar, googleexplorer },
+  components: { options, feedsidebar, appfooter, articles, unfluffviewer, mobileviewer, topbar, googleexplorer },
   computed: {
+    editingMode: {
+      get () {
+        return this.$store.getters.getEditingMode
+      }
+    },
     mobileStateView: {
       get () {
         return this.$store.getters.getMobileViewState

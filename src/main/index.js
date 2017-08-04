@@ -16,6 +16,7 @@ global.appFolders = {
 global.BUSY_FETCHINGARTICLES = false
 global.BUSY_COMPACTING = false
 global.ONLINE_STATUS = 'online'
+global.ABORT = false
 global.feeds = []
 
 ipcMain.on('FEEDS_STORE_IN_MAIN', function (event, feeds) {
@@ -47,7 +48,7 @@ function createWindow () {
     height: 563,
     useContentSize: true,
     width: 1000,
-    minWidth: 660,
+    minWidth: 707,
     minHeight: 480,
     webPreferences: {
       webSecurity: false

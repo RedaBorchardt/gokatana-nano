@@ -1,7 +1,7 @@
 <template>
   <div class="pane" style="min-width: 400px">
     <div class='padded-more'>
-      <form>
+
         <label>Feed Type: Standard</label>
         <div class="form-group">
           <label>Feed Name</label>
@@ -37,7 +37,6 @@
           <button type="submit" class="btn btn-form btn-warning">Cancel</button>
           <button type="submit" class="btn btn-form btn-primary">Apply Changes</button>
         </div>
-      </form>
     </div>
   </div>
 </template>
