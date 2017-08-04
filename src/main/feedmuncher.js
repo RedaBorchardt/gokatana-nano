@@ -27,7 +27,12 @@ function fetchAllArticleHeadlines () {
         x += 1
       }
       if (x < feeds.length) {
-        innerProcessingLoop(feeds)
+        if (!global.ABORT) {
+          innerProcessingLoop(feeds)
+        } else {
+          x = 1000000
+          processingLoop(feeds, false)
+        }
       } else {
         global.BUSY_FETCHINGARTICLES = false
         contents.send('BUSY_FETCHINGARTICLES', false)
@@ -47,9 +52,6 @@ function fetchAllArticleHeadlines () {
     }
 
     function innerProcessingLoop (feeds) { // Iterate through subfeeds
-      if (global.ABORT) {
-        processingLoop(feeds, false)
-      }
       downloadThenParseRSSFeed(feeds[x].rss[i].url, feeds[x].rss[i].name, feeds[x]._id, feeds[x].name).then(function (response) {
         contents.send('PUSH_UPDATED_FEED_TO_CLIENT', feeds[x]._id)
         contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': response})
