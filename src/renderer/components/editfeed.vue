@@ -1,7 +1,6 @@
 <template>
   <div class="pane" style="min-width: 400px">
     <div class='padded-more'>
-
         <label>Feed Type: Standard</label>
         <div class="form-group">
           <label>Feed Name</label>

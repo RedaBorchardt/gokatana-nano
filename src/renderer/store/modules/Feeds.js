@@ -85,6 +85,10 @@ const getters = {
 }
 
 const actions = {
+  deleteFeeds ({commit}, arg) {
+    ipcRenderer.sendSync('DELETE_FEEDS', arg)
+    commit('HOIST_FEEDS_INTO_STATE', ipcRenderer.sendSync('RETRIEVE_FEEDS_FROM_FEEDSDB'))
+  },
   retrieveAllFeeds ({commit}) {
     // To be implemented
   },

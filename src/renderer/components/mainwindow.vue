@@ -4,8 +4,8 @@
 
     <div class="window-content">
       <div class="pane-group">
-        <options v-if="editingMode"></options>
-        <template v-if="!editingMode">
+        <options v-if="optionsMode"></options>
+        <template v-if="!optionsMode">
           <feedsidebar v-if="bladeStateView"></feedsidebar>
           <articles v-if="headlineStateView"></articles>
 
@@ -38,9 +38,9 @@ export default {
   name: 'mainwindow',
   components: { options, feedsidebar, appfooter, articles, unfluffviewer, mobileviewer, topbar, googleexplorer },
   computed: {
-    editingMode: {
+    optionsMode: {
       get () {
-        return this.$store.getters.getEditingMode
+        return this.$store.getters.getOptionsMode
       }
     },
     mobileStateView: {
@@ -73,7 +73,6 @@ export default {
     require('electron').remote.getCurrentWindow().on('enter-full-screen', (e, cmd) => {
       this.$store.commit('ORIGINAL_FULLSCREEN_STATE', true)
       this.$store.commit('SET_FULLSCREEN_STATE', true)
-      console.log('I was triggered')
     })
 
     require('electron').remote.getCurrentWindow().on('leave-full-screen', (e, cmd) => {

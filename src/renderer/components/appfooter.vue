@@ -1,11 +1,11 @@
 <template>
   <footer class="toolbar toolbar-footer">
     <div class="toolbar-actions">
-      <button v-if='!BUSY_BACKEND && !isEditingMode' class="btn btn-default pull-left" @click='setEditingMode(true)'>
+      <button v-if='!BUSY_BACKEND && !isOptionsMode' class="btn btn-default pull-left" @click='setOptionsMode(true)'>
         <span class="icon icon-cog"></span>
         <span class="icon icon-right-dir"></span>
       </button>
-      <button v-if='!BUSY_BACKEND && isEditingMode' class="btn btn-default pull-left" @click='setEditingMode(false)'>
+      <button v-if='!BUSY_BACKEND && isOptionsMode' class="btn btn-default pull-left" @click='setOptionsMode(false)'>
         <span class="icon icon-cog"></span>
         <span class="icon icon-left-dir"></span>
       </button>
@@ -27,9 +27,9 @@ import { ipcRenderer } from 'electron'
 export default {
   name: 'appfooter',
   computed: {
-    isEditingMode: {
+    isOptionsMode: {
       get () {
-        return this.$store.getters.getEditingMode
+        return this.$store.getters.getOptionsMode
       }
     },
     BUSY_BACKEND: {
@@ -66,8 +66,8 @@ export default {
     forceArticleRefresh: function () {
       ipcRenderer.send('GLOBAL_FETCH_ARTICLES')
     },
-    setEditingMode: function (arg) {
-      this.$store.dispatch('setEditingMode', arg)
+    setOptionsMode: function (arg) {
+      this.$store.dispatch('setOptionsMode', arg)
     },
     abortBackend: function () {
       ipcRenderer.send('ABORT')

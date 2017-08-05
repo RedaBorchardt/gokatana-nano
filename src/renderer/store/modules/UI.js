@@ -1,7 +1,8 @@
 import { ipcRenderer, remote } from 'electron'
 
 const state = [{
-  EDITING_MODE: false,
+  OPTIONS_MODE: false,
+  OPTIONS_MENU_SELECTED: 0,
   ORIGINAL_FULLSCREEN_STATE: false,
   IS_FULLSCREEN: remote.getCurrentWindow().isFullScreen(),
   BUSY_FETCHINGARTICLES: remote.getGlobal('BUSY_FETCHINGARTICLES'),
@@ -20,8 +21,11 @@ const state = [{
 }]
 
 const mutations = {
-  SET_EDITING_MODE (state, arg) {
-    state[0].EDITING_MODE = arg
+  SET_OPTIONS_MENU_SELECTED (state, arg) {
+    state[0].OPTIONS_MENU_SELECTED = arg
+  },
+  SET_OPTIONS_MODE (state, arg) {
+    state[0].OPTIONS_MODE = arg
   },
   TOGGLE_LIGHTSOUT (state) {
     state[0].LIGHTSOUT = !state[0].LIGHTSOUT
@@ -78,8 +82,11 @@ const mutations = {
 }
 
 const getters = {
-  getEditingMode (state) {
-    return state[0].EDITING_MODE
+  getOptionsMenuSelected (state) {
+    return state[0].OPTIONS_MENU_SELECTED
+  },
+  getOptionsMode (state) {
+    return state[0].OPTIONS_MODE
   },
   getIsFullscreen (state) {
     return state[0].IS_FULLSCREEN
@@ -132,8 +139,11 @@ const getters = {
 }
 
 const actions = {
-  setEditingMode ({commit}, arg) {
-    commit('SET_EDITING_MODE', arg)
+  setOptionsMenuSelected ({commit}, arg) {
+    commit('SET_OPTIONS_MENU_SELECTED', arg)
+  },
+  setOptionsMode ({commit}, arg) {
+    commit('SET_OPTIONS_MODE', arg)
   },
   toggleFullScreen ({commit}) {
     remote.getCurrentWindow().setFullScreen(!remote.getCurrentWindow().isFullScreen())

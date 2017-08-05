@@ -17,10 +17,22 @@ function retrieveFeedFromGlobal (_id) {
   return 0
 }
 
+ipcMain.on('DELETE_FEEDS', function (event, arg) {
+  for (let i = 0; i < arg.length; i++) {
+    articledb.splice(arg[i], 1)
+    require('fs').unlinkSync(path.join(global.appFolders.data, arg[i] + '.db'))
+  }
+  feedsdb.remove({_id: { $in: arg }}, {multi: true}, function (error, numRemoved) {
+    if (!error) {
+      console.log(numRemoved, 'from database')
+      event.returnValue = numRemoved
+    }
+  })
+})
+
 ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
   feedsdb.find({}).sort({ uiorder: 1 }).exec(function (err, docs) {
     if (!err) {
-      global.feeds = docs
       registerArticleDBHandles(docs)
       let iconDownloadList = []
       for (let i = 0; i < docs.length; i++) {
@@ -36,6 +48,11 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
               if (!err) {
                 feedsdb.find({}).sort({ uiorder: 1 }).exec(function (err, docs) {
                   if (!err) {
+                    let x = docs.length
+                    for (let i = 0; i < x; i++) {
+                      docs[i].uiorder = i + 1
+                    }
+                    global.feeds = docs
                     event.returnValue = docs
                   }
                 })
@@ -44,6 +61,11 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
           }
         })
       } else {
+        let x = docs.length
+        for (let i = 0; i < x; i++) {
+          docs[i].uiorder = i + 1
+        }
+        global.feeds = docs
         event.returnValue = docs
       }
     } else {

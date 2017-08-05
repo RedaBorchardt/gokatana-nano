@@ -3,6 +3,8 @@
 import { app, BrowserWindow, ipcMain } from 'electron'
 import path from 'path'
 
+require('events').EventEmitter.prototype._maxListeners = 100
+
 /** Application Globals */
 global.appFolders = {
   main: path.join(app.getPath('appData'), 'com.gokatana.nano'),
