@@ -88,7 +88,7 @@ export default {
       }
     }
   },
-  mounted () {
+  created () {
     this.$store.dispatch('retrieveFeedsFromBackend')
     let _this = this
     ipcRenderer.on('PUSH_UPDATED_FEED_TO_CLIENT', function (event, feedid) {

@@ -10,18 +10,18 @@
       </span>
       <div>
         <br>
-        <ul>
-          <li>Deleting an entire blade will clear your database from all previously recorded data linked to this source</li>
-          <li>Only data that has been stored in an archive will not be affected</li>
-          <li>Please note that this operation cannot be undone</li>
-          <li>Proceed with caution</li>
-        </ul>
         <button v-if="numberSelected === 1" class="btn btn-negative" @click="deleteBlades()">
           Delete {{numberSelected}} blade
         </button>
         <button v-if="numberSelected > 1" class="btn btn-negative" @click="deleteBlades()">
           Delete {{numberSelected}} blades
         </button>
+        <ul>
+          <li>Deleting an entire blade will clear your database from all previously recorded data linked to this source</li>
+          <li>Only data that has been stored in an archive will not be affected</li>
+          <li>Please note that this operation cannot be undone</li>
+          <li>Proceed with caution</li>
+        </ul>
       </div>
     </div>
   </div>

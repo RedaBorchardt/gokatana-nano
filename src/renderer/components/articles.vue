@@ -38,6 +38,20 @@ export default {
     }
   },
   computed: {
+    selectedFeed: {
+      get () {
+        let id = ''
+        for (let i = 0; i < this.$store.getters.getFeeds.length; i++) {
+          if (this.$store.getters.getFeeds[i].selected) {
+            id = this.$store.getters.getFeeds[i]._id
+          }
+        }
+        if (!id) {
+          id = this.$store.getters.getFeeds[0]._id
+        }
+        return id
+      }
+    },
     articles: {
       get () {
         return this.$store.getters.getArticlesInView
@@ -100,7 +114,7 @@ export default {
       return 'file://' + require('path').join(require('electron').remote.getGlobal('appFolders').cache, id, 'favicons.png')
     }
   },
-  mounted () {
+  created () {
     let _this = this
 
     this.$store.dispatch('listenForContentFromBackend')
@@ -118,6 +132,10 @@ export default {
         _this.$store.dispatch('retrieveArticles', _this.$store.getters.getFeeds[0]._id)
         _this.$store.dispatch('setSelectedFeed', _this.$store.getters.getFeeds[0]._id)
       }
+    })
+
+    require('electron').ipcRenderer.on('FORCE_REHOISTING_ARTICLES', function (event, feedid) {
+      _this.$store.dispatch('retrieveArticles', feedid)
     })
   }
 }

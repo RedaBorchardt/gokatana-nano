@@ -5,16 +5,16 @@
     <div class="window-content">
       <div class="pane-group">
         <options v-if="optionsMode"></options>
-        <template v-if="!optionsMode">
-          <feedsidebar v-if="bladeStateView"></feedsidebar>
-          <articles v-if="headlineStateView"></articles>
 
-          <unfluffviewer v-if="katanaStateView"></unfluffviewer>
+          <feedsidebar v-show="bladeStateView && !optionsMode"></feedsidebar>
 
-          <mobileviewer v-if="mobileStateView"></mobileviewer>
+          <articles v-show="headlineStateView && !optionsMode"></articles>
 
-          <googleexplorer v-if="gtopicStateView"></googleexplorer>
-        </template>
+          <unfluffviewer v-if="katanaStateView && !optionsMode"></unfluffviewer>
+
+          <mobileviewer v-if="mobileStateView && !optionsMode"></mobileviewer>
+
+          <googleexplorer v-if="gtopicStateView && !optionsMode"></googleexplorer>
       </div>
     </div>
 

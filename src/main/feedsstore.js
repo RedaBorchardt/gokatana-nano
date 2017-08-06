@@ -24,7 +24,6 @@ ipcMain.on('DELETE_FEEDS', function (event, arg) {
   }
   feedsdb.remove({_id: { $in: arg }}, {multi: true}, function (error, numRemoved) {
     if (!error) {
-      console.log(numRemoved, 'from database')
       event.returnValue = numRemoved
     }
   })
@@ -48,11 +47,30 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
               if (!err) {
                 feedsdb.find({}).sort({ uiorder: 1 }).exec(function (err, docs) {
                   if (!err) {
+                    global.feeds = docs
+                    let foundid = ''
                     let x = docs.length
                     for (let i = 0; i < x; i++) {
                       docs[i].uiorder = i + 1
                     }
+                    // Check active feed existence
+                    let found = false
+                    for (let i = 0; i < global.feeds.length; i++) {
+                      if (global.feeds[i].selected) {
+                        foundid = global.feeds[i]._id
+                        contents.send('FORCE_REHOISTING_ARTICLES', foundid)
+                        found = true
+                        docs[i].selected = true
+                      }
+                    }
+                    if (!found) {
+                      docs[0].selected = true
+                    }
                     global.feeds = docs
+                    if (!found) {
+                      contents.send('NEW_FEED_SELECTED', true)
+                      contents.send('FORCE_REHOISTING_ARTICLES', foundid)
+                    }
                     event.returnValue = docs
                   }
                 })
@@ -61,11 +79,31 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
           }
         })
       } else {
+        global.feeds = docs
+        let foundid = ''
         let x = docs.length
         for (let i = 0; i < x; i++) {
           docs[i].uiorder = i + 1
         }
+        // Check active feed existence
+        let found = false
+        for (let i = 0; i < global.feeds.length; i++) {
+          if (global.feeds[i].selected) {
+            foundid = docs[i]._id
+            contents.send('FORCE_REHOISTING_ARTICLES', foundid)
+            found = true
+            docs[i].selected = true
+          }
+        }
+        if (!found) {
+          docs[0].selected = true
+          foundid = docs[0]._id
+        }
         global.feeds = docs
+        if (!found) {
+          contents.send('NEW_FEED_SELECTED', true)
+          contents.send('FORCE_REHOISTING_ARTICLES', foundid)
+        }
         event.returnValue = docs
       }
     } else {
