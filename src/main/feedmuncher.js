@@ -62,7 +62,7 @@ function fetchAllArticleHeadlines () {
           processingLoop(feeds, false)
         }
       }, function (response) {
-        contents.send('CLIENT_LOG', {type: 'green', time: Date(), message: response})
+        contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': response})
         i += 1
         if (i < feeds[x].rss.length) {
           processingLoop(feeds, true)
@@ -79,8 +79,8 @@ function downloadThenParseRSSFeed (rssurl, rssname, _feedid, feedname) {
     if (global.ONLINE_STATUS === 'offline') {
       reject(new Error('Application is offline'))
     }
-
-    let req = request(rssurl)
+    let reqobj = {uri: rssurl, timeout: 5000}
+    let req = request(reqobj)
     let feedparser = new FeedParser()
 
     req.on('error', function (error) {
