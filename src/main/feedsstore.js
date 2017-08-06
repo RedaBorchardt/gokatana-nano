@@ -69,7 +69,7 @@ ipcMain.on('RETRIEVE_FEEDS_FROM_FEEDSDB', function (event, arg) {
                     global.feeds = docs
                     if (!found) {
                       contents.send('NEW_FEED_SELECTED', true)
-                      contents.send('FORCE_REHOISTING_ARTICLES', foundid)
+                      // contents.send('FORCE_REHOISTING_ARTICLES', foundid)
                     }
                     event.returnValue = docs
                   }
