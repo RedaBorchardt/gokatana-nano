@@ -227,7 +227,7 @@ function checkStage15 () {
     /* eslint-disable */
     var samplefeeds = [
 
-                       { name: 'The Independent', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'Latest News', url: 'http://www.independent.co.uk/rss'}], host: 'www.independent.co.uk'},
+                       { name: 'The Independent', retention: 7, maxitems: 400, uiorder: 1, rss: [{name: 'Latest News', url: 'http://www.independent.co.uk/rss'}], strategy: {useragent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36'}, host: 'www.independent.co.uk'},
                        { name: 'The Guardian', retention: 7, maxitems: 400, uiorder: 2, rss: [{name: 'UK News', url: 'http://www.theguardian.com/uk/rss'},
                        {name: 'Politics', url: 'http://www.theguardian.com/politics/rss'},
                        {name: 'World', url: 'http://www.theguardian.com/world/rss'},
@@ -286,7 +286,7 @@ function checkStage15 () {
                        {name: 'Sport', url: 'http://rss.focus.de/sport/'},
                        {name: 'Digital', url: 'http://rss.focus.de/digital/'},
                        {name: 'Finanzen', url: 'http://rss.focus.de/finanzen'}
-                     ], strategy: ['meta[name="description"]','meta[name="twitter:description"]','meta[property="og:description"]'],host: 'www.focus.de' },
+                     ], strategy: {removeel: ['meta[name="description"]','meta[name="twitter:description"]','meta[property="og:description"]']},host: 'www.focus.de' },
                        { name: 'Kotaku', retention: 7, maxitems: 400, uiorder: 9, rss: [{name: 'Latest News', url: 'http://www.kotaku.com/rss'}], host: 'www.kotaku.com' },
                        { name: 'Le Monde', retention: 7, maxitems: 400, uiorder: 10, rss: [{name: 'Latest News', url: 'http://www.lemonde.fr/rss/une.xml'}], strategy: {removeel:['nav','#alerte_tracking','.bloc_signature','.fixed-header-title','meta[property="og:title"]','meta[property="og:description"]','meta[name="twitter:title"]', 'meta[name="twitter:description"]']}, host: 'www.lemonde.fr' },
                        { name: 'Financial Times', retention: 7, maxitems: 400, uiorder: 12, rss: [{name: 'Latest News', url: 'http://search.ft.com/openSearch/atom/?searchTerms=&sortBy=date'}], strategy: {display: 'minioverride'}, host: 'ft.com' },

@@ -13,6 +13,7 @@ function instantContentMunch (link, articleSummaryCached) {
       let displayStrategy = 'standard'
       let parsingStrategy = 'standard'
       let miniuseragent = 'standard'
+      let useragent = 'standard'
       let elementRemovalList = []
 
       if (response.display) {
@@ -24,7 +25,9 @@ function instantContentMunch (link, articleSummaryCached) {
       if (response.miniuseragent) {
         miniuseragent = response.miniuseragent
       }
-
+      if (response.useragent) {
+        useragent = response.useragent
+      }
       if (response.removeel) {
         elementRemovalList = response.removeel
       }
@@ -38,6 +41,10 @@ function instantContentMunch (link, articleSummaryCached) {
           'Referer': 'https://www.facebook.com/',
           'Cookie': ''
         }
+      }
+
+      if (useragent !== 'standard') {
+        requestoptions.headers['User-Agent'] = useragent
       }
 
       contents.send('CLIENT_LOG', {type: 'green', time: Date(), 'message': 'Fetching: ' + link})

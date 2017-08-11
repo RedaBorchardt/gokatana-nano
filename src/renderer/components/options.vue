@@ -1,19 +1,19 @@
 <template>
     <div class="pane-group">
       <optionsmenu></optionsmenu>
-      <editfeed v-if="optionsMenuSelected == 0"></editfeed>
+      <addfeed v-if="optionsMenuSelected == 0"></addfeed>
       <deleteblade v-if="optionsMenuSelected == 2"></deleteblade>
     </div>
 </template>
 
 <script>
-import editfeed from './editfeed'
+import addfeed from './addfeed'
 import deleteblade from './deleteblade'
 import optionsmenu from './optionsmenu'
 
 export default {
-  components: {editfeed, optionsmenu, deleteblade},
-  name: 'otions',
+  components: {addfeed, optionsmenu, deleteblade},
+  name: 'options',
   computed: {
     optionsMenuSelected: {
       get () {
