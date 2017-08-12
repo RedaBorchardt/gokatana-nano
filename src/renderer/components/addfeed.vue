@@ -45,7 +45,7 @@
             Source Name*:
           </td>
           <td align='left'>
-            <input type="text" class="form-control" name="sourcename">
+            <input type="text" class="form-control" name="sourcename" v-model="sourcename" :class="{'error': checkSourceName()}">
           </td>
         </tr>
         <tr>
@@ -70,14 +70,12 @@
           </td>
           <td>
             <div class="form-actions">
-              <button class="btn btn-form btn-primary pull-left" @click='verify'>Verify</button>
+              <button style='width: 70px' v-if="!verified()" class="btn btn-form btn-primary pull-left" @click='verify'>Verify</button>
+              <button style='width: 70px' v-if="verified()" class="btn btn-form btn-positive pull-left" @click='addFeed()'>Add</button>
             </div>
           </td>
         </tr>
           <tr><td width='150px'></td><td><div style='max-width: 300px' v-if="verifymessage && sourcetype == 'standard'">{{verifymessage}}</div></td></tr>
-          <tr><td width='150px'></td><td>
-            <button v-if="verified()" class="btn btn-form btn-primary pull-left" @click='addFeed(standard)'>Add</button>
-          </td></tr>
         <tr v-if="sourcetype == 'google'">
           <td width='150px' align='right' valign='center'>
             Google Search Term:
@@ -135,10 +133,12 @@ export default {
       'website': '',
       'retention': '2',
       'maxitems': '400',
+      'sourcename': '',
       'sourcetype': 'standard',
       'sourcelink': '',
       'verifymessage': '',
       'verifiedlink': '',
+      'sources': [],
       'verified': function () {
         return ((this.verifiedlink === this.sourcelink) && (this.sourcelink !== ''))
       },
@@ -162,10 +162,31 @@ export default {
       }
       return conflict
     },
+    checkSourceName: function (event) {
+      let conflict = false
+      for (let i = 0; i < this.sources.length; i++) {
+        if (this.sourcename.toLowerCase().trim() === this.sources[i].name.toLowerCase().trim()) conflict = this.sources[i].name
+      }
+      return conflict
+    },
     addFeed: function (type) {
-      //
+      let sourceitem = {
+        'name': this.sourcename,
+        'link': this.verifiedlink,
+        'type': this.sourcetype
+      }
+
+      if (!this.checkSourceName()) {
+        this.sources.push(sourceitem)
+        this.verifiedlink = ''
+        this.sourcelink = ''
+        this.sourcename = ''
+        this.verifymessage = ''
+      }
+      console.log(this.sources)
     },
     verify: function (event) {
+      let originallink = this.sourcelink
       /* eslint-disable */
       if (validUrl.isUri(this.sourcelink)){
         //
@@ -214,7 +235,7 @@ export default {
         if (!error) {
           if (count) {
             _this.verifymessage = count + ' feed items found'
-            _this.verifiedlink = _this.sourcelink
+            _this.verifiedlink = originallink
           } else {
             _this.verifymessage = 'Not a feed'
           }
