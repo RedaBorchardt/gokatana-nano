@@ -7,7 +7,7 @@
       </p>
       <p v-html="content.copyright"></p>
     </div>
-    <forcedminibrowser v-if='forcedMiniBrowserShow && !showDojo' :url="content.originalLink"></forcedminibrowser>
+    <forcedminibrowser v-if='forcedMiniBrowserShow && !showDojo' :url="content.originalLink" :useragent="miniUserAgent"></forcedminibrowser>
     <dojoviewer v-if='showDojo'></dojoviewer>
   </div>
 </template>
@@ -37,6 +37,15 @@ export default {
     forcedMiniBrowserShow: {
       get () {
         return this.$store.getters.getForcedMiniBrowserState
+      }
+    },
+    miniUserAgent: {
+      get () {
+        if (this.$store.getters.getContentInView.miniuseragent) {
+          return this.$store.getters.getContentInView.miniuseragent
+        } else {
+          return 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25'
+        }
       }
     },
     lightsout: {

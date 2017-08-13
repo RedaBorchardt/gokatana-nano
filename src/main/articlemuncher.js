@@ -22,6 +22,7 @@ function instantContentMunch (link, articleSummaryCached) {
       if (response.parser) {
         parsingStrategy = response.parser
       }
+
       if (response.miniuseragent) {
         miniuseragent = response.miniuseragent
       }

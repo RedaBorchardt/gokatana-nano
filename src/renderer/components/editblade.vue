@@ -1,9 +1,7 @@
 <template>
-  <div class="pane" style="min-width: 450px">
-    <h6 class="nav-group-title">A blade can contain more than one source. You can even mix and match sources to create your very own personalised view<br>
-    If you only have a single source, it will become the primary source under the Blade title in the navigation.</h6>
+  <div class="pane" style="min-width: 450px" v-if="feeditem">
     <div class='padded-more'>
-      <button style='width: 130px; margin-left: 150px' v-if="!checkName() && bladename && sources[0] && retention && maxitems && website" class="btn btn-form btn-positive" @click='addBlade'>Save This Blade</button>
+      <button style='width: 130px; margin-left: 150px' v-if="!checkName() && bladename && sources[0] && retention && maxitems && website" class="btn btn-form btn-positive" @click='addBlade'>Update</button>
       <h5>General</h5>
       <table style='max-width: 450px'>
         <tr>
@@ -179,7 +177,7 @@
         </td>
       </tr>
       </table>
-      <button style='width: 130px; margin-left: 150px' v-if="!checkName() && bladename && sources[0] && retention && maxitems && website" class="btn btn-form btn-positive" @click='addBlade'>Save This Blade</button>
+      <button style='width: 130px; margin-left: 150px' v-if="!checkName() && bladename && sources[0] && retention && maxitems && website" class="btn btn-form btn-positive" @click='addBlade'>Update</button>
     </div>
   </div>
 </template>
@@ -191,7 +189,36 @@ let request = require('request')
 let validUrl = require('valid-url')
 
 export default {
-  name: 'addfeed',
+  name: 'editblade',
+  props: ['feeditem'],
+  mounted () {
+    this.bladename = this.feeditem.name
+    this.website = this.feeditem.host
+    this.retention = this.feeditem.retention
+    this.maxitems = this.feeditem.maxitems
+    this.sources = this.feeditem.rss
+    if (this.feeditem.strategy) {
+      if (this.feeditem.strategy.removeel) {
+        this.removeel = this.feeditem.strategy.removeel.join('\n')
+      }
+    }
+    if (this.feeditem.strategy) {
+      if (this.feeditem.strategy.useragent) {
+        this.useragent = this.feeditem.strategy.useragent
+      }
+    }
+    if (this.feeditem.strategy) {
+      if (this.feeditem.strategy.miniuseragent) {
+        this.miniuseragent = this.feeditem.strategy.miniuseragent
+      }
+    }
+    this.uiorder = this.feeditem.uiorder
+    if (this.feeditem.strategy) {
+      if (this.feeditem.strategy.display === 'minioverride') {
+        this.minibrowser = true
+      }
+    }
+  },
   data: function () {
     return {
       'bladename': '',
@@ -210,8 +237,13 @@ export default {
       'useragent': '',
       'miniuseragent': '',
       'removeel': '',
+      'uiorder': '',
       'removeelarray': function () {
-        return this.removeel.split('\n')
+        if (this.removeel) {
+          return this.removeel.split('\n')
+        } else {
+          return []
+        }
       },
       'sources': [],
       'verified': function () {
@@ -234,6 +266,7 @@ export default {
       let arraytocheck = this.$store.getters.getFeeds
       for (let i = 0; i < arraytocheck.length; i++) {
         if (this.bladename.toLowerCase().trim() === arraytocheck[i].name.toLowerCase().trim()) conflict = arraytocheck[i].name
+        if (this.bladename.toLowerCase().trim() === this.feeditem.name.toLowerCase().trim()) conflict = false
       }
       return conflict
     },
@@ -336,8 +369,13 @@ export default {
       if (this.minibrowser) {
         feeditem.strategy.display = 'minioverride'
       }
-      feeditem.uiorder = this.$store.getters.getFeeds.length + 1
-      ipcRenderer.sendSync('ADD_FEED', feeditem)
+      if (this.uiorder) {
+        feeditem.uiorder = this.uiorder
+      } else {
+        feeditem.uiorder = this.$store.getters.getFeeds.length + 1
+      }
+      feeditem._id = this.feeditem._id
+      ipcRenderer.sendSync('UPDATE_FEED', feeditem)
       this.$store.commit('HOIST_FEEDS_INTO_STATE', ipcRenderer.sendSync('RETRIEVE_FEEDS_FROM_FEEDSDB'))
       this.bladename = ''
       this.retention = 2

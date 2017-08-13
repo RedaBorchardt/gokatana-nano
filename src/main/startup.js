@@ -276,7 +276,7 @@ function checkStage15 () {
                        {name: 'Entertainment', url: 'http://feeds.skynews.com/feeds/rss/entertainment.xml'},
                        {name: 'Strange News', url: 'http://feeds.skynews.com/feeds/rss/strange.xml'},
                      ], host: 'news.sky.com' },
-                       { name: 'Evening Standard', retention: 7, uiorder: 5, rss: [{name: 'Latest News', url: 'http://www.standard.co.uk/rss'}], host: 'www.standard.co.uk' },
+                       { name: 'Evening Standard', retention: 7, uiorder: 5, rss: [{name: 'Latest News', url: 'http://www.standard.co.uk/rss'}], strategy: {useragent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36'}, host: 'www.standard.co.uk' },
                        { name: 'Focus', retention: 7, uiorder: 8,
                        rss: [{name: 'Schlagzeilen', url: 'http://rss.focus.de/'},
                        {name: 'Politik', url: 'http://rss.focus.de/politik/'},

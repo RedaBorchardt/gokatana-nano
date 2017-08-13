@@ -17,6 +17,22 @@ function retrieveFeedFromGlobal (_id) {
   return 0
 }
 
+ipcMain.on('ADD_FEED', function (event, arg) {
+  feedsdb.insert(arg, function (err, newDoc) {
+    if (!err) {
+      event.returnValue = true
+    }
+  })
+})
+
+ipcMain.on('UPDATE_FEED', function (event, arg) {
+  feedsdb.update({_id: arg._id}, arg, function (err, newReplaced) {
+    if (!err) {
+      event.returnValue = true
+    }
+  })
+})
+
 ipcMain.on('DELETE_FEEDS', function (event, arg) {
   for (let i = 0; i < arg.length; i++) {
     articledb.splice(arg[i], 1)
