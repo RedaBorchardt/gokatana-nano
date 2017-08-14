@@ -19,8 +19,8 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "gokatana-nano",
-    "appId": "org.simulatedgreg.electron-vue",
+    "productName": "Katana Nano",
+    "appId": "com.gokatana.nano",
     "directories": {
       "output": "build"
     },
