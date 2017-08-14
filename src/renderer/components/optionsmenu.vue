@@ -14,14 +14,6 @@
         <span class="icon icon-minus"></span>
         Delete Blade
       </span>
-      <span class="nav-group-item" :class="{active: optionsMenuSelected == 3}" @click="setOptionsMenuSelected(3)">
-        <span class="icon icon-lamp"></span>
-        General
-      </span>
-      <span class="nav-group-item" :class="{active: optionsMenuSelected == 4}" @click="setOptionsMenuSelected(4)">
-        <span class="icon icon-tools"></span>
-        Tools
-      </span>
     </nav>
   </div>
 </template>

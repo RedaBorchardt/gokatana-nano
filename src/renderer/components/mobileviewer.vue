@@ -1,6 +1,6 @@
 <template>
   <div class="pane" style="overflow-y: hidden">
-    <webview class="pane-mini sidebar" useragent="Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25"
+    <webview class="pane-mini sidebar" useragent="miniUserAgent"
     id="minibrowser" :src="content.originalLink" style="display:inline-flex; width: 100%; height: 100%;" :class="{inverted: lightsout}"></webview>
   </div>
 </template>
@@ -27,6 +27,15 @@ export default {
     lightsout: {
       get () {
         return this.$store.getters.getLightsOutState
+      }
+    },
+    miniUserAgent: {
+      get () {
+        if (this.content.originalLink.includes('youtube.com')) {
+          return 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.90 Safari/537.36'
+        } else {
+          return 'Mozilla/5.0 (iPhone; CPU iPhone OS 6_1_4 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko) Version/6.0 Mobile/10B350 Safari/8536.25'
+        }
       }
     }
   },

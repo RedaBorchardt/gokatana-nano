@@ -1,7 +1,7 @@
 <template>
   <div class="pane">
     <h5 v-if="!feeditem" class="nav-group-title">Select the blade you wish to edit:</h5>
-    <div v-if="!feeditem" class='padded-more' style="padding-top: 0px">
+    <div class='padded-more' style="padding-top: 0px">
       <span v-for='feed, index in feeds' :key="feed.uiorder">
         <button class="btn" :class="{'btn-default': !markedFeeds[index], 'btn-negative': markedFeeds[index]}" @click="selectMarkedFeed(index)">
           <img class="img-circle pull-left" :src="getFeedIcon(feed._id)" width="15" :class="{inverted: lightsout}">
@@ -9,7 +9,7 @@
         </button>
       </span>
     </div>
-    <editblade :feeditem="feeditem" v-if="feeditem"></editblade>
+    <editblade name="subedit" :feeditem="feeditem" v-if="feeditem"></editblade>
   </div>
 </template>
 
@@ -22,7 +22,8 @@ export default {
   data: function () {
     return {
       markedFeeds: [],
-      feeditem: ''
+      feeditem: '',
+      showsub: false
     }
   },
   computed: {

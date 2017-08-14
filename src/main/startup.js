@@ -211,7 +211,7 @@ function checkStage13 () {
 // Check for feeds.db
 function checkStage14 () {
   if (!fs.existsSync(path.join(global.appFolders.config, 'feeds.db'))) {
-    contents.send('startup_application_message', 'Feeds database could not be found')
+    contents.send('startup_application_message', 'Feeds database could not be found. Default configuration is being created.')
     checkStage15()
   } else {
     foundFeedsDB = true
@@ -299,23 +299,11 @@ function checkStage15 () {
                        { name: 'BBC World', retention: 7, maxitems: 400, uiorder: 20, rss: [{name: 'Latest News', url: 'http://feeds.bbci.co.uk/news/world/rss.xml?edition=uk'}], host: 'www.bbc.co.uk' },
                        { name: 'New York Times', retention: 7, maxitems: 400, uiorder: 27, rss: [{name: 'Latest News', url: 'http://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml'}], host: 'www.nytimes.com' },
                        { name: 'The Epoch Times', retention: 7, maxitems: 400, uiorder: 29, rss: [{name: 'Latest News', url: 'http://www.theepochtimes.com/n3/c/world/feed/'}], host: 'www.theepochtimes.com'},
-                       { name: 'Huffington Post', retention: 7, maxitems: 400, uiorder: 27, rss: [{name: 'Latest News', url: 'http://www.huffingtonpost.co.uk/feeds/news.xml'}], strategy: {display: 'minioverride'}, host: 'www.huffingtonpost.co.uk'},
                        { name: 'Wall Street Journal', retention: 7, maxitems: 400, uiorder: 28, rss: [{name: 'Latest News', url: 'http://www.wsj.com/xml/rss/3_7085.xml'}], host: 'www.wsj.com'},
                        { name: 'Reuters', retention: 7, maxitems: 400, uiorder: 29, rss: [{name: 'Latest News', url: 'http://feeds.reuters.com/reuters/UKTopNews'}], host: 'www.reuters.com'},
                        { name: 'CNBC', retention: 7, maxitems: 400, uiorder: 30, rss: [{name: 'Latest News', url: 'https://www.cnbc.com/id/100003114/device/rss/rss.html'}], host: 'www.cnbc.com'},
                        { name: 'Daily Express', retention: 7, maxitems: 400, uiorder: 31, rss: [{name: 'Latest News', url: 'http://feeds.feedburner.com/daily-express-news-showbiz'}], host: 'www.express.co.uk'},
-                       { name: 'Daily Star', retention: 7, maxitems: 400, uiorder: 32, rss: [{name: 'Latest News', url: 'http://feeds.feedburner.com/daily-star-Latest-News'}], host: 'www.dailystar.co.uk'},
-                       { name: 'CBS News', retention: 7, maxitems: 400, uiorder: 33, rss: [{name: 'Latest News', url: 'http://www.cbsnews.com/latest/rss/main'}], host: 'www.cbsnews.com'},
                        { name: 'New York Post', retention: 7, maxitems: 400, uiorder: 34, rss: [{name: 'Latest News', url: 'http://nypost.com/feed/'}], host: 'www.nypost.com'},
-                       { name: 'USA Today', retention: 7, maxitems: 400, uiorder: 35, rss: [{name: 'Latest News', url: 'http://rssfeeds.usatoday.com/usatoday-NewsTopStories'}], host: 'usatoday.com'},
-                       { name: 'The Daily Beast', retention: 7, maxitems: 400, uiorder: 36, rss: [{name: 'Latest News', url: 'http://feeds.feedburner.com/thedailybeast/articles'}], host: 'dailybeast.com'},
-                       { name: 'Bild', retention: 7, maxitems: 400, uiorder: 37, rss: [{name: 'Latest News', url: 'http://www.bild.de/rssfeeds/vw-alles/vw-alles-26970192,sort=1,view=rss2.bild.xml'}], strategy: {removeel: ['.main-nav']}, host: 'bild.de'},
-                       { name: 'Kyiv Post', retention: 7, maxitems: 400, uiorder: 38, rss: [{name: 'Latest News', url: 'https://www.kyivpost.com/feed'}], host: 'kyivpost.com'},
-                       { name: 'Prague Post', retention: 7, maxitems: 400, uiorder: 39, rss: [{name: 'Latest News', url: 'https://www.praguepost.com/feed'}], host: 'praguepost.com'},
-                       { name: 'Al Jazeera', retention: 7, maxitems: 400, uiorder: 40, rss: [{name: 'Latest News', url: 'http://www.aljazeera.com/xml/rss/all.xml'}], host: 'aljazeera.com'},
-                       { name: 'Pakistan Nation', retention: 7, maxitems: 400, uiorder: 41, rss: [{name: 'Latest News', url: 'http://nation.com.pk/feeds'}], host: 'nation.com.pk'},
-                       { name: 'Indian Express', retention: 7, maxitems: 400, uiorder: 42, rss: [{name: 'Latest News', url: 'http://indianexpress.com/print/front-page/feed/'}], host: 'indianexpress.com'},
-                       { name: 'News Biscuit', retention: 7, maxitems: 400, uiorder: 43, rss: [{name: 'Latest News', url: 'http://www.newsbiscuit.com/feed/'}], host: 'newsbiscuit.com'},
                        { name: 'The Economist', retention: 7, maxitems: 400, uiorder: 44, rss: [{name: 'Business and Finance', url: 'http://www.economist.com/sections/business-finance/rss.xml'}], host: 'economist.com'}
                      ]
     /* eslint-enable */

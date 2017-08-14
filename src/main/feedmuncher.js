@@ -90,7 +90,7 @@ function downloadThenParseRSSFeed (rssurl, rssname, _feedid, feedname) {
     })
 
     req.on('response', function (res) {
-      let stream = this // this is the steeam itself
+      let stream = this // this is the stream itself
 
       if (res.statusCode !== 200) {
         this.emit('error', new Error('Bad status code'))
@@ -139,7 +139,7 @@ function downloadThenParseRSSFeed (rssurl, rssname, _feedid, feedname) {
           date: item.date,
           author: item.author,
           image: item.image,
-          _id: item.guid
+          _id: item.link
         }
 
         feedstore.insertArticleIntoDB(article, _feedid).then( function (result) {

@@ -191,33 +191,13 @@ let validUrl = require('valid-url')
 export default {
   name: 'editblade',
   props: ['feeditem'],
+  watch: {
+    feeditem: function () {
+      this.hoistData()
+    }
+  },
   mounted () {
-    this.bladename = this.feeditem.name
-    this.website = this.feeditem.host
-    this.retention = this.feeditem.retention
-    this.maxitems = this.feeditem.maxitems
-    this.sources = this.feeditem.rss
-    if (this.feeditem.strategy) {
-      if (this.feeditem.strategy.removeel) {
-        this.removeel = this.feeditem.strategy.removeel.join('\n')
-      }
-    }
-    if (this.feeditem.strategy) {
-      if (this.feeditem.strategy.useragent) {
-        this.useragent = this.feeditem.strategy.useragent
-      }
-    }
-    if (this.feeditem.strategy) {
-      if (this.feeditem.strategy.miniuseragent) {
-        this.miniuseragent = this.feeditem.strategy.miniuseragent
-      }
-    }
-    this.uiorder = this.feeditem.uiorder
-    if (this.feeditem.strategy) {
-      if (this.feeditem.strategy.display === 'minioverride') {
-        this.minibrowser = true
-      }
-    }
+    this.hoistData()
   },
   data: function () {
     return {
@@ -261,6 +241,34 @@ export default {
     }
   },
   methods: {
+    hoistData: function (event) {
+      this.bladename = this.feeditem.name
+      this.website = this.feeditem.host
+      this.retention = this.feeditem.retention
+      this.maxitems = this.feeditem.maxitems
+      this.sources = this.feeditem.rss
+      if (this.feeditem.strategy) {
+        if (this.feeditem.strategy.removeel) {
+          this.removeel = this.feeditem.strategy.removeel.join('\n')
+        }
+      }
+      if (this.feeditem.strategy) {
+        if (this.feeditem.strategy.useragent) {
+          this.useragent = this.feeditem.strategy.useragent
+        }
+      }
+      if (this.feeditem.strategy) {
+        if (this.feeditem.strategy.miniuseragent) {
+          this.miniuseragent = this.feeditem.strategy.miniuseragent
+        }
+      }
+      this.uiorder = this.feeditem.uiorder
+      if (this.feeditem.strategy) {
+        if (this.feeditem.strategy.display === 'minioverride') {
+          this.minibrowser = true
+        }
+      }
+    },
     checkName: function (event) {
       let conflict = false
       let arraytocheck = this.$store.getters.getFeeds

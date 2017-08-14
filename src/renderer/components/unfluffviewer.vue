@@ -1,5 +1,5 @@
 <template>
-  <div id='scrollpane' class='pane scroll' style='max-width:600px;' :class="{hidescrollbar: forcedMiniBrowserShow}">
+  <div id='scrollpane' class='pane scroll' style='max-width:600px; overflow-x: hidden;' :class="{hidescrollbar: forcedMiniBrowserShow}">
     <div class='padded-more' v-if="!forcedMiniBrowserShow && !showDojo">
       <img v-if="content.image" style='width: 100%' :src="content.image" :class="{inverted: lightsout}">
       <h4 style='white-space: pre-line;-webkit-user-select:text'>{{content.title}}</h4>
