@@ -14,11 +14,17 @@
         <span class="icon icon-minus"></span>
         Delete Blade
       </span>
+      <span class="nav-group-item" @click="gotoWebsite()">
+        <span class="icon icon-minus"></span>
+        Support
+      </span>
     </nav>
   </div>
 </template>
 
 <script>
+import { shell } from 'electron'
+
 export default {
   name: 'optionsmenu',
   computed: {
@@ -31,6 +37,9 @@ export default {
   methods: {
     setOptionsMenuSelected (arg) {
       this.$store.dispatch('setOptionsMenuSelected', arg)
+    },
+    gotoWebsite () {
+      shell.openExternal('http://www.gokatana.com')
     }
   }
 }
