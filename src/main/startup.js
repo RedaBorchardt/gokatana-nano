@@ -1,7 +1,7 @@
 import path from 'path'
 let fs = require('fs')
 let jsonfile = require('jsonfile')
-let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
+let contents = require('electron').BrowserWindow.fromId(1).webContents
 
 let foundAppFolder = false
 let foundDataFolder = false

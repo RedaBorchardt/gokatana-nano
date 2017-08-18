@@ -1,6 +1,7 @@
 <template>
   <div class="pane">
     <h5 v-if="!feeditem" class="nav-group-title">Select the blade you wish to edit:</h5>
+    <h5 v-if="feeditem" class="nav-group-title">&nbsp</h5>
     <div class='padded-more' style="padding-top: 0px">
       <span v-for='feed, index in feeds' :key="feed.uiorder">
         <button class="btn" :class="{'btn-default': !markedFeeds[index], 'btn-negative': markedFeeds[index]}" @click="selectMarkedFeed(index)">

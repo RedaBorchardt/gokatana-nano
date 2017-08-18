@@ -52,7 +52,7 @@ const mutations = {
     state.subscriptions.push('update')
     state.subscriptions.pop()
     ipcRenderer.send('FEEDS_STORE_IN_MAIN', state.subscriptions)
-    require('electron').remote.BrowserWindow.getFocusedWindow().webContents.send('NEW_FEED_SELECTED', true)
+    require('electron').remote.BrowserWindow.fromId(1).webContents.send('NEW_FEED_SELECTED', true)
   },
   SET_SELECTED_SUBFEED (state, topicfilter) {
     state.topicfilter = topicfilter

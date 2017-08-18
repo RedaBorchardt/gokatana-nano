@@ -6,7 +6,7 @@ let feedsdb = new Datastore({ filename: path.join(global.appFolders.config, 'fee
 let articledb = []
 let download = require('download')
 let moment = require('moment')
-let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
+let contents = require('electron').BrowserWindow.fromId(1).webContents
 
 function retrieveFeedFromGlobal (_id) {
   for (let i = 0; i < global.feeds.length; i++) {

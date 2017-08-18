@@ -250,23 +250,35 @@ export default {
       if (this.feeditem.strategy) {
         if (this.feeditem.strategy.removeel) {
           this.removeel = this.feeditem.strategy.removeel.join('\n')
+        } else {
+          this.removeel = ''
         }
+      } else {
+        this.removeel = ''
       }
       if (this.feeditem.strategy) {
         if (this.feeditem.strategy.useragent) {
           this.useragent = this.feeditem.strategy.useragent
+        } else {
+          this.useragent = ''
         }
+      } else {
+        this.useragent = ''
       }
       if (this.feeditem.strategy) {
         if (this.feeditem.strategy.miniuseragent) {
           this.miniuseragent = this.feeditem.strategy.miniuseragent
         }
+      } else {
+        this.miniuseragent = ''
       }
       this.uiorder = this.feeditem.uiorder
       if (this.feeditem.strategy) {
         if (this.feeditem.strategy.display === 'minioverride') {
           this.minibrowser = true
         }
+      } else {
+        this.minibrowser = false
       }
     },
     checkName: function (event) {

@@ -5,7 +5,7 @@ let cheerio = require('cheerio')
 let url = require('url')
 
 function instantContentMunch (link, articleSummaryCached) {
-  let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
+  let contents = require('electron').BrowserWindow.fromId(1).webContents
   let request = require('request')
 
   detectStrategy(link).then(function (response) {

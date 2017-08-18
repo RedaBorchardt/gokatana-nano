@@ -1,6 +1,6 @@
 import {ipcMain} from 'electron'
 import feedstore from './feedsstore.js'
-let contents = require('electron').BrowserWindow.getFocusedWindow().webContents
+let contents = require('electron').BrowserWindow.fromId(1).webContents
 
 let FeedParser = require('feedparser')
 let request = require('request')
@@ -139,7 +139,7 @@ function downloadThenParseRSSFeed (rssurl, rssname, _feedid, feedname) {
           date: item.date,
           author: item.author,
           image: item.image,
-          _id: item.link
+          _id: item.title
         }
 
         feedstore.insertArticleIntoDB(article, _feedid).then( function (result) {
