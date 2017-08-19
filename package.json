@@ -1,6 +1,6 @@
 {
   "name": "katana-nano",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Reda Borchardt <redaborchardt@gmail.com>",
   "description": "Intelligent News",
   "license": null,
@@ -44,8 +44,9 @@
     },
     "mac": {
       "icon": "build/icons/icon.icns",
-      "target": ["pkg"],
-      "type": "distribution"
+      "type": "distribution",
+      "category": "public.app-category.news",
+      "target": ["mas"]
     },
     "win": {
       "icon": "build/icons/icon.ico"
