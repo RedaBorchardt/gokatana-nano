@@ -43,7 +43,9 @@
       ]
     },
     "mac": {
-      "icon": "build/icons/icon.icns"
+      "icon": "build/icons/icon.icns",
+      "target": ["pkg"],
+      "type": "distribution"
     },
     "win": {
       "icon": "build/icons/icon.ico"

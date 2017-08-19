@@ -15,7 +15,7 @@
         Delete Blade
       </span>
       <span class="nav-group-item" @click="gotoWebsite()">
-        <span class="icon icon-minus"></span>
+        <span class="icon icon-book"></span>
         Support
       </span>
     </nav>
