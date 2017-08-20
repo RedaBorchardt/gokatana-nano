@@ -1,6 +1,6 @@
 {
-  "name": "katana-nano",
-  "version": "1.0.1",
+  "name": "com.gokatana.nano",
+  "version": "1.0.2",
   "author": "Reda Borchardt <redaborchardt@gmail.com>",
   "description": "Intelligent News",
   "license": null,

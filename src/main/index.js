@@ -7,12 +7,12 @@ require('events').EventEmitter.prototype._maxListeners = 100
 
 /** Application Globals */
 global.appFolders = {
-  main: path.join(app.getPath('appData'), 'com.gokatana.nano'),
-  data: path.join(app.getPath('appData'), 'com.gokatana.nano', 'data'),
-  config: path.join(app.getPath('appData'), 'com.gokatana.nano', 'config'),
-  cache: path.join(app.getPath('appData'), 'com.gokatana.nano', 'cache'),
-  tmp: path.join(app.getPath('appData'), 'com.gokatana.nano', 'tmp'),
-  archive: path.join(app.getPath('appData'), 'com.gokatana.nano', 'archive')
+  main: path.join(app.getPath('userData')),
+  data: path.join(app.getPath('userData'), 'data'),
+  config: path.join(app.getPath('userData'), 'config'),
+  cache: path.join(app.getPath('userData'), 'cache'),
+  tmp: path.join(app.getPath('userData'), 'tmp'),
+  archive: path.join(app.getPath('userData'), 'archive')
 }
 
 global.BUSY_FETCHINGARTICLES = false
