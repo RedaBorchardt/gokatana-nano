@@ -1,5 +1,8 @@
 # gokatana-nano
 
+Desktop App Converter Command
+DesktopAppConverter.exe -Installer "D:\DevProjects\gokatana-nano\build\win-unpacked\" -AppExecutable "katana nano.exe" -Destination C:\Output\MyApp -PackageName "GoKatana" -AppDisplayName "Katana Nano" -PackageDisplayName "Katana Nano" -PackagePublisherDisplayName "GoKatana" -Publisher "CN=9EE79022-CDEF-4E91-A295-BADB52FB39B4" -Version 1.0.1.0 -MakeAppx
+
 > Intelligent News
 
 #### Build Setup
